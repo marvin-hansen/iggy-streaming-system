@@ -1,0 +1,45 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "ohlcv_bar",
+    srcs = glob([
+        "ohlcv_bar/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_messages_data",
+        # Internal crates
+        "//alias:common_data_bar",
+        "//alias:sbe_bindings",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)
+
+rust_test_suite(
+    name = "trade_bar",
+    srcs = glob([
+        "trade_bar/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_messages_data",
+        # Internal crates
+        "//alias:common_data_bar",
+        "//alias:sbe_bindings",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)

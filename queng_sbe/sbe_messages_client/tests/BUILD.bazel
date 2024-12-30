@@ -1,0 +1,39 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "client_login",
+    srcs = glob([
+        "client_login/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "sbe-client-login",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_messages_client",
+        # Internal crates
+        "//alias:sbe_types",
+    ],
+)
+
+rust_test_suite(
+    name = "client_logout",
+    srcs = glob([
+        "client_logout/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "sbe-client-logout",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_messages_client",
+        # Internal crates
+        "//alias:sbe_types",
+    ],
+)

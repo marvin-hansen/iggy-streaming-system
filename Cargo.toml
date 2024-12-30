@@ -3,6 +3,10 @@ resolver = "2"
 
 members = [
     "queng_common/*",
+    "queng_sbe/*",
+]
+exclude = [
+    "queng_sbe/sbe_schema",
 ]
 
 [workspace.package]
@@ -43,7 +47,18 @@ codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimizati
 # ==============
 
 # Common
+common_data_bar = { path = "queng_common/common_data_bar" }
 common_errors = { path = "queng_common/common_errors" }
+common_exchange = { path = "queng_common/common_exchange" }
+
+# SBE
+sbe_bindings = { path = "queng_sbe/sbe_bindings" }
+sbe_messages_client = { path = "queng_sbe/sbe_messages_client" }
+sbe_messages_control = { path = "queng_sbe/sbe_messages_control" }
+sbe_messages_data = { path = "queng_sbe/sbe_messages_data" }
+sbe_types = { path = "queng_sbe/sbe_types" }
+sbe_utils = { path = "queng_sbe/sbe_utils" }
+
 
 # ==============
 # External crates

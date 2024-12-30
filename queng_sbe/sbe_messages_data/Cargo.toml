@@ -1,0 +1,22 @@
+[package]
+name = "sbe_messages_data"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+
+[lints]
+workspace = true
+
+
+[dependencies]
+# Internal crates
+common_data_bar = { workspace = true }
+sbe_bindings = { workspace = true }
+sbe_types  = { workspace = true }
+# External crates
+chrono = { workspace = true }
+rust_decimal = { workspace = true }

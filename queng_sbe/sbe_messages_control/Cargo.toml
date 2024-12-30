@@ -1,0 +1,19 @@
+[package]
+name = "sbe_messages_control"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+
+[lints]
+workspace = true
+
+
+[dependencies]
+common_data_bar = { workspace = true }
+common_exchange = { workspace = true }
+sbe_bindings = { workspace = true }
+sbe_types  = { workspace = true }

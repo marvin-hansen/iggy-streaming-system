@@ -1,0 +1,36 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
+
+rust_library(
+    name = "sbe_messages_control",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    tags = [
+        "sbe",
+        "sbe_messages_control",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+        "//alias:common_data_bar",
+        "//alias:common_exchange",
+        "//alias:sbe_bindings",
+        "//alias:sbe_types",
+        # External crates
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":sbe_messages_control",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":sbe_messages_control",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

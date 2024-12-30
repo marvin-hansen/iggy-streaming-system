@@ -1,0 +1,30 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library", "rust_test")
+
+rust_library(
+    name = "sbe_bindings",
+    srcs = glob([
+        "src/**/*.rs",
+    ]),
+    crate_root = "src/lib.rs",
+    tags = [
+        "sbe",
+        "sbe_bindings",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":sbe_bindings",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+# Test documentation
+rust_doc_test(
+    name = "doc_test",
+    crate = ":sbe_bindings",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

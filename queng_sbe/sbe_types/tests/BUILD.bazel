@@ -1,0 +1,81 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "error_client",
+    srcs = glob([
+        "errors/error_client/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_types",
+        # Internal crates
+        "//alias:sbe_bindings",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)
+
+rust_test_suite(
+    name = "error_data",
+    srcs = glob([
+        "errors/error_data/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_types",
+        # Internal crates
+        "//alias:sbe_bindings",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)
+
+rust_test_suite(
+    name = "error_sbe",
+    srcs = glob([
+        "errors/error_sbe/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_types",
+        # Internal crates
+        "//alias:sbe_bindings",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)
+
+rust_test_suite(
+    name = "types",
+    srcs = glob([
+        "types/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "sbe-types",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_types",
+    ],
+)

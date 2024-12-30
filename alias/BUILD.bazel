@@ -15,3 +15,43 @@ alias(
     name = "common_errors",
     actual = "//queng_common/common_errors",
 )
+
+alias(
+    name = "common_exchange",
+    actual = "//queng_common/common_exchange",
+)
+
+
+###############################################################################
+# SBE
+###############################################################################
+
+alias(
+    name = "sbe_bindings",
+    actual = "//queng_sbe/sbe_bindings"
+)
+
+alias(
+    name = "sbe_messages_client",
+    actual = "//queng_sbe/sbe_messages_client"
+)
+
+alias(
+    name = "sbe_messages_control",
+    actual = "//queng_sbe/sbe_messages_control"
+)
+
+alias(
+    name = "sbe_messages_data",
+    actual = "//queng_sbe/sbe_messages_data"
+)
+
+alias(
+    name = "sbe_types",
+    actual = "//queng_sbe/sbe_types"
+)
+
+alias(
+    name = "sbe_utils",
+    actual = "//queng_sbe/sbe_utils"
+)

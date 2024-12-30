@@ -1,0 +1,79 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "data_start",
+    srcs = glob([
+        "data_start/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "sbe-data",
+        "sbe-data-start-msg",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_messages_control",
+        # Internal crates
+        "//alias:common_data_bar",
+        "//alias:common_exchange",
+        "//alias:sbe_bindings",
+        "//alias:sbe_types",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)
+
+rust_test_suite(
+    name = "data_stop",
+    srcs = glob([
+        "data_stop/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "sbe-data",
+        "sbe-data-stop-msg",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_messages_control",
+        # Internal crates
+        "//alias:common_data_bar",
+        "//alias:common_exchange",
+        "//alias:sbe_bindings",
+        "//alias:sbe_types",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)
+
+rust_test_suite(
+    name = "data_stop_all",
+    srcs = glob([
+        "data_stop_all/*_tests.rs",
+    ]),
+    tags = [
+        "sbe",
+        "sbe-data",
+        "sbe-data-stop-all-msg",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:sbe_messages_control",
+        # Internal crates
+        "//alias:common_data_bar",
+        "//alias:common_exchange",
+        "//alias:sbe_bindings",
+        "//alias:sbe_types",
+        # External crates
+        "//thirdparty/crates:rust_decimal",
+        "//thirdparty/crates:chrono",
+    ],
+)
