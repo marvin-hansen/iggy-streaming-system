@@ -1,0 +1,23 @@
+[package]
+name = "common_data_bar_ext"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+
+[lints]
+workspace = true
+
+
+[dependencies]
+common_data_bar = { workspace = true }
+sbe_messages_data = { workspace = true }
+sbe_types = { workspace = true }
+
+
+[dev-dependencies]
+# For testing
+rust_decimal = {workspace = true}

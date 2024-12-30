@@ -1,0 +1,22 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "tests",
+    srcs = glob([
+        "*_tests.rs",
+    ]),
+    tags = [
+        "common_data_bar_ext",
+        "extensions",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_data_bar_ext",
+        # Internal dependencies
+        "//alias:common_data_bar",
+        # External dependencies
+        "//thirdparty/crates:rust_decimal",
+    ],
+)

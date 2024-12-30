@@ -1,0 +1,33 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
+
+rust_library(
+    name = "common_data_bar_ext",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    tags = [
+        "common_data_bar_ext",
+        "extensions",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//alias:common_data_bar",
+        "//alias:sbe_messages_data",
+        "//alias:sbe_types",
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":common_data_bar_ext",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":common_data_bar_ext",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

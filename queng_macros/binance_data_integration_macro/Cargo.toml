@@ -1,0 +1,20 @@
+[package]
+name = "binance_data_integration_macro"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+
+[lib]
+proc-macro = true
+
+
+[dependencies]
+syn = {workspace = true }
+quote = {workspace = true }

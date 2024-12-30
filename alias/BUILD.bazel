@@ -21,6 +21,19 @@ alias(
     actual = "//queng_common/common_exchange",
 )
 
+###############################################################################
+# Extensions
+###############################################################################
+
+alias(
+    name = "common_data_bar_ext",
+    actual = "//queng_extensions/common_data_bar_ext",
+)
+
+alias(
+    name = "cow_ext",
+    actual = "//queng_extensions/cow_ext",
+)
 
 ###############################################################################
 # SBE

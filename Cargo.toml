@@ -3,6 +3,9 @@ resolver = "2"
 
 members = [
     "queng_common/*",
+    "queng_extensions/*",
+    "queng_integration/traits/*",
+    "queng_macros/*",
     "queng_sbe/*",
 ]
 exclude = [
@@ -51,6 +54,10 @@ common_data_bar = { path = "queng_common/common_data_bar" }
 common_errors = { path = "queng_common/common_errors" }
 common_exchange = { path = "queng_common/common_exchange" }
 
+# Extensions
+common_data_bar_ext = { path = "queng_extensions/common_data_bar_ext" }
+cow_ext = { path = "queng_extensions/cow_ext" }
+
 # SBE
 sbe_bindings = { path = "queng_sbe/sbe_bindings" }
 sbe_messages_client = { path = "queng_sbe/sbe_messages_client" }
@@ -66,6 +73,7 @@ sbe_utils = { path = "queng_sbe/sbe_utils" }
 # Dependencies for macros
 syn = { version = "2.0", features = ["full", "extra-traits"] }
 quote = "1.0"
+trait-variant = { version = "0.1.2" }
 # Regular dependencies
 chrono = { version = "0.4.38", features = ["serde"] }
 rust_decimal = { version = "1.36" }
