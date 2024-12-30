@@ -1,0 +1,93 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [0.3.1] - 2023-10-26
+
+### Bug Fixes
+
+- Improve error case handling to use AsyncDropError properly
+
+## [0.3.0] - 2023-10-20
+
+### Bug Fixes
+
+- Allow for multiple derive
+- Lint
+
+## [0.2.6] - 2023-10-18
+
+### Bug Fixes
+
+- Unqualified use of std::time::Duration in macro
+
+## [0.2.5] - 2023-10-16
+
+### Bug Fixes
+
+- Use of `cargo get`
+- Clippy lints
+
+### Miscellaneous Tasks
+
+- Update deps
+
+## [0.2.4] - 2023-08-09
+
+### Bug Fixes
+
+- Docsrs config
+
+## [0.2.3] - 2023-08-08
+
+### Bug Fixes
+
+- Reset default feature to neither async platform
+
+## [0.2.2] - 2023-08-08
+
+### Bug Fixes
+
+- Bad cliff toml config
+
+### Documentation
+
+- Specify tokio as feature for docsrs
+
+## [0.2.1] - 2023-08-08
+
+### Refactor
+
+- Set tokio as default feature
+
+## [0.2.0] - 2023-08-08
+
+### Features
+
+- None/both async features is a compile-time error
+- Automatically derive reset()
+
+## [0.1.1] - 2023-07-30
+
+### Documentation
+
+- Support feature specification for docsrs
+
+### Refactor
+
+- Use std::mem::take
+
+## [0.1.0] - 2023-07-30
+
+### Bug Fixes
+
+- Release workflow automation
+- Cliff.toml configuration
+- Add reset(), fix executor waiting for tokio
+
+## [0.0.1] - 2023-07-29
+
+### Bug Fixes
+
+- Release workflow automation
+- Cliff.toml configuration
+

@@ -1,0 +1,58 @@
+git := env_var_or_default("GIT", "git")
+rustc := env_var_or_default("RUSTC", "rustc")
+cargo := env_var_or_default("CARGO", "cargo")
+cargo_watch := env_var_or_default("CARGO_WATCH", "cargo-watch")
+
+just := env_var_or_default("JUST", just_executable())
+
+root_dir := invocation_directory()
+
+version := `cargo get package.version | head --bytes=-1`
+name := `cargo get package.name | head --bytes=-1`
+sha := `git rev-parse --short HEAD`
+
+#############
+# Utilities #
+#############
+
+# Print the current version
+print-version:
+    @echo -n "{{version}}"
+
+# Print the current SHA
+print-sha:
+    @echo -n "{{sha}}"
+
+# Ensure a binary is present
+ensure-binary bin env_name:
+    #!/usr/bin/env -S bash -euo pipefail
+    if [ -z "$(command -v {{bin}})" ]; then
+      echo "Missing binary [{{bin}}], make sure it is installed & on your PATH (or override it's location with {{env_name}})";
+      echo "(if the binary is not on your system, you may need to install the package via cargo)";
+      exit 1;
+    fi
+
+######################
+# Release Management #
+######################
+
+publish_crate := env_var_or_default("PUBLISH_CRATE", "no")
+changelog_file_path := env_var_or_default("CHANGELOG_FILE_PATH", "CHANGELOG")
+repo_path := absolute_path("../../")
+
+# Generate the changelog
+changelog:
+  {{git}} cliff -r {{repo_path}} -c cliff.toml --unreleased --tag={{version}} --prepend={{changelog_file_path}}
+
+# Generic release automation
+release version:
+    {{git}} fetch --tags
+    {{cargo}} set-version --bump {{version}} --package {{name}}
+    {{just}} changelog
+    {{git}} commit -am "release: {{name}} v`just print-version`"
+    {{git}} push
+    {{git}} tag {{name}}-v`just print-version`
+    {{git}} push origin {{name}}-v`just print-version`
+    if [ "{{publish_crate}}" = "yes" ]; then \
+      {{cargo}} publish -p {{name}} --features tokio,derive; \
+    fi
