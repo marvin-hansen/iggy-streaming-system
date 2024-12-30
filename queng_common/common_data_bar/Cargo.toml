@@ -1,0 +1,16 @@
+[package]
+name = "common_data_bar"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+# External crates
+chrono = { workspace = true }
+rust_decimal = { workspace = true }

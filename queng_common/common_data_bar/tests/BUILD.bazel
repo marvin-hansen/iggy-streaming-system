@@ -1,0 +1,112 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "time_resolution_tests",
+    srcs = glob([
+        "time_resolution_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_data_bar",
+    ],
+)
+
+rust_test_suite(
+    name = "ohlcv_bar_tests",
+    srcs = glob([
+        "ohlcv_bar_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_data_bar",
+        # External crates
+        "//thirdparty/crates:chrono",
+        "//thirdparty/crates:rust_decimal",
+    ],
+)
+
+rust_test_suite(
+    name = "trade_tests",
+    srcs = glob([
+        "trade_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_data_bar",
+        # External crates
+        "//thirdparty/crates:chrono",
+        "//thirdparty/crates:rust_decimal",
+    ],
+)
+
+rust_test_suite(
+    name = "trade_bar_tests",
+    srcs = glob([
+        "trade_bar_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_data_bar",
+        # External crates
+        "//thirdparty/crates:chrono",
+        "//thirdparty/crates:rust_decimal",
+    ],
+)
+
+rust_test_suite(
+    name = "sampled_bars_tests",
+    srcs = glob([
+        "sampled_bars_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_data_bar",
+        # External crates
+        "//thirdparty/crates:chrono",
+        "//thirdparty/crates:rust_decimal",
+    ],
+)
+
+rust_test_suite(
+    name = "data_type_tests",
+    srcs = glob([
+        "data_type_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_data_bar",
+        # External crates
+        "//thirdparty/crates:chrono",
+        "//thirdparty/crates:rust_decimal",
+    ],
+)

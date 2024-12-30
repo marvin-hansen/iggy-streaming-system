@@ -1,0 +1,17 @@
+# Make all aliases public by default
+package(default_visibility = ["//visibility:public"])
+
+###############################################################################
+# Common
+###############################################################################
+
+
+alias(
+    name = "common_data_bar",
+    actual = "//queng_common/common_data_bar",
+)
+
+alias(
+    name = "common_errors",
+    actual = "//queng_common/common_errors",
+)
