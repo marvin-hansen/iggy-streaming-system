@@ -4,6 +4,7 @@ resolver = "2"
 members = [
     "queng_common/*",
     "queng_extensions/*",
+    "queng_integration/data/*",
     "queng_integration/traits/*",
     "queng_macros/*",
     "queng_sbe/*",
@@ -58,6 +59,20 @@ common_exchange = { path = "queng_common/common_exchange" }
 common_data_bar_ext = { path = "queng_extensions/common_data_bar_ext" }
 cow_ext = { path = "queng_extensions/cow_ext" }
 
+# Integration
+# Data integration
+binance_core_data_integration = { path = "queng_integration/data/binance_core_data_integration" }
+binance_spot_data_integration = { path = "queng_integration/data/binance_spot_data_integration" }
+binance_usd_futures_data_integration = { path = "queng_integration/data/binance_usd_futures_data_integration" }
+binance_coin_futures_data_integration = { path = "queng_integration/data/binance_coin_futures_data_integration" }
+# Traits
+trait_data_integration = { path = "queng_integration/traits/trait_data_integration" }
+
+# Macros
+binance_data_integration_macro = { path = "queng_macros/binance_data_integration_macro" }
+data_integration_macro = { path = "queng_macros/data_integration_macro" }
+
+
 # SBE
 sbe_bindings = { path = "queng_sbe/sbe_bindings" }
 sbe_messages_client = { path = "queng_sbe/sbe_messages_client" }
@@ -77,4 +92,11 @@ trait-variant = { version = "0.1.2" }
 # Regular dependencies
 chrono = { version = "0.4.38", features = ["serde"] }
 rust_decimal = { version = "1.36" }
-
+futures = { version = "0.3.31" }
+futures-util = {version = "0.3.31"}
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "blocking", "gzip"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+rustls = { version = "0.23", features = ["ring"] }
+tokio = { version = "1.42", default-features = false, features = ["macros", "net", "rt-multi-thread", "signal", "time"] }
+tokio-tungstenite = { version = "0.26.0", features = ["rustls-tls-webpki-roots"]}

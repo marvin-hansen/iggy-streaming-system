@@ -35,6 +35,44 @@ alias(
     actual = "//queng_extensions/cow_ext",
 )
 
+
+###############################################################################
+# Integration
+###############################################################################
+
+# Data Integration
+##################
+
+alias(
+    name = "binance_core_data_integration",
+    actual = "//queng_integration/data/binance_core_data_integration",
+)
+
+alias(
+    name = "binance_spot_data_integration",
+    actual = "//queng_integration/data/binance_spot_data_integration",
+)
+
+alias(
+    name = "binance_usd_futures_data_integration",
+    actual = "//queng_integration/data/binance_usd_futures_data_integration",
+)
+
+alias(
+    name = "binance_coin_futures_data_integration",
+    actual = "//queng_integration/data/binance_coin_futures_data_integration",
+)
+
+
+# Traits
+##############
+
+alias(
+    name = "trait_data_integration",
+    actual = "//queng_integration/traits/trait_data_integration",
+)
+
+
 ###############################################################################
 # SBE
 ###############################################################################

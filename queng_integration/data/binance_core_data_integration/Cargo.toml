@@ -1,0 +1,30 @@
+[package]
+name = "binance_core_data_integration"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+
+[lints]
+workspace = true
+
+
+[dependencies]
+# Internal crates
+common_data_bar = {workspace = true}
+common_data_bar_ext = {workspace = true}
+common_errors = {workspace = true}
+trait_data_integration = {workspace = true}
+
+# External crates
+chrono = { workspace = true }
+futures-util = { workspace = true }
+reqwest = { workspace = true }
+rust_decimal = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = {workspace = true}
+tokio-tungstenite = { workspace = true}
