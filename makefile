@@ -3,15 +3,15 @@ SHELL := /usr/bin/env bash
 
 .PHONY: help
 help:
-	@echo ' Development:'
+	@echo ' help:'
 	@echo '    make build   	Builds the code base incrementally (fast) for dev.'
 	@echo '    make current   	Builds the current target incrementally (fast) defined in current.txt.'
 	@echo '    make doc   		Builds documentation for the project.'
 	@echo '    make format   	Formats call code according to cargo fmt style.'
-	@echo '    make lint   		Lints and formats the code of the project.'
+	@echo '    make lint   	Lints and formats the code of the project.'
 	@echo '    make fix   		Fixes linting issues as reported by clippy.'
 	@echo '    make test   	Tests across all crates.'
-	@echo '    make vendor         Vendors all Rust dependencies to folder thirdparty.'
+	@echo '    make vendor         Vendors all Bazel managed Rust dependencies to folder thirdparty.'
 
 
 .PHONY: build
