@@ -1,0 +1,27 @@
+[package]
+name = "ims_data_bin"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+
+[lints]
+workspace = true
+
+[dependencies]
+# Internal crates
+common_config = { workspace = true }
+common_errors = { workspace = true }
+common_iggy = { workspace = true }
+common_ims = {workspace = true}
+common_service = { workspace = true }
+common_message = { workspace = true }
+
+
+# External crates
+iggy = { workspace = true }
+tokio = { workspace = true }
+futures-util = { workspace = true }

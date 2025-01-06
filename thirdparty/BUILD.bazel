@@ -34,6 +34,10 @@ crates_vendor(
             package = "crossbeam",
             version = "0.8",
         ),
+        "deep_causality_macros": crate.spec(
+            package = "deep_causality_macros",
+            version = "0.4",
+        ),
         "enum_dispatch": crate.spec(
             package = "enum_dispatch",
             version = "0.3",

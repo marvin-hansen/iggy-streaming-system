@@ -297,16 +297,16 @@ _NORMAL_DEPENDENCIES = {
             "crossbeam": Label("//thirdparty/crates/crossbeam-0.8.4:crossbeam"),
             "futures": Label("//thirdparty/crates/futures-0.3.31:futures"),
             "futures-util": Label("//thirdparty/crates/futures-util-0.3.31:futures_util"),
-            "iggy": Label("//thirdparty/crates/iggy-0.6.61:iggy"),
+            "iggy": Label("//thirdparty/crates/iggy-0.6.63:iggy"),
             "mimalloc": Label("//thirdparty/crates/mimalloc-0.1.43:mimalloc"),
             "quote": Label("//thirdparty/crates/quote-1.0.38:quote"),
-            "reqwest": Label("//thirdparty/crates/reqwest-0.12.11:reqwest"),
+            "reqwest": Label("//thirdparty/crates/reqwest-0.12.12:reqwest"),
             "rust_decimal": Label("//thirdparty/crates/rust_decimal-1.36.0:rust_decimal"),
             "rustls": Label("//thirdparty/crates/rustls-0.23.20:rustls"),
             "serde": Label("//thirdparty/crates/serde-1.0.217:serde"),
             "serde_json": Label("//thirdparty/crates/serde_json-1.0.134:serde_json"),
             "sha3": Label("//thirdparty/crates/sha3-0.11.0-pre.4:sha3"),
-            "syn": Label("//thirdparty/crates/syn-2.0.93:syn"),
+            "syn": Label("//thirdparty/crates/syn-2.0.95:syn"),
             "tokio": Label("//thirdparty/crates/tokio-1.42.0:tokio"),
             "tokio-tungstenite": Label("//thirdparty/crates/tokio-tungstenite-0.26.1:tokio_tungstenite"),
             "tonic": Label("//thirdparty/crates/tonic-0.12.3:tonic"),
@@ -337,6 +337,7 @@ _NORMAL_DEV_ALIASES = {
 _PROC_MACRO_DEPENDENCIES = {
     "": {
         _COMMON_CONDITION: {
+            "deep_causality_macros": Label("//thirdparty/crates/deep_causality_macros-0.4.10:deep_causality_macros"),
             "enum_dispatch": Label("//thirdparty/crates/enum_dispatch-0.3.13:enum_dispatch"),
             "rust_decimal_macros": Label("//thirdparty/crates/rust_decimal_macros-1.36.0:rust_decimal_macros"),
             "trait-variant": Label("//thirdparty/crates/trait-variant-0.1.2:trait_variant"),

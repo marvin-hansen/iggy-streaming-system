@@ -95,13 +95,13 @@ rust_library(
         "//thirdparty/crates/lazy_static-1.5.0:lazy_static",
         "//thirdparty/crates/lazycell-1.3.0:lazycell",
         "//thirdparty/crates/log-0.4.22:log",
-        "//thirdparty/crates/prettyplease-0.2.25:prettyplease",
+        "//thirdparty/crates/prettyplease-0.2.27:prettyplease",
         "//thirdparty/crates/proc-macro2-1.0.92:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
         "//thirdparty/crates/regex-1.11.1:regex",
         "//thirdparty/crates/rustc-hash-1.1.0:rustc_hash",
         "//thirdparty/crates/shlex-1.3.0:shlex",
-        "//thirdparty/crates/syn-2.0.93:syn",
+        "//thirdparty/crates/syn-2.0.95:syn",
         "//thirdparty/crates/which-4.4.2:which",
     ],
 )
@@ -149,7 +149,7 @@ cargo_build_script(
     edition = "2018",
     link_deps = [
         "//thirdparty/crates/clang-sys-1.8.1:clang_sys",
-        "//thirdparty/crates/prettyplease-0.2.25:prettyplease",
+        "//thirdparty/crates/prettyplease-0.2.27:prettyplease",
     ],
     pkg_name = "bindgen",
     rustc_flags = [

@@ -35,7 +35,7 @@ rust_library(
     crate_root = "src/lib.rs",
     edition = "2018",
     proc_macro_deps = [
-        "//thirdparty/crates/async-trait-0.1.83:async_trait",
+        "//thirdparty/crates/async-trait-0.1.84:async_trait",
     ],
     rustc_flags = [
         "--cap-lints=allow",
@@ -89,7 +89,7 @@ rust_library(
         "//thirdparty/crates/anyhow-1.0.95:anyhow",
         "//thirdparty/crates/futures-0.3.31:futures",
         "//thirdparty/crates/http-1.2.0:http",
-        "//thirdparty/crates/reqwest-0.12.11:reqwest",
+        "//thirdparty/crates/reqwest-0.12.12:reqwest",
         "//thirdparty/crates/reqwest-middleware-0.4.0:reqwest_middleware",
         "//thirdparty/crates/retry-policies-0.4.0:retry_policies",
         "//thirdparty/crates/thiserror-1.0.69:thiserror",

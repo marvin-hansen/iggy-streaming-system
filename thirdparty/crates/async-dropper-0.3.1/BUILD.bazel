@@ -37,7 +37,7 @@ rust_library(
     edition = "2021",
     proc_macro_deps = [
         "//thirdparty/crates/async-dropper-derive-0.3.1:async_dropper_derive",
-        "//thirdparty/crates/async-trait-0.1.83:async_trait",
+        "//thirdparty/crates/async-trait-0.1.84:async_trait",
     ],
     rustc_flags = [
         "--cap-lints=allow",

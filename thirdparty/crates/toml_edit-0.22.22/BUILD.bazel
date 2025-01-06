@@ -132,6 +132,6 @@ rust_library(
         "//thirdparty/crates/serde-1.0.217:serde",
         "//thirdparty/crates/serde_spanned-0.6.8:serde_spanned",
         "//thirdparty/crates/toml_datetime-0.6.8:toml_datetime",
-        "//thirdparty/crates/winnow-0.6.20:winnow",
+        "//thirdparty/crates/winnow-0.6.22:winnow",
     ],
 )
