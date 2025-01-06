@@ -16,7 +16,7 @@ workspace = true
 # Internal crates
 common_data_bar = {workspace = true}
 common_errors = {workspace = true}
-binance_data_integration_macro = {workspace = true}
+data_integration_macro = {workspace = true}
 binance_core_data_integration = {workspace = true}
 trait_data_integration = {workspace = true}
 # External crates

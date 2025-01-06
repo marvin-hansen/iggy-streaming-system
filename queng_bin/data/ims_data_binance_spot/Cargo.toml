@@ -7,7 +7,15 @@ readme.workspace = true
 repository.workspace = true
 authors.workspace = true
 
-[dependencies]
 
 [lints]
 workspace = true
+
+
+[dependencies]
+# Internal crates
+binance_spot_data_integration = { workspace = true }
+ims_data_bin = { workspace = true }
+
+# External crates
+tokio = { workspace = true }

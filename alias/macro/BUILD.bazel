@@ -6,11 +6,6 @@ package(default_visibility = ["//visibility:public"])
 ###############################################################################
 
 alias(
-    name = "binance_data_integration_macro",
-    actual = "//queng_macros/binance_data_integration_macro",
-)
-
-alias(
     name = "data_integration_macro",
     actual = "//queng_macros/data_integration_macro",
 )

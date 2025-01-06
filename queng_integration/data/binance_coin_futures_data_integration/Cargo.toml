@@ -14,10 +14,10 @@ workspace = true
 
 [dependencies]
 # Internal crates
-common_errors = {workspace = true}
 common_data_bar = {workspace = true}
+common_errors = {workspace = true}
+data_integration_macro = {workspace = true}
 binance_core_data_integration = {workspace = true}
-binance_data_integration_macro = {workspace = true}
 trait_data_integration = {workspace = true}
 # External crates
 rustls = {workspace = true}

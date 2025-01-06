@@ -1,11 +1,12 @@
 [package]
-name = "ims_data_binance_coin_fut"
+name = "ims_data_binance_usd_fut_testnet"
 version = "0.1.0"
 edition.workspace = true
 rust-version.workspace = true
 readme.workspace = true
 repository.workspace = true
 authors.workspace = true
+license.workspace = true
 
 
 [lints]
@@ -14,7 +15,7 @@ workspace = true
 
 [dependencies]
 # Internal crates
-binance_coin_futures_data_integration = { workspace = true }
+binance_usd_futures_data_integration = { workspace = true }
 ims_data_bin = { workspace = true }
 
 # External crates

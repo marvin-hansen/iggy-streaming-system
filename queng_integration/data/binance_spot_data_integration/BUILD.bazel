@@ -8,7 +8,7 @@ rust_library(
     crate_root = "src/lib.rs",
     proc_macro_deps = [
         # Internal macros
-        "//alias/macro:binance_data_integration_macro",
+        "//alias/macro:data_integration_macro",
     ],
     tags = [
         "binance_spot_data_integration",
