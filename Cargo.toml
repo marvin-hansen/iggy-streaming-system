@@ -2,6 +2,8 @@
 resolver = "2"
 
 members = [
+    "queng_bin/data/*",
+    "queng_bin/template/*",
     "queng_common/*",
     "queng_extensions/*",
     "queng_integration/data/*",
@@ -19,6 +21,7 @@ rust-version = "1.82.0"
 readme = "README.md"
 repository = "https://github.com/marvin-hansen/cgp-exploration"
 authors = ["Marvin Hansen <marvin.hansen@gmail.com>"]
+license = "MIT"
 
 # Linting with clippy
 [workspace.lints.clippy]
@@ -51,9 +54,14 @@ codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimizati
 # ==============
 
 # Common
+common_config = { path = "queng_common/common_config" }
 common_data_bar = { path = "queng_common/common_data_bar" }
 common_errors = { path = "queng_common/common_errors" }
 common_exchange = { path = "queng_common/common_exchange" }
+common_iggy = { path = "queng_common/common_iggy" }
+common_ims = { path = "queng_common/common_ims" }
+common_message = { path = "queng_common/common_message" }
+common_service = { path = "queng_common/common_service" }
 
 # Extensions
 common_data_bar_ext = { path = "queng_extensions/common_data_bar_ext" }
@@ -95,6 +103,7 @@ rust_decimal = { version = "1.36" }
 futures = { version = "0.3.31" }
 futures-util = {version = "0.3.31"}
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "blocking", "gzip"] }
+iggy = { version = "0.6" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }
 rustls = { version = "0.23", features = ["ring"] }

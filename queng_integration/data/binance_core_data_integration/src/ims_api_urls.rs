@@ -31,4 +31,3 @@ pub const USD_M_API_WSS_URL: &str = "wss://fstream.binance.com/ws";
 // https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
 pub const USD_M_TESTNET_API_BASE_URL: &str = "https://testnet.binancefuture.com/api/v3";
 pub const USD_M_TESTNET_API_WSS_URL: &str = "wss://stream.binancefuture.com";
-

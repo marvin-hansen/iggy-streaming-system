@@ -1,0 +1,34 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
+
+rust_library(
+    name = "common_service",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    tags = [
+        "common",
+        "common_service",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+        "//alias:common_config",
+        # External crates
+        "//thirdparty/crates:tokio",
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":common_service",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":common_service",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

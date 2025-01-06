@@ -5,6 +5,10 @@ package(default_visibility = ["//visibility:public"])
 # Common
 ###############################################################################
 
+alias(
+    name = "common_config",
+    actual = "//queng_common/common_config",
+)
 
 alias(
     name = "common_data_bar",
@@ -19,6 +23,26 @@ alias(
 alias(
     name = "common_exchange",
     actual = "//queng_common/common_exchange",
+)
+
+alias(
+    name = "common_iggy",
+    actual = "//queng_common/common_iggy",
+)
+
+alias(
+    name = "common_ims",
+    actual = "//queng_common/common_ims",
+)
+
+alias(
+    name = "common_message",
+    actual = "//queng_common/common_message",
+)
+
+alias(
+    name = "common_service",
+    actual = "//queng_common/common_service",
 )
 
 ###############################################################################

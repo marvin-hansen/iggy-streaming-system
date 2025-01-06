@@ -1,0 +1,31 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
+
+rust_library(
+    name = "common_message",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    tags = [
+        "common",
+        "common_message",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":common_message",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":common_message",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)
