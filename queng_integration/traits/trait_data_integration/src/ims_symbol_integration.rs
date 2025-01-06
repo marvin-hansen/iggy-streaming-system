@@ -2,8 +2,8 @@ use common_errors::MessageProcessingError;
 use std::collections::HashSet;
 
 #[allow(dead_code)] // Clippy can't see that the trait is used
-#[trait_variant::make(ImsDataIntegration: Send)]
-pub trait LocalImsDataIntegration {
+#[trait_variant::make(ImsSymbolIntegration: Send)]
+pub trait LocalImsSymbolIntegration {
     /// Retrieves and caches the list of valid trading symbols from Binance.
     ///
     /// # Returns

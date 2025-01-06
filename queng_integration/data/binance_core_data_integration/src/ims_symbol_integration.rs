@@ -3,9 +3,9 @@ use common_errors::MessageProcessingError;
 use serde_json::Value;
 use std::collections::HashSet;
 use tokio::time::Instant;
-use trait_data_integration::ImsDataIntegration;
+use trait_data_integration::{ImsSymbolIntegration};
 
-impl ImsDataIntegration for ImsBinanceDataIntegration {
+impl ImsSymbolIntegration for ImsBinanceDataIntegration {
     /// Retrieves and caches the list of valid trading symbols from Binance.
     ///
     /// This method:

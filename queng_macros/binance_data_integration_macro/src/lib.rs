@@ -2,14 +2,14 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, DeriveInput};
 
-/// Implements the `ImsDataIntegration` trait for a struct containing an `ImsBinanceDataIntegration` field.
+/// Implements the `ImsDataIntegration` trait for a struct containing an `ImsSymbolIntegration` field.
 ///
 /// This derive macro automatically generates an implementation of the `ImsDataIntegration` trait
 /// by delegating all trait methods to the struct's `integration` field, which must be of type
-/// `ImsBinanceDataIntegration`.
+/// `ImsSymbolIntegration`.
 ///
 /// # Requirements
-/// - The struct must have a field named `integration` of type `ImsBinanceDataIntegration`
+/// - The struct must have a field named `integration` of type `ImsSymbolIntegration`
 ///
 /// # Generated Methods
 /// The following methods are implemented:
@@ -20,18 +20,18 @@ use syn::{parse_macro_input, DeriveInput};
 /// ```text
 /// #[derive(BinanceImsDataIntegration)]
 /// pub struct ImsBinanceSpotDataIntegration {
-///     integration: ImsBinanceDataIntegration,
+///     integration: ImsSymbolIntegration,
 /// }
 /// ```
 ///
 /// This will generate an implementation that delegates all trait methods to the `integration` field.
-#[proc_macro_derive(BinanceImsDataIntegration)]
-pub fn derive_binance_ims_data_integration(input: TokenStream) -> TokenStream {
+#[proc_macro_derive(BinanceImsSymbolIntegration)]
+pub fn derive_binance_ims_symbol_integration(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
 
     let expanded = quote! {
-        impl ImsDataIntegration for #name {
+        impl ImsSymbolIntegration for #name {
             async fn get_exchange_symbols(&self) -> Result<HashSet<String>, MessageProcessingError> {
                 self.integration.get_exchange_symbols().await
             }

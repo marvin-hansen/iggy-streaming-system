@@ -8,7 +8,7 @@ use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::{sleep, Instant};
 use tokio_tungstenite::tungstenite::Message;
-use trait_data_integration::{EventProcessor, ImsDataIntegration, ImsOhlcvDataIntegration};
+use trait_data_integration::{EventProcessor, ImsOhlcvDataIntegration, ImsSymbolIntegration};
 
 impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
     /// Starts real-time OHLCV (candlestick) data streams for the specified symbols.

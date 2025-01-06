@@ -15,9 +15,7 @@ use sbe_types::MessageType;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time;
-use trait_data_integration::{
-    EventProcessor, ImsDataIntegration, ImsOhlcvDataIntegration, ImsTradeDataIntegration,
-};
+use trait_data_integration::{EventProcessor, ImsOhlcvDataIntegration, ImsSymbolIntegration, ImsTradeDataIntegration};
 
 /// A simple event processor that prints received data to the console.
 /// In a real application, you might want to parse the JSON and process
