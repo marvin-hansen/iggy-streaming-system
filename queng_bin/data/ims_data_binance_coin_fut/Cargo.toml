@@ -13,6 +13,8 @@ workspace = true
 
 
 [dependencies]
+# Custom Memory Allocator
+mimalloc = {workspace = true}
 # Internal crates
 binance_coin_futures_data_integration = { workspace = true }
 ims_data_bin = { workspace = true }

@@ -1,0 +1,36 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
+
+rust_library(
+    name = "ims_data_bin",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    tags = [
+        "ims",
+        "ims_data_bin",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+        "//alias:common_errors",
+        "//alias:trait_data_integration",
+        # External crates
+        "//thirdparty/crates:tokio",
+        "//thirdparty/crates:warp",
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":ims_data_bin",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":ims_data_bin",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

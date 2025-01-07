@@ -1,6 +1,9 @@
 use binance_spot_data_integration::ImsBinanceSpotDataIntegration;
 use std::fmt::Error;
+use mimalloc::MiMalloc;
 
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
 const SVC_ID: &str = "BinanceSpot";
 const DBG: bool = true;
 

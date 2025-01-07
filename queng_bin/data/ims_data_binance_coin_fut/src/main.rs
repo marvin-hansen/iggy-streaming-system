@@ -1,5 +1,9 @@
 use binance_coin_futures_data_integration::ImsBinanceCoinFuturesDataIntegration;
 use std::fmt::Error;
+use mimalloc::MiMalloc;
+
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
 
 const SVC_ID: &str = "BinanceCoinFutures";
 const DBG: bool = true;

@@ -1,6 +1,9 @@
 use binance_usd_futures_data_integration::ImsBinanceUsdFuturesDataIntegration;
 use std::fmt::Error;
+use mimalloc::MiMalloc;
 
+#[global_allocator]
+static GLOBAL: MiMalloc = MiMalloc;
 const SVC_ID: &str = "BinanceUSDFutures";
 const DBG: bool = true;
 
