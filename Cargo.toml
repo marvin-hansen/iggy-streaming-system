@@ -53,8 +53,7 @@ codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimizati
 # Internal Aliases
 # ==============
 
-# bin
-
+# binary templates
 ims_data_bin = { path = "queng_bin/template/ims_data_bin" }
 
 # Common

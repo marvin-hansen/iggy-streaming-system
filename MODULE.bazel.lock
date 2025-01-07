@@ -175,8 +175,6 @@
     "https://bcr.bazel.build/modules/stardoc/0.7.0/MODULE.bazel": "05e3d6d30c099b6770e97da986c53bd31844d7f13d41412480ea265ac9e8079c",
     "https://bcr.bazel.build/modules/stardoc/0.7.1/MODULE.bazel": "3548faea4ee5dda5580f9af150e79d0f6aea934fc60c1cc50f4efdd9420759e7",
     "https://bcr.bazel.build/modules/stardoc/0.7.1/source.json": "b6500ffcd7b48cd72c29bb67bcac781e12701cc0d6d55d266a652583cfcdab01",
-    "https://bcr.bazel.build/modules/toolchains_llvm/1.2.0/MODULE.bazel": "7b271b71e50de47fa47159a7f58165e80fcebe1196c014a14af0a08a867d1635",
-    "https://bcr.bazel.build/modules/toolchains_llvm/1.2.0/source.json": "0328cfc67075d6a016980be4011bbc1dcfba933e357568002542dff22abdd3a1",
     "https://bcr.bazel.build/modules/toolchains_musl/0.1.20/MODULE.bazel": "cd23ead91352fde0751fb923fcf6fbf03a5d91842ba8af699535810db9ec198c",
     "https://bcr.bazel.build/modules/toolchains_musl/0.1.20/source.json": "3773f78152ec161e3b769ebb09e29fadd63143f3fba99298e5f8051c122e8435",
     "https://bcr.bazel.build/modules/upb/0.0.0-20220923-a547704/MODULE.bazel": "7298990c00040a0e2f121f6c32544bab27d4452f80d9ce51349b1a28f3005c43",
@@ -5282,94 +5280,6 @@
             "rules_rust+",
             "rrra__serde_json-1.0.102",
             "rules_rust++i+rrra__serde_json-1.0.102"
-          ]
-        ]
-      }
-    },
-    "@@toolchains_llvm+//toolchain/extensions:llvm.bzl%llvm": {
-      "general": {
-        "bzlTransitiveDigest": "2UD8x0LHy2fgOvBmCL8R0HPa9/omkySg1/dsFBzYcH8=",
-        "usagesDigest": "TqIvZqHMkqR2P1UPd46fl9V0kO1upy+xc5nJEm6tsQ8=",
-        "recordedFileInputs": {},
-        "recordedDirentsInputs": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "llvm_toolchain_llvm": {
-            "repoRuleId": "@@toolchains_llvm+//toolchain:rules.bzl%llvm",
-            "attributes": {
-              "alternative_llvm_sources": [],
-              "auth_patterns": {},
-              "distribution": "auto",
-              "exec_arch": "",
-              "exec_os": "",
-              "llvm_mirror": "",
-              "llvm_version": "",
-              "llvm_versions": {
-                "": "16.0.0",
-                "darwin-aarch64": "18.1.8"
-              },
-              "netrc": "",
-              "sha256": {
-                "darwin-aarch64": "41d8dea52d18c4e8b90c4fcd31965f9f297df9f40a38a33d60748dbe7f8330b8"
-              },
-              "strip_prefix": {},
-              "urls": {
-                "darwin-aarch64": [
-                  "https://github.com/MaterializeInc/toolchains/releases/download/clang-18.1.8-4/darwin_aarch64.tar.zst"
-                ]
-              }
-            }
-          },
-          "llvm_toolchain": {
-            "repoRuleId": "@@toolchains_llvm+//toolchain:rules.bzl%toolchain",
-            "attributes": {
-              "absolute_paths": false,
-              "archive_flags": {},
-              "compile_flags": {},
-              "coverage_compile_flags": {},
-              "coverage_link_flags": {},
-              "cxx_builtin_include_directories": {},
-              "cxx_flags": {},
-              "cxx_standard": {},
-              "dbg_compile_flags": {},
-              "exec_arch": "",
-              "exec_os": "",
-              "extra_exec_compatible_with": {},
-              "extra_target_compatible_with": {},
-              "link_flags": {},
-              "link_libs": {},
-              "llvm_versions": {
-                "": "16.0.0",
-                "darwin-aarch64": "18.1.8"
-              },
-              "opt_compile_flags": {},
-              "opt_link_flags": {},
-              "stdlib": {
-                "linux-x86_64": "stdc++",
-                "linux-aarch64": "stdc++"
-              },
-              "target_settings": {},
-              "unfiltered_compile_flags": {},
-              "toolchain_roots": {},
-              "sysroot": {}
-            }
-          }
-        },
-        "recordedRepoMappingEntries": [
-          [
-            "toolchains_llvm+",
-            "bazel_skylib",
-            "bazel_skylib+"
-          ],
-          [
-            "toolchains_llvm+",
-            "bazel_tools",
-            "bazel_tools"
-          ],
-          [
-            "toolchains_llvm+",
-            "toolchains_llvm",
-            "toolchains_llvm+"
           ]
         ]
       }

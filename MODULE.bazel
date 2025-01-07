@@ -15,7 +15,6 @@ bazel_dep(name = "rules_rust", version = "0.56.0")
 bazel_dep(name = "rules_rust_prost", version = "0.56.0")
 
 # Toolchains
-bazel_dep(name = "toolchains_llvm", version = "1.2.0", dev_dependency = True)
 bazel_dep(name = "toolchains_musl", version = "0.1.20", dev_dependency = True)
 
 ###############################################################################
@@ -30,32 +29,6 @@ apk.translate_lock(
     lock = "//images/base_image:apko.lock.json",
 )
 use_repo(apk, "base_image")
-
-###############################################################################
-# LLVM toolchain #
-# https://github.com/bazel-contrib/toolchains_llvm/blob/master/toolchain/internal/llvm_distributions.bzl
-###############################################################################
-llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
-llvm.toolchain(
-    name = "llvm_toolchain",
-    llvm_versions = {
-        "": "16.0.0",
-        "darwin-aarch64": "18.1.8",
-    },
-    sha256 = {
-        "darwin-aarch64": "41d8dea52d18c4e8b90c4fcd31965f9f297df9f40a38a33d60748dbe7f8330b8",
-    },
-    stdlib = {
-        "linux-x86_64": "stdc++",
-        "linux-aarch64": "stdc++",
-    },
-    urls = {
-        "darwin-aarch64": ["https://github.com/MaterializeInc/toolchains/releases/download/clang-18.1.8-4/darwin_aarch64.tar.zst"],
-    },
-)
-use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
-
-register_toolchains("@llvm_toolchain//:all")
 
 ###############################################################################
 # Rust toolchain
