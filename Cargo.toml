@@ -73,11 +73,14 @@ cow_ext = { path = "queng_extensions/cow_ext" }
 
 # Integration
 # Data integration
+binance_coin_futures_data_integration = { path = "queng_integration/data/binance_coin_futures_data_integration" }
+binance_coin_futures_testnet_data_integration = { path = "queng_integration/data/binance_coin_futures_testnet_data_integration" }
 binance_core_data_integration = { path = "queng_integration/data/binance_core_data_integration" }
 binance_spot_data_integration = { path = "queng_integration/data/binance_spot_data_integration" }
+binance_spot_testnet_data_integration = { path = "queng_integration/data/binance_spot_testnet_data_integration" }
 binance_usd_futures_data_integration = { path = "queng_integration/data/binance_usd_futures_data_integration" }
-binance_coin_futures_data_integration = { path = "queng_integration/data/binance_coin_futures_data_integration" }
-# Traits
+binance_usd_futures_testnet_data_integration = { path = "queng_integration/data/binance_usd_futures_testnet_data_integration" }
+# Integration Traits
 trait_data_integration = { path = "queng_integration/traits/trait_data_integration" }
 
 # Macros

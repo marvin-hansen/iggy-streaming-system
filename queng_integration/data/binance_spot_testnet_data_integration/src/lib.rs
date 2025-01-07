@@ -9,15 +9,18 @@ use trait_data_integration::*;
 
 // All integration traits implementations are generated using the `ImsDataIntegrationImpl` macro
 #[derive(Default, ImsDataIntegrationImpl)]
-pub struct ImsBinanceCoinFuturesDataIntegration {
+pub struct ImsBinanceSpotTestnetDataIntegration {
     integration: ImsBinanceDataIntegration,
 }
 
-impl ImsBinanceCoinFuturesDataIntegration {
+impl ImsBinanceSpotTestnetDataIntegration {
     /// Create new instance of integration for the live environment
     pub fn new() -> Self {
         Self {
-            integration: ImsBinanceDataIntegration::new(COIN_M_API_BASE_URL, COIN_M_API_WSS_URL),
+            integration: ImsBinanceDataIntegration::new(
+                SPOT_TESTNET_API_BASE_URL,
+                SPOT_TESTNET_API_WSS_URL,
+            ),
         }
     }
 }

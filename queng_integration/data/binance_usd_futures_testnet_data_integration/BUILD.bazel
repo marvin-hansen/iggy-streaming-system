@@ -1,0 +1,44 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
+
+rust_library(
+    name = "binance_usd_futures_testnet_data_integration",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    proc_macro_deps = [
+        # Internal macros
+        "//alias/macro:data_integration_macro",
+    ],
+    tags = [
+        "binance_usd_futures_testnet_data_integration",
+        "data_integration",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+        "//alias:common_data_bar",
+        "//alias:common_data_bar_ext",
+        "//alias:common_errors",
+        "//alias:binance_core_data_integration",
+        "//alias:sbe_types",
+        "//alias:trait_data_integration",
+        # External crates
+        "//thirdparty/crates:rustls",
+        "//thirdparty/crates:tokio",
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":binance_usd_futures_testnet_data_integration",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":binance_usd_futures_testnet_data_integration",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

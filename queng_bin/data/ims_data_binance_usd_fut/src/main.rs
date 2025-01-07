@@ -1,6 +1,6 @@
 use binance_usd_futures_data_integration::ImsBinanceUsdFuturesDataIntegration;
-use std::fmt::Error;
 use mimalloc::MiMalloc;
+use std::fmt::Error;
 
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;

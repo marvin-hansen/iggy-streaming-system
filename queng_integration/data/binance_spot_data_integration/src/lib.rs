@@ -14,12 +14,14 @@ pub struct ImsBinanceSpotDataIntegration {
 }
 
 impl ImsBinanceSpotDataIntegration {
+    /// Create new instance of integration for the live environment
     pub fn new() -> Self {
         Self {
             integration: ImsBinanceDataIntegration::new(SPOT_API_BASE_URL, SPOT_API_WSS_URL),
         }
     }
 
+    /// Create new instance of integration for the testnet environment
     pub fn testnet() -> Self {
         Self {
             integration: ImsBinanceDataIntegration::new(

@@ -1,6 +1,6 @@
 use binance_spot_data_integration::ImsBinanceSpotDataIntegration;
-use std::fmt::Error;
 use mimalloc::MiMalloc;
+use std::fmt::Error;
 
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;

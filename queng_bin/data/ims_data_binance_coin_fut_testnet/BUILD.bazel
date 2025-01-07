@@ -15,7 +15,7 @@ build_binary_opt(
         # Custom Memory Allocator
         "//thirdparty/crates:mimalloc",
         # Internal crates
-        "//alias:binance_coin_futures_data_integration",
+        "//alias:binance_coin_futures_testnet_data_integration",
         "//alias:ims_data_bin",
         # External crates
         "//thirdparty/crates:tokio",
