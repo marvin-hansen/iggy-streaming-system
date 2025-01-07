@@ -1,5 +1,5 @@
+use tokio::signal::unix::{signal, SignalKind};
 use trait_data_integration::ImsDataIntegration;
-
 mod health_check;
 mod run;
 mod service;
@@ -50,11 +50,12 @@ where
     http_server.await;
 
     #[cfg(unix)]
-    let (mut ctrl_c, mut sigterm) = {
-        use tokio::signal::unix::{signal, SignalKind};
+    let (mut ctrl_c, mut sigterm, mut sighang, mut sigquit) = {
         (
             signal(SignalKind::interrupt())?,
             signal(SignalKind::terminate())?,
+            signal(SignalKind::hangup())?,
+            signal(SignalKind::quit())?,
         )
     };
 
@@ -65,6 +66,12 @@ where
         },
         _ = sigterm.recv() => {
             dbg_print("Received SIGTERM. Shutting down {NAME} {VERSION}...");
+        }
+        _ = sighang.recv() => {
+            dbg_print("Received HANGUP. Shutting down {NAME} {VERSION}...");
+        }
+        _ = sigquit.recv() => {
+            dbg_print("Received QUIT. Shutting down {NAME} {VERSION}...");
         }
     }
 
