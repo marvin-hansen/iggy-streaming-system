@@ -21,4 +21,5 @@ binance_coin_futures_testnet_data_integration = { workspace = true }
 ims_data_bin = { workspace = true }
 
 # External crates
+rustls = { workspace = true }
 tokio = { workspace = true }

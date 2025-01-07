@@ -18,6 +18,7 @@ build_binary_opt(
         "//alias:binance_coin_futures_testnet_data_integration",
         "//alias:ims_data_bin",
         # External crates
+        "//thirdparty/crates:rustls",
         "//thirdparty/crates:tokio",
     ],
 )
