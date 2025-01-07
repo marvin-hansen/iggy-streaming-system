@@ -17,7 +17,8 @@ pub const COIN_M_API_WSS_URL: &str = "wss://dstream.binance.com/ws";
 
 // TESTNET API
 // https://developers.binance.com/docs/derivatives/coin-margined-futures/general-info
-pub const COIN_M_TESTNET_API_BASE_URL: &str = "https://testnet.binancefuture.com/api/v3";
+// Somehow the TESTNET API does not deliver symbols. Instead, we use the LIVE API to get symbols.
+pub const COIN_M_TESTNET_API_BASE_URL: &str = "https://dapi.binance.com/dapi/v1"; // "https://testnet.binancefuture.com/api/v3";
 pub const COIN_M_TESTNET_API_WSS_URL: &str = "wss://dstream.binancefuture.com";
 
 // Binance USD-M Futures API endpoints
@@ -29,5 +30,6 @@ pub const USD_M_API_WSS_URL: &str = "wss://fstream.binance.com/ws";
 
 // TESTNET API
 // https://developers.binance.com/docs/derivatives/usds-margined-futures/general-info
-pub const USD_M_TESTNET_API_BASE_URL: &str = "https://testnet.binancefuture.com/api/v3";
+// Somehow the TESTNET API does not deliver symbols. Instead, we use the LIVE API to get symbols.
+pub const USD_M_TESTNET_API_BASE_URL: &str = "https://fapi.binance.com/fapi/v1"; //"https://testnet.binancefuture.com/api/v3";
 pub const USD_M_TESTNET_API_WSS_URL: &str = "wss://stream.binancefuture.com";
