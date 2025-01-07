@@ -1,5 +1,5 @@
 //! Procedural macros for implementing IMS data integration traits.
-//! 
+//!
 //! This crate provides derive macros that automatically implement data integration
 //! traits for structs containing an IMS integration field.
 
@@ -12,7 +12,7 @@ use syn::{parse_macro_input, DeriveInput};
 /// This derive macro generates implementations for the following traits:
 /// - `ImsDataIntegration`
 /// - `ImsSymbolIntegration`
-/// - `ImsTradeDataIntegration` 
+/// - `ImsTradeDataIntegration`
 /// - `ImsOhlcvDataIntegration`
 ///
 /// # Requirements

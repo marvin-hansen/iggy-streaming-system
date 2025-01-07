@@ -13,6 +13,7 @@ workspace = true
 
 [dependencies]
 # Internal crates
+common_errors = { workspace = true }
 trait_data_integration = { workspace = true }
 
 # External crates
