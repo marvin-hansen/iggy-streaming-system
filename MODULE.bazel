@@ -5,61 +5,16 @@ module(name = "cgp-exploration")
 # https://registry.bazel.build/
 ###############################################################################
 bazel_dep(name = "aspect_bazel_lib", version = "2.10.0")
-bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "platforms", version = "0.0.10")
-bazel_dep(name = "rules_apko", version = "1.4.0")
-bazel_dep(name = "rules_multirun", version = "0.10.0")
 bazel_dep(name = "rules_oci", version = "2.2.0")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_rust", version = "0.56.0")
-bazel_dep(name = "rules_rust_prost", version = "0.56.0")
 
 # Toolchains
-bazel_dep(name = "toolchains_llvm", version = "1.2.0", dev_dependency = True)
 bazel_dep(name = "toolchains_musl", version = "0.1.20", dev_dependency = True)
 
 ###############################################################################
-# Apko Rules
-# https://github.com/chainguard-dev/rules_apko
-###############################################################################
-# Translate apko.lock.json to @base_image//:contents
-# https://edu.chainguard.dev/open-source/build-tools/apko/bazel-rules/
-apk = use_extension("@rules_apko//apko:extensions.bzl", "apko")
-apk.translate_lock(
-    name = "base_image",
-    lock = "//images/base_image:apko.lock.json",
-)
-use_repo(apk, "base_image")
-
-###############################################################################
-# LLVM toolchain #
-# https://github.com/bazel-contrib/toolchains_llvm/blob/master/toolchain/internal/llvm_distributions.bzl
-###############################################################################
-llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
-llvm.toolchain(
-    name = "llvm_toolchain",
-    llvm_versions = {
-        "": "16.0.0",
-        "darwin-aarch64": "18.1.8",
-    },
-    sha256 = {
-        "darwin-aarch64": "41d8dea52d18c4e8b90c4fcd31965f9f297df9f40a38a33d60748dbe7f8330b8",
-    },
-    stdlib = {
-        "linux-x86_64": "stdc++",
-        "linux-aarch64": "stdc++",
-    },
-    urls = {
-        "darwin-aarch64": ["https://github.com/MaterializeInc/toolchains/releases/download/clang-18.1.8-4/darwin_aarch64.tar.zst"],
-    },
-)
-use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
-
-register_toolchains("@llvm_toolchain//:all")
-
-###############################################################################
-# Rust toolchain
-# https://github.com/bazelbuild/rules_rust/releases
+# Rust toolchain # https://github.com/bazelbuild/rules_rust/
 ###############################################################################
 RUST_EDITION = "2021"  # NOTE: 2024 will be released with Rust 1.86.0
 
@@ -68,14 +23,126 @@ RUST_VERSION = "1.83.0"
 rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 rust.toolchain(
     edition = RUST_EDITION,
-    extra_target_triples = [
-        "x86_64-unknown-linux-musl",
-        "aarch64-unknown-linux-musl",
-    ],
     versions = [RUST_VERSION],
+)
+
+# This overrides a default rust_repository_set created by rust_register_toolchain.
+# It must be named exactly this.
+# Each exec triple needs one of these calls per target triple it supports.
+# The first call needs all of the attrs, the subsequent calls should only set name, target_triple, and target_compatible_with.
+rust.repository_set(
+    name = "rust_linux_x86_64",
+    edition = RUST_EDITION,
+    exec_triple = "x86_64-unknown-linux-gnu",
+    target_compatible_with = [
+        "@//build/linker_config:unknown",
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "x86_64-unknown-linux-gnu",
+    versions = [RUST_VERSION],
+)
+rust.repository_set(
+    name = "rust_linux_x86_64",
+    target_compatible_with = [
+        "@//build/linker_config:musl",
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "x86_64-unknown-linux-musl",
+)
+rust.repository_set(
+    name = "rust_linux_arm64",
+    target_compatible_with = [
+        "@//build/linker_config:unknown",
+        "@platforms//cpu:arm64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "aarch64-unknown-linux-gnu",
+)
+rust.repository_set(
+    name = "rust_linux_arm64",
+    target_compatible_with = [
+        "@//build/linker_config:musl",
+        "@platforms//cpu:arm64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "aarch64-unknown-linux-musl",
+)
+
+# We don't need to register a repository_set for exec_triple == target_triple if we're not customising it in any way:
+# one will get registered by default.
+# But we do for the Linux case above, because we want to add the "@//linker_config:unknown" constraint in that case.
+rust.repository_set(
+    name = "rust_darwin_x86_64",
+    edition = RUST_EDITION,
+    exec_triple = "x86_64-apple-darwin",
+    target_compatible_with = [
+        "@//build/linker_config:musl",
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "x86_64-unknown-linux-musl",
+    versions = [RUST_VERSION],
+)
+rust.repository_set(
+    name = "rust_darwin_x86_64",
+    target_compatible_with = [
+        "@//build/linker_config:musl",
+        "@platforms//cpu:arm64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "aarch64-unknown-linux-musl",
+)
+rust.repository_set(
+    name = "rust_darwin_aarch64",
+    edition = RUST_EDITION,
+    exec_triple = "aarch64-apple-darwin",
+    target_compatible_with = [
+        "@//build/linker_config:musl",
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "x86_64-unknown-linux-musl",
+    versions = [RUST_VERSION],
+)
+rust.repository_set(
+    name = "rust_darwin_aarch64",
+    target_compatible_with = [
+        "@//build/linker_config:musl",
+        "@platforms//cpu:arm64",
+        "@platforms//os:linux",
+    ],
+    target_triple = "aarch64-unknown-linux-musl",
 )
 use_repo(rust, "rust_toolchains")
 
 register_toolchains("@rust_toolchains//:all")
 
-# Rust dependencies; see thirdparty/BUILD.bazel
+# Rust dependencies are vendored; see:
+# //thirdparty/BUILD.bazel
+
+###############################################################################
+# MUSL toolchain # https://github.com/bazel-contrib/musl-toolchain
+###############################################################################
+toolchains_musl = use_extension("@toolchains_musl//:toolchains_musl.bzl", "toolchains_musl", dev_dependency = True)
+toolchains_musl.config(
+    extra_target_compatible_with = ["@//build/linker_config:musl"],
+)
+
+###############################################################################
+# OCI base images # https://stackoverflow.com/questions/34198392/docker-official-registry-docker-hub-url
+###############################################################################
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+
+# https://hub.docker.com/repository/docker/hansenmarvin/rust-scratch/general
+oci.pull(
+    name = "scratch",
+    digest = "sha256:c6d1c2b62a454d6c5606645b5adfa026516e3aa9213a6f7648b8e9b3cc520f76",
+    image = "docker.io/hansenmarvin/rust-scratch",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ],
+)
+use_repo(oci, "scratch", "scratch_linux_amd64", "scratch_linux_arm64")
