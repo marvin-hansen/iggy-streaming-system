@@ -1,14 +1,6 @@
 # Make all aliases public by default
 package(default_visibility = ["//visibility:public"])
 
-###############################################################################
-# Bin / templates
-###############################################################################
-
-alias(
-    name = "ims_data_bin",
-    actual = "//queng_bin/template/ims_data_bin",
-)
 
 ###############################################################################
 # Common
@@ -153,4 +145,12 @@ alias(
 alias(
     name = "sbe_utils",
     actual = "//queng_sbe/sbe_utils"
+)
+###############################################################################
+# Service templates
+###############################################################################
+
+alias(
+    name = "ims_data_bin",
+    actual = "//queng_template/ims_data_bin",
 )

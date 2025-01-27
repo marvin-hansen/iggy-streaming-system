@@ -46,7 +46,7 @@ rust_doc_test(
 build_multi_arch_image(
     name = "image_index",
     srcs = ["ims_data_binance_usd_fut"],
-    base = "@scratch",
+    base = "//images/base_image",
     entry_point = "ims_data_binance_usd_fut",
     exposed_ports = [
         "7070",

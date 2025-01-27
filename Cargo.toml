@@ -3,13 +3,13 @@ resolver = "2"
 
 members = [
     "queng_bin/data/*",
-    "queng_bin/template/*",
     "queng_common/*",
     "queng_extensions/*",
     "queng_integration/data/*",
     "queng_integration/traits/*",
     "queng_macros/*",
     "queng_sbe/*",
+    "queng_template/*",
 ]
 exclude = [
     "queng_sbe/sbe_schema",
@@ -54,7 +54,7 @@ codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimizati
 # ==============
 
 # binary templates
-ims_data_bin = { path = "queng_bin/template/ims_data_bin" }
+ims_data_bin = { path = "queng_template/ims_data_bin" }
 
 # Common
 common_config = { path = "queng_common/common_config" }
