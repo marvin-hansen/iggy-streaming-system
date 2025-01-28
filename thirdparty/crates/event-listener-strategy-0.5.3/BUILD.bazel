@@ -83,7 +83,7 @@ rust_library(
     }),
     version = "0.5.3",
     deps = [
-        "//thirdparty/crates/event-listener-5.3.1:event_listener",
-        "//thirdparty/crates/pin-project-lite-0.2.15:pin_project_lite",
+        "//thirdparty/crates/event-listener-5.4.0:event_listener",
+        "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
     ],
 )

@@ -84,7 +84,7 @@ rust_library(
         "//thirdparty/crates/combine-4.6.7:combine",
         "//thirdparty/crates/jni-0.19.0:build_script_build",
         "//thirdparty/crates/jni-sys-0.3.0:jni_sys",
-        "//thirdparty/crates/log-0.4.22:log",
+        "//thirdparty/crates/log-0.4.25:log",
         "//thirdparty/crates/thiserror-1.0.69:thiserror",
     ],
 )

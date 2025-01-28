@@ -36,7 +36,7 @@ rust_library(
     crate_root = "src/lib.rs",
     edition = "2021",
     proc_macro_deps = [
-        "//thirdparty/crates/async-trait-0.1.84:async_trait",
+        "//thirdparty/crates/async-trait-0.1.85:async_trait",
     ],
     rustc_flags = [
         "--cap-lints=allow",
@@ -90,7 +90,7 @@ rust_library(
         "//thirdparty/crates/async-dropper-simple-0.2.6:build_script_build",
         "//thirdparty/crates/async-scoped-0.9.0:async_scoped",
         "//thirdparty/crates/futures-0.3.31:futures",
-        "//thirdparty/crates/tokio-1.42.0:tokio",
+        "//thirdparty/crates/tokio-1.43.0:tokio",
     ],
 )
 

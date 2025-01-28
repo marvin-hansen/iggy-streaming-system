@@ -18,7 +18,7 @@ rust_library(
     ),
     aliases = select({
         "@rules_rust//rust/platform:wasm32-unknown-unknown": {
-            "//thirdparty/crates/wasm-bindgen-0.2.99:wasm_bindgen": "wasm_bindgen_rs",  # wasm32-unknown-unknown
+            "//thirdparty/crates/wasm-bindgen-0.2.100:wasm_bindgen": "wasm_bindgen_rs",  # wasm32-unknown-unknown
         },
         "//conditions:default": {},
     }),
@@ -94,9 +94,9 @@ rust_library(
         "//thirdparty/crates/cfg-if-1.0.0:cfg_if",
     ] + select({
         "@rules_rust//rust/platform:wasm32-unknown-unknown": [
-            "//thirdparty/crates/js-sys-0.3.76:js_sys",  # wasm32-unknown-unknown
-            "//thirdparty/crates/wasm-bindgen-0.2.99:wasm_bindgen",  # wasm32-unknown-unknown
-            "//thirdparty/crates/web-sys-0.3.76:web_sys",  # wasm32-unknown-unknown
+            "//thirdparty/crates/js-sys-0.3.77:js_sys",  # wasm32-unknown-unknown
+            "//thirdparty/crates/wasm-bindgen-0.2.100:wasm_bindgen",  # wasm32-unknown-unknown
+            "//thirdparty/crates/web-sys-0.3.77:web_sys",  # wasm32-unknown-unknown
         ],
         "//conditions:default": [],
     }),

@@ -80,31 +80,31 @@ rust_library(
     version = "0.2.0-pre.0",
     deps = select({
         "@rules_rust//rust/platform:aarch64-apple-darwin": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios-sim": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-linux-android": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-pc-windows-msvc": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-unknown-fuchsia": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nixos-gnu": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nto-qnx710": [
-            "//thirdparty/crates/cpufeatures-0.2.16:cpufeatures",  # cfg(target_arch = "aarch64")
+            "//thirdparty/crates/cpufeatures-0.2.17:cpufeatures",  # cfg(target_arch = "aarch64")
         ],
         "//conditions:default": [],
     }),

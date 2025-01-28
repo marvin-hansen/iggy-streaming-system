@@ -80,7 +80,7 @@ rust_library(
     version = "4.4.2",
     deps = [
         "//thirdparty/crates/either-1.13.0:either",
-        "//thirdparty/crates/rustix-0.38.42:rustix",
+        "//thirdparty/crates/rustix-0.38.44:rustix",
     ] + select({
         "@rules_rust//rust/platform:aarch64-apple-darwin": [
             "//thirdparty/crates/home-0.5.11:home",  # cfg(any(windows, unix, target_os = "redox"))

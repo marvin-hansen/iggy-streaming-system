@@ -219,106 +219,106 @@ rust_library(
     deps = [
         "//thirdparty/crates/futures-core-0.3.31:futures_core",
         "//thirdparty/crates/futures-util-0.3.31:futures_util",
-        "//thirdparty/crates/pin-project-lite-0.2.15:pin_project_lite",
+        "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
         "//thirdparty/crates/sync_wrapper-1.0.2:sync_wrapper",
         "//thirdparty/crates/tower-layer-0.3.3:tower_layer",
         "//thirdparty/crates/tower-service-0.3.3:tower_service",
     ] + select({
         "@rules_rust//rust/platform:aarch64-apple-darwin": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-apple-darwin
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-apple-darwin
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-apple-ios
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-apple-ios
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios-sim": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-apple-ios-sim
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-apple-ios-sim
         ],
         "@rules_rust//rust/platform:aarch64-linux-android": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-linux-android
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-linux-android
         ],
         "@rules_rust//rust/platform:aarch64-pc-windows-msvc": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-pc-windows-msvc
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-pc-windows-msvc
         ],
         "@rules_rust//rust/platform:aarch64-unknown-fuchsia": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-unknown-fuchsia
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-unknown-fuchsia
         ],
         "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-unknown-linux-gnu
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-unknown-linux-gnu
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nixos-gnu": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-unknown-linux-gnu, aarch64-unknown-nixos-gnu
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-unknown-linux-gnu, aarch64-unknown-nixos-gnu
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nto-qnx710": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # aarch64-unknown-nto-qnx710
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # aarch64-unknown-nto-qnx710
         ],
         "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # arm-unknown-linux-gnueabi
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # arm-unknown-linux-gnueabi
         ],
         "@rules_rust//rust/platform:armv7-linux-androideabi": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # armv7-linux-androideabi
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # armv7-linux-androideabi
         ],
         "@rules_rust//rust/platform:armv7-unknown-linux-gnueabi": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # armv7-unknown-linux-gnueabi
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # armv7-unknown-linux-gnueabi
         ],
         "@rules_rust//rust/platform:i686-apple-darwin": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # i686-apple-darwin
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # i686-apple-darwin
         ],
         "@rules_rust//rust/platform:i686-linux-android": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # i686-linux-android
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # i686-linux-android
         ],
         "@rules_rust//rust/platform:i686-pc-windows-msvc": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # i686-pc-windows-msvc
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # i686-pc-windows-msvc
         ],
         "@rules_rust//rust/platform:i686-unknown-freebsd": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # i686-unknown-freebsd
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # i686-unknown-freebsd
         ],
         "@rules_rust//rust/platform:i686-unknown-linux-gnu": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # i686-unknown-linux-gnu
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # i686-unknown-linux-gnu
         ],
         "@rules_rust//rust/platform:powerpc-unknown-linux-gnu": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # powerpc-unknown-linux-gnu
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # powerpc-unknown-linux-gnu
         ],
         "@rules_rust//rust/platform:riscv32imc-unknown-none-elf": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # riscv32imc-unknown-none-elf
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # riscv32imc-unknown-none-elf
         ],
         "@rules_rust//rust/platform:riscv64gc-unknown-none-elf": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # riscv64gc-unknown-none-elf
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # riscv64gc-unknown-none-elf
         ],
         "@rules_rust//rust/platform:s390x-unknown-linux-gnu": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # s390x-unknown-linux-gnu
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # s390x-unknown-linux-gnu
         ],
         "@rules_rust//rust/platform:thumbv7em-none-eabi": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # thumbv7em-none-eabi
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # thumbv7em-none-eabi
         ],
         "@rules_rust//rust/platform:thumbv8m.main-none-eabi": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # thumbv8m.main-none-eabi
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # thumbv8m.main-none-eabi
         ],
         "@rules_rust//rust/platform:x86_64-apple-darwin": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-apple-darwin
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-apple-darwin
         ],
         "@rules_rust//rust/platform:x86_64-apple-ios": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-apple-ios
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-apple-ios
         ],
         "@rules_rust//rust/platform:x86_64-linux-android": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-linux-android
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-linux-android
         ],
         "@rules_rust//rust/platform:x86_64-pc-windows-msvc": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-pc-windows-msvc
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-pc-windows-msvc
         ],
         "@rules_rust//rust/platform:x86_64-unknown-freebsd": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-unknown-freebsd
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-unknown-freebsd
         ],
         "@rules_rust//rust/platform:x86_64-unknown-fuchsia": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-unknown-fuchsia
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-unknown-fuchsia
         ],
         "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-unknown-linux-gnu
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-unknown-linux-gnu
         ],
         "@rules_rust//rust/platform:x86_64-unknown-nixos-gnu": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-unknown-linux-gnu, x86_64-unknown-nixos-gnu
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-unknown-linux-gnu, x86_64-unknown-nixos-gnu
         ],
         "@rules_rust//rust/platform:x86_64-unknown-none": [
-            "//thirdparty/crates/tokio-1.42.0:tokio",  # x86_64-unknown-none
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # x86_64-unknown-none
         ],
         "//conditions:default": [],
     }),

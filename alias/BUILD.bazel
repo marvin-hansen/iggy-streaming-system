@@ -104,15 +104,6 @@ alias(
     actual = "//queng_integration/data/binance_usd_futures_testnet_data_integration",
 )
 
-# Traits
-##############
-
-alias(
-    name = "trait_data_integration",
-    actual = "//queng_integration/traits/trait_data_integration",
-)
-
-
 ###############################################################################
 # SBE
 ###############################################################################
@@ -146,11 +137,21 @@ alias(
     name = "sbe_utils",
     actual = "//queng_sbe/sbe_utils"
 )
+
 ###############################################################################
-# Service templates
+# Templates
 ###############################################################################
 
 alias(
     name = "ims_data_bin",
     actual = "//queng_template/ims_data_bin",
+)
+
+###############################################################################
+# Traits
+###############################################################################
+
+alias(
+    name = "trait_data_integration",
+    actual = "//queng_integration/traits/trait_data_integration",
 )

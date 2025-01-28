@@ -35,7 +35,7 @@ rust_proc_macro(
     crate_root = "src/lib.rs",
     edition = "2021",
     proc_macro_deps = [
-        "//thirdparty/crates/async-trait-0.1.84:async_trait",
+        "//thirdparty/crates/async-trait-0.1.85:async_trait",
     ],
     rustc_flags = [
         "--cap-lints=allow",
@@ -86,9 +86,9 @@ rust_proc_macro(
     }),
     version = "0.3.1",
     deps = [
-        "//thirdparty/crates/proc-macro2-1.0.92:proc_macro2",
+        "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
-        "//thirdparty/crates/syn-2.0.95:syn",
-        "//thirdparty/crates/tokio-1.42.0:tokio",
+        "//thirdparty/crates/syn-2.0.96:syn",
+        "//thirdparty/crates/tokio-1.43.0:tokio",
     ],
 )

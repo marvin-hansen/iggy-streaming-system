@@ -84,7 +84,7 @@ rust_library(
     version = "0.9.0",
     deps = [
         "//thirdparty/crates/futures-0.3.31:futures",
-        "//thirdparty/crates/pin-project-1.1.7:pin_project",
-        "//thirdparty/crates/tokio-1.42.0:tokio",
+        "//thirdparty/crates/pin-project-1.1.8:pin_project",
+        "//thirdparty/crates/tokio-1.43.0:tokio",
     ],
 )

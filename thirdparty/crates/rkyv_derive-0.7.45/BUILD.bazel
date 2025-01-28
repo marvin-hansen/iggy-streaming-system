@@ -79,7 +79,7 @@ rust_proc_macro(
     }),
     version = "0.7.45",
     deps = [
-        "//thirdparty/crates/proc-macro2-1.0.92:proc_macro2",
+        "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
         "//thirdparty/crates/syn-1.0.109:syn",
     ],

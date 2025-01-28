@@ -40,7 +40,7 @@ rust_library(
     crate_root = "src/lib.rs",
     edition = "2021",
     proc_macro_deps = [
-        "//thirdparty/crates/async-trait-0.1.84:async_trait",
+        "//thirdparty/crates/async-trait-0.1.85:async_trait",
     ],
     rustc_flags = [
         "--cap-lints=allow",
@@ -103,10 +103,10 @@ rust_library(
         "//thirdparty/crates/hyper-timeout-0.5.2:hyper_timeout",
         "//thirdparty/crates/hyper-util-0.1.10:hyper_util",
         "//thirdparty/crates/percent-encoding-2.3.1:percent_encoding",
-        "//thirdparty/crates/pin-project-1.1.7:pin_project",
+        "//thirdparty/crates/pin-project-1.1.8:pin_project",
         "//thirdparty/crates/prost-0.13.4:prost",
         "//thirdparty/crates/socket2-0.5.8:socket2",
-        "//thirdparty/crates/tokio-1.42.0:tokio",
+        "//thirdparty/crates/tokio-1.43.0:tokio",
         "//thirdparty/crates/tokio-stream-0.1.17:tokio_stream",
         "//thirdparty/crates/tower-0.4.13:tower",
         "//thirdparty/crates/tower-layer-0.3.3:tower_layer",

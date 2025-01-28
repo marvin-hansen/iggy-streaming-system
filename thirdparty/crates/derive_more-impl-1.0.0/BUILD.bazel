@@ -107,9 +107,9 @@ rust_proc_macro(
     version = "1.0.0",
     deps = [
         "//thirdparty/crates/convert_case-0.6.0:convert_case",
-        "//thirdparty/crates/proc-macro2-1.0.92:proc_macro2",
+        "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
-        "//thirdparty/crates/syn-2.0.95:syn",
+        "//thirdparty/crates/syn-2.0.96:syn",
         "//thirdparty/crates/unicode-xid-0.2.6:unicode_xid",
     ],
 )

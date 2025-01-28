@@ -89,16 +89,16 @@ rust_library(
         "//thirdparty/crates/rand-0.8.5:rand",
         "//thirdparty/crates/ring-0.17.8:ring",
         "//thirdparty/crates/rustc-hash-2.1.0:rustc_hash",
-        "//thirdparty/crates/rustls-0.23.20:rustls",
+        "//thirdparty/crates/rustls-0.23.21:rustls",
         "//thirdparty/crates/rustls-platform-verifier-0.4.0:rustls_platform_verifier",
         "//thirdparty/crates/slab-0.4.9:slab",
-        "//thirdparty/crates/thiserror-2.0.9:thiserror",
+        "//thirdparty/crates/thiserror-2.0.11:thiserror",
         "//thirdparty/crates/tinyvec-1.8.1:tinyvec",
         "//thirdparty/crates/tracing-0.1.41:tracing",
     ] + select({
         "@rules_rust//rust/platform:wasm32-unknown-unknown": [
             "//thirdparty/crates/getrandom-0.2.15:getrandom",  # cfg(all(target_family = "wasm", target_os = "unknown"))
-            "//thirdparty/crates/rustls-pki-types-1.10.1:rustls_pki_types",  # cfg(all(target_family = "wasm", target_os = "unknown"))
+            "//thirdparty/crates/rustls-pki-types-1.11.0:rustls_pki_types",  # cfg(all(target_family = "wasm", target_os = "unknown"))
             "//thirdparty/crates/web-time-1.1.0:web_time",  # cfg(all(target_family = "wasm", target_os = "unknown"))
         ],
         "//conditions:default": [],

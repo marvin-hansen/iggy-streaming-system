@@ -91,11 +91,11 @@ rust_library(
     }),
     version = "2.11.1",
     deps = [
-        "//thirdparty/crates/bitflags-2.6.0:bitflags",
+        "//thirdparty/crates/bitflags-2.8.0:bitflags",
         "//thirdparty/crates/core-foundation-0.9.4:core_foundation",
         "//thirdparty/crates/core-foundation-sys-0.8.7:core_foundation_sys",
         "//thirdparty/crates/libc-0.2.169:libc",
         "//thirdparty/crates/num-bigint-0.4.6:num_bigint",
-        "//thirdparty/crates/security-framework-sys-2.13.0:security_framework_sys",
+        "//thirdparty/crates/security-framework-sys-2.14.0:security_framework_sys",
     ],
 )

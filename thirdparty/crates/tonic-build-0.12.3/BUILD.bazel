@@ -85,11 +85,11 @@ rust_library(
     }),
     version = "0.12.3",
     deps = [
-        "//thirdparty/crates/prettyplease-0.2.27:prettyplease",
-        "//thirdparty/crates/proc-macro2-1.0.92:proc_macro2",
+        "//thirdparty/crates/prettyplease-0.2.29:prettyplease",
+        "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/prost-build-0.13.4:prost_build",
         "//thirdparty/crates/prost-types-0.13.4:prost_types",
         "//thirdparty/crates/quote-1.0.38:quote",
-        "//thirdparty/crates/syn-2.0.95:syn",
+        "//thirdparty/crates/syn-2.0.96:syn",
     ],
 )

@@ -104,7 +104,7 @@ rust_library(
         "//thirdparty/crates/futures-sink-0.3.31:futures_sink",
         "//thirdparty/crates/futures-task-0.3.31:futures_task",
         "//thirdparty/crates/memchr-2.7.4:memchr",
-        "//thirdparty/crates/pin-project-lite-0.2.15:pin_project_lite",
+        "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
         "//thirdparty/crates/pin-utils-0.1.0:pin_utils",
         "//thirdparty/crates/slab-0.4.9:slab",
     ],

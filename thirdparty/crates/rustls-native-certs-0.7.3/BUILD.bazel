@@ -17,7 +17,7 @@ rust_library(
         allow_empty = False,
     ),
     aliases = {
-        "//thirdparty/crates/rustls-pki-types-1.10.1:rustls_pki_types": "pki_types",
+        "//thirdparty/crates/rustls-pki-types-1.11.0:rustls_pki_types": "pki_types",
     },
     compile_data = glob(
         include = ["**"],
@@ -83,88 +83,88 @@ rust_library(
     version = "0.7.3",
     deps = [
         "//thirdparty/crates/rustls-pemfile-2.2.0:rustls_pemfile",
-        "//thirdparty/crates/rustls-pki-types-1.10.1:rustls_pki_types",
+        "//thirdparty/crates/rustls-pki-types-1.11.0:rustls_pki_types",
     ] + select({
         "@rules_rust//rust/platform:aarch64-apple-darwin": [
             "//thirdparty/crates/security-framework-2.11.1:security_framework",  # cfg(target_os = "macos")
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios-sim": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:aarch64-linux-android": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:aarch64-pc-windows-msvc": [
             "//thirdparty/crates/schannel-0.1.27:schannel",  # cfg(windows)
         ],
         "@rules_rust//rust/platform:aarch64-unknown-fuchsia": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nixos-gnu": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nto-qnx710": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:armv7-linux-androideabi": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:armv7-unknown-linux-gnueabi": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:i686-apple-darwin": [
             "//thirdparty/crates/security-framework-2.11.1:security_framework",  # cfg(target_os = "macos")
         ],
         "@rules_rust//rust/platform:i686-linux-android": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:i686-pc-windows-msvc": [
             "//thirdparty/crates/schannel-0.1.27:schannel",  # cfg(windows)
         ],
         "@rules_rust//rust/platform:i686-unknown-freebsd": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:i686-unknown-linux-gnu": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:powerpc-unknown-linux-gnu": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:s390x-unknown-linux-gnu": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:x86_64-apple-darwin": [
             "//thirdparty/crates/security-framework-2.11.1:security_framework",  # cfg(target_os = "macos")
         ],
         "@rules_rust//rust/platform:x86_64-apple-ios": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:x86_64-linux-android": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:x86_64-pc-windows-msvc": [
             "//thirdparty/crates/schannel-0.1.27:schannel",  # cfg(windows)
         ],
         "@rules_rust//rust/platform:x86_64-unknown-freebsd": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-fuchsia": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-nixos-gnu": [
-            "//thirdparty/crates/openssl-probe-0.1.5:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
+            "//thirdparty/crates/openssl-probe-0.1.6:openssl_probe",  # cfg(all(unix, not(target_os = "macos")))
         ],
         "//conditions:default": [],
     }),

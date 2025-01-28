@@ -89,10 +89,10 @@ rust_library(
     deps = [
         "//thirdparty/crates/byteorder-1.5.0:byteorder",
         "//thirdparty/crates/bytes-1.9.0:bytes",
-        "//thirdparty/crates/data-encoding-2.6.0:data_encoding",
+        "//thirdparty/crates/data-encoding-2.7.0:data_encoding",
         "//thirdparty/crates/http-1.2.0:http",
         "//thirdparty/crates/httparse-1.9.5:httparse",
-        "//thirdparty/crates/log-0.4.22:log",
+        "//thirdparty/crates/log-0.4.25:log",
         "//thirdparty/crates/rand-0.8.5:rand",
         "//thirdparty/crates/sha1-0.10.6:sha1",
         "//thirdparty/crates/thiserror-1.0.69:thiserror",

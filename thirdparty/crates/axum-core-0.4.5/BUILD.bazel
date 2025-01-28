@@ -31,7 +31,7 @@ rust_library(
     crate_root = "src/lib.rs",
     edition = "2021",
     proc_macro_deps = [
-        "//thirdparty/crates/async-trait-0.1.84:async_trait",
+        "//thirdparty/crates/async-trait-0.1.85:async_trait",
         "//thirdparty/crates/rustversion-1.0.19:rustversion",
     ],
     rustc_flags = [
@@ -89,7 +89,7 @@ rust_library(
         "//thirdparty/crates/http-body-1.0.1:http_body",
         "//thirdparty/crates/http-body-util-0.1.2:http_body_util",
         "//thirdparty/crates/mime-0.3.17:mime",
-        "//thirdparty/crates/pin-project-lite-0.2.15:pin_project_lite",
+        "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
         "//thirdparty/crates/sync_wrapper-1.0.2:sync_wrapper",
         "//thirdparty/crates/tower-layer-0.3.3:tower_layer",
         "//thirdparty/crates/tower-service-0.3.3:tower_service",

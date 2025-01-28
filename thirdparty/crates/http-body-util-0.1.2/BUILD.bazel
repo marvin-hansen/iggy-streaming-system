@@ -83,6 +83,6 @@ rust_library(
         "//thirdparty/crates/futures-util-0.3.31:futures_util",
         "//thirdparty/crates/http-1.2.0:http",
         "//thirdparty/crates/http-body-1.0.1:http_body",
-        "//thirdparty/crates/pin-project-lite-0.2.15:pin_project_lite",
+        "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
     ],
 )

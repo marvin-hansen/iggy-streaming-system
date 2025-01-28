@@ -159,8 +159,8 @@ rust_library(
             "//thirdparty/crates/iana-time-zone-0.1.61:iana_time_zone",  # s390x-unknown-linux-gnu
         ],
         "@rules_rust//rust/platform:wasm32-unknown-unknown": [
-            "//thirdparty/crates/js-sys-0.3.76:js_sys",  # wasm32-unknown-unknown
-            "//thirdparty/crates/wasm-bindgen-0.2.99:wasm_bindgen",  # wasm32-unknown-unknown
+            "//thirdparty/crates/js-sys-0.3.77:js_sys",  # wasm32-unknown-unknown
+            "//thirdparty/crates/wasm-bindgen-0.2.100:wasm_bindgen",  # wasm32-unknown-unknown
         ],
         "@rules_rust//rust/platform:x86_64-apple-darwin": [
             "//thirdparty/crates/iana-time-zone-0.1.61:iana_time_zone",  # x86_64-apple-darwin

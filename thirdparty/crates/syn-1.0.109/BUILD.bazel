@@ -90,10 +90,10 @@ rust_library(
     }),
     version = "1.0.109",
     deps = [
-        "//thirdparty/crates/proc-macro2-1.0.92:proc_macro2",
+        "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
         "//thirdparty/crates/syn-1.0.109:build_script_build",
-        "//thirdparty/crates/unicode-ident-1.0.14:unicode_ident",
+        "//thirdparty/crates/unicode-ident-1.0.15:unicode_ident",
     ],
 )
 
