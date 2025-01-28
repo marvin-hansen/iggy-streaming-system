@@ -33,7 +33,7 @@ fn env_is_set(key: &str) -> bool {
 ///
 /// If the "ENV" environment variable is not set or empty.
 ///
-pub(crate)  fn detect_env_type(dbg: bool) -> EnvironmentType {
+pub(crate) fn detect_env_type(dbg: bool) -> EnvironmentType {
     if dbg {
         println!("[EnvironmentManager]: Debug mode enabled");
     }
@@ -86,7 +86,7 @@ pub(crate)  fn detect_env_type(dbg: bool) -> EnvironmentType {
 ///
 /// If the "uname -v" command fails to execute.
 ///
-pub(crate)  fn detect_platform_type(dbg: bool) -> PlatformType {
+pub(crate) fn detect_platform_type(dbg: bool) -> PlatformType {
     if dbg {
         println!("[EnvironmentManager]: Debug mode enabled");
     }

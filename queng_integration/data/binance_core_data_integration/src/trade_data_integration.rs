@@ -94,10 +94,7 @@ impl ImsTradeDataIntegration for ImsBinanceDataIntegration {
                                         let (_, data) = TradeBar::encode_to_sbe(bar)
                                             .expect("Failed to encode trade data");
                                         if let Err(e) = processor.process_one_event(data).await {
-                                            eprintln!(
-                                                "Error processing trade data: {}",
-                                                e.to_string()
-                                            );
+                                            eprintln!("Error processing trade data: {}", e);
                                             return;
                                         }
                                     }

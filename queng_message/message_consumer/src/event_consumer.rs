@@ -7,7 +7,7 @@ use trait_event_consumer::EventConsumer;
 impl MessageConsumer {
     pub fn consume_messages(
         mut self,
-        data_event_processor: &'static (impl EventConsumer + Send + Sync),
+        data_event_processor: &'static (impl EventConsumer + Sync),
         shutdown_rx: oneshot::Receiver<()>, // or any `Future<Output=()>`
     ) {
         self.dbg_print("consume_messages");

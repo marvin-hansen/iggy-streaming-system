@@ -40,7 +40,11 @@ impl ConfigManager {
 
         let env_type = config_manager.env_type();
         let platform_type = config_manager.platform_type();
-        Self { dbg, env_type, platform_type }
+        Self {
+            dbg,
+            env_type,
+            platform_type,
+        }
     }
 }
 

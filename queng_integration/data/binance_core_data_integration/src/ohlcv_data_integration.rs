@@ -96,10 +96,7 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
                                         let (_, data) = OHLCVBar::encode_to_sbe(bar)
                                             .expect("Failed to encode OHLCV data");
                                         if let Err(e) = processor.process_one_event(data).await {
-                                            eprintln!(
-                                                "Error processing OHLCV data: {}",
-                                                e.to_string()
-                                            );
+                                            eprintln!("Error processing OHLCV data: {}", e);
                                             return;
                                         }
                                     }

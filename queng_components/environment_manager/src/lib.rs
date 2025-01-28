@@ -58,7 +58,6 @@ impl EnvironmentManager {
         self.env_type
     }
 
-
     /// Returns the platform type.
     ///
     /// This method returns the `PlatformType` of the current `EnvironmentManager` instance.
