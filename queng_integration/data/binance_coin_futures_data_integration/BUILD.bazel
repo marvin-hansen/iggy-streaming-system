@@ -17,11 +17,11 @@ rust_library(
     visibility = ["//visibility:public"],
     deps = [
         # Internal crates
-        "//alias:common_errors",
         "//alias:common_data_bar",
         "//alias:common_data_bar_ext",
         "//alias:binance_core_data_integration",
         "//alias:trait_data_integration",
+        "//alias:trait_event_processor",
         "//alias:sbe_types",
         # External crates
         "//thirdparty/crates:rustls",

@@ -20,7 +20,7 @@ use std::fmt;
 pub struct LookupError(pub String);
 
 impl LookupError {
-    #[must_use]
+    #[inline]
     pub const fn new(field0: String) -> Self {
         Self(field0)
     }

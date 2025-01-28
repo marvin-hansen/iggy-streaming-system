@@ -111,7 +111,7 @@ fn test_symbol_id() {
 fn test_display() {
     let message = get_message();
 
-    let expected = "StopDataMessage[message_type: StopData, client_id: 1, exchange_id: Kraken, symbol_id: APPL, data_type: TradeData]";
+    let expected = "StopDataMessage[message_type: StopData, client_id: 1, exchange_id: kraken, symbol_id: APPL, data_type: TradeData]";
     let actual = format!("{message}");
     assert_eq!(expected, actual);
 }

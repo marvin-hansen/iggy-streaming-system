@@ -28,6 +28,20 @@ command bazel test //... --test_tag_filters=unit-test --test_env=ENV=LOCAL
 
 echo ""
 echo "====================="
+echo "Run IMS acceptance tests"
+echo "====================="
+# local testing must be in sequential order b/c there is just one DB container available
+command bazel test //... --test_tag_filters=ims-acceptance_test --test_env=ENV=LOCAL
+
+echo ""
+echo "====================="
+echo "Build container images"
+echo "====================="
+
+command bazel build //:push --test_env=ENV=LOCAL
+
+echo ""
+echo "====================="
 echo "All Tests Passed"
 echo "====================="
 echo ""

@@ -28,6 +28,9 @@ pub enum DataErrorType {
     DataChannelError = 6_u8,
     DataWrongExchangeError = 7_u8,
     DataClientNotLoggedInError = 8_u8,
+    DataStartError = 9_u8,
+    DataStopError = 10_u8,
+    DataStopAllError = 11_u8,
 }
 
 impl From<u8> for DataErrorType {
@@ -60,6 +63,9 @@ impl From<u8> for DataErrorType {
             6_u8 => Self::DataChannelError,
             7_u8 => Self::DataWrongExchangeError,
             8_u8 => Self::DataClientNotLoggedInError,
+            9_u8 => Self::DataStartError,
+            10_u8 => Self::DataStopError,
+            11_u8 => Self::DataStopAllError,
             _ => Self::UnknownDataError,
         }
     }

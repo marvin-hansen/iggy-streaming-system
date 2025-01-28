@@ -1,0 +1,23 @@
+[package]
+name = "binance_coin_future_testnet"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+
+[lints]
+workspace = true
+
+[dependencies]
+# Custom Memory Allocator
+mimalloc = {workspace = true}
+# Internal crates
+binance_coin_futures_testnet_data_integration = { workspace = true }
+common_exchange = {workspace = true}
+ims_data_service = {workspace = true}
+# External crates
+rustls = { workspace = true }
+tokio = { workspace = true }

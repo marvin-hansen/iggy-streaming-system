@@ -1,0 +1,18 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "common_env",
+    srcs = glob([
+        "*_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "common_env",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_env",
+    ],
+)

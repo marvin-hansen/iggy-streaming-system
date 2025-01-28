@@ -15,8 +15,8 @@ rust_library(
         # Internal crates
         "//alias:common_data_bar",
         "//alias:common_data_bar_ext",
-        "//alias:common_errors",
         "//alias:trait_data_integration",
+        "//alias:trait_event_processor",
         # External crates
         "//thirdparty/crates:chrono",
         "//thirdparty/crates:futures-util",

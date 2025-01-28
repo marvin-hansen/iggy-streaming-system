@@ -1,18 +1,26 @@
+use common_exchange::ExchangeID;
+
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub struct IntegrationMessageConfig {
     id: u16,
     name: String,
     version: u16,
+    exchange_id: ExchangeID,
 }
 
 const NAME: &str = "integration";
 
 impl IntegrationMessageConfig {
     #[must_use]
-    pub fn new(id: u16, version: u16) -> Self {
-        let name = format!("{NAME}-{version}");
+    pub fn new(id: u16, version: u16, exchange_id: ExchangeID) -> Self {
+        let name = format!("{exchange_id}-{NAME}-{id}");
 
-        Self { id, name, version }
+        Self {
+            id,
+            name,
+            version,
+            exchange_id,
+        }
     }
 }
 impl IntegrationMessageConfig {
@@ -44,6 +52,16 @@ impl IntegrationMessageConfig {
     #[must_use]
     pub const fn version(&self) -> &u16 {
         &self.version
+    }
+
+    /// Returns the `ExchangeID` of the client.
+    ///
+    /// # Returns
+    ///
+    /// An `ExchangeID` representing the id of the exchange the client is connected to.
+    #[must_use]
+    pub const fn exchange_id(&self) -> ExchangeID {
+        self.exchange_id
     }
 
     /// Generates a channel name for the control channel based on the client name.
@@ -91,6 +109,6 @@ impl IntegrationMessageConfig {
 
 impl Default for IntegrationMessageConfig {
     fn default() -> Self {
-        Self::new(0, 0)
+        Self::new(0, 0, ExchangeID::default())
     }
 }

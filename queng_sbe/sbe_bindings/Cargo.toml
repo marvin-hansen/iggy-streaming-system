@@ -2,7 +2,7 @@
 name = "sbe_bindings"
 version = "0.1.0"
 authors = ["sbetool"]
-description = "SBE Schema"
+description = "Quant engine Schema"
 edition = "2021"
 
 [lib]

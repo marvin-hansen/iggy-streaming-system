@@ -1,0 +1,38 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "endpoint_tests",
+    srcs = glob([
+        "endpoint_host_tests.rs",
+        "endpoint_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "common_config",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_config",
+    ],
+)
+
+rust_test_suite(
+    name = "service_config_tests",
+    srcs = glob([
+        "service_config_tests.rs",
+        "service_id_tests.rs",
+        "svc_env_config_tests.rs",
+    ]),
+    tags = [
+        "common",
+        "common_config",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:common_config",
+    ],
+)

@@ -1,4 +1,5 @@
 mod ims_api_urls;
+mod ims_shutdown_integration;
 mod ims_symbol_integration;
 mod ohlcv_data_integration;
 mod trade_data_integration;

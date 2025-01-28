@@ -3,7 +3,7 @@ load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
 rust_library(
     name = "common_ims",
     srcs = glob([
-        "src/**",
+        "src/*.rs",
     ]),
     crate_root = "src/lib.rs",
     tags = [
@@ -13,6 +13,9 @@ rust_library(
     visibility = ["//visibility:public"],
     deps = [
         # Internal crates
+        "//alias:common_exchange",
+        # External crates
+        "//thirdparty/crates:iggy",
     ],
 )
 

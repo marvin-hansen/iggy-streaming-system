@@ -34,7 +34,7 @@ impl<'l> HostEndpoint<'l> {
     }
 }
 
-impl<'l> Display for HostEndpoint<'l> {
+impl Display for HostEndpoint<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "host_uri: {},  port: {}", self.host_uri, self.port)
     }

@@ -1,0 +1,39 @@
+[package]
+name = "ims_data_service"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+
+[dependencies]
+# Internal crates
+common_config = { workspace = true }
+common_data_bar = { workspace = true }
+common_errors = { workspace = true }
+common_exchange = { workspace = true }
+common_ims = {workspace = true}
+common_service = { workspace = true }
+config_manager = { workspace = true }
+message_consumer = { workspace = true }
+message_producer = { workspace = true }
+message_shared = { workspace = true }
+message_stream = { workspace = true }
+sbe_messages_client = {workspace = true}
+sbe_messages_control = {workspace = true}
+sbe_types = { workspace = true }
+sbe_utils = { workspace = true }
+trait_data_integration = { workspace = true }
+trait_event_processor = { workspace = true }
+
+
+# External crates
+iggy = { workspace = true }
+tokio = { workspace = true }
+futures-util = { workspace = true }
+warp = { workspace = true }

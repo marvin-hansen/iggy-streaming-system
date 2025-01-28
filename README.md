@@ -1,6 +1,6 @@
-# cgp-exploration
+# Iggy Streaming System
 
-Exploration of [Context Generic Programming](https://contextgeneric.dev/blog/early-preview-announcement/) in Rust. 
+
 
 
 ## Build commands

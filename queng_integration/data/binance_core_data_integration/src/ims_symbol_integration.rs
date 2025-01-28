@@ -1,9 +1,8 @@
 use crate::{ImsBinanceDataIntegration, SYMBOL_CACHE_DURATION};
-use common_errors::MessageProcessingError;
 use serde_json::Value;
 use std::collections::HashSet;
 use tokio::time::Instant;
-use trait_data_integration::ImsSymbolIntegration;
+use trait_data_integration::{ImsDataIntegrationError, ImsSymbolIntegration};
 
 impl ImsSymbolIntegration for ImsBinanceDataIntegration {
     /// Retrieves and caches the list of valid trading symbols from Binance.
@@ -18,9 +17,9 @@ impl ImsSymbolIntegration for ImsBinanceDataIntegration {
     ///
     /// # Returns
     /// - `Ok(HashSet<String>)`: Set of valid trading symbols
-    /// - `Err(MessageProcessingError)`: If API call fails or response is invalid
+    /// - `Err(ImsDataIntegrationError)`: If API call fails or response is invalid
     ///
-    async fn get_exchange_symbols(&self) -> Result<HashSet<String>, MessageProcessingError> {
+    async fn get_exchange_symbols(&self) -> Result<HashSet<String>, ImsDataIntegrationError> {
         // Check cache first
         if let Some((symbols, timestamp)) = &*self.symbol_cache.read().await {
             if timestamp.elapsed() < SYMBOL_CACHE_DURATION {
@@ -30,19 +29,24 @@ impl ImsSymbolIntegration for ImsBinanceDataIntegration {
 
         // Cache is stale or doesn't exist, fetch from API
         let url = format!("{}/exchangeInfo", self.api_base_url);
-        let response =
-            self.http_client.get(&url).send().await.map_err(|e| {
-                MessageProcessingError::new(format!("Failed to fetch symbols: {}", e))
-            })?;
+        let response = self.http_client.get(&url).send().await.map_err(|e| {
+            ImsDataIntegrationError::FailedToFetchSymbols(format!("Failed to fetch symbols: {}", e))
+        })?;
 
-        let data: Value = response
-            .json()
-            .await
-            .map_err(|e| MessageProcessingError::new(format!("Failed to parse response: {}", e)))?;
+        let data: Value = response.json().await.map_err(|e| {
+            ImsDataIntegrationError::FailedToDeserializeJsonSymbols(format!(
+                "Failed to parse response: {}",
+                e
+            ))
+        })?;
 
         let symbols = data["symbols"]
             .as_array()
-            .ok_or_else(|| MessageProcessingError::new("Invalid response format".to_string()))?
+            .ok_or_else(|| {
+                ImsDataIntegrationError::FailedToExtractSymbolsFromResponse(
+                    "Invalid response format".to_string(),
+                )
+            })?
             .iter()
             .filter_map(|s| s["symbol"].as_str().map(String::from))
             .collect::<HashSet<_>>();
@@ -65,9 +69,9 @@ impl ImsSymbolIntegration for ImsBinanceDataIntegration {
     ///
     /// # Returns
     /// - `Ok(true)`: If all symbols are valid
-    /// - `Err(MessageProcessingError)`: If any symbols are invalid, with error message listing invalid symbols
+    /// - `Err(ImsDataIntegrationError)`: If any symbols are invalid, with error message listing invalid symbols
     ///
-    async fn validate_symbols(&self, symbols: &[String]) -> Result<bool, MessageProcessingError> {
+    async fn validate_symbols(&self, symbols: &[String]) -> Result<bool, ImsDataIntegrationError> {
         let valid_symbols = self.get_exchange_symbols().await?;
 
         let invalid_symbols: Vec<_> = symbols
@@ -76,7 +80,7 @@ impl ImsSymbolIntegration for ImsBinanceDataIntegration {
             .collect();
 
         if !invalid_symbols.is_empty() {
-            return Err(MessageProcessingError::new(format!(
+            return Err(ImsDataIntegrationError::FailedToValidateSymbols(format!(
                 "The following symbols are not traded on Binance: {:?}",
                 invalid_symbols
             )));

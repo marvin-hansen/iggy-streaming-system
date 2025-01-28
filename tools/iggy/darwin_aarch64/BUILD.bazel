@@ -1,0 +1,9 @@
+# Make all files public by default
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "iggy_server",
+    srcs = glob([
+        "iggy-server",
+    ]),
+)

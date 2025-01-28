@@ -3,16 +3,18 @@ load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
 rust_library(
     name = "common_message",
     srcs = glob([
-        "src/**",
+        "src/*.rs",
     ]),
     crate_root = "src/lib.rs",
     tags = [
         "common",
-        "common_message",
+        "common_env",
     ],
     visibility = ["//visibility:public"],
     deps = [
         # Internal crates
+        "//alias:common_config",
+        # External crates
     ],
 )
 

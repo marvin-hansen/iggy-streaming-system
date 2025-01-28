@@ -6,6 +6,8 @@ rust-version.workspace = true
 readme.workspace = true
 repository.workspace = true
 authors.workspace = true
-license.workspace = true
 
+[lints]
+workspace = true
 [dependencies]
+common_config = { workspace = true }

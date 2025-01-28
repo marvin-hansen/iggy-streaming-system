@@ -1,3 +1,5 @@
+load("@rules_multirun//:defs.bzl", "command", "multirun")
+
 ###############################################################################
 # RUST RELEASE MODE OPTIMIZATION
 ###############################################################################
@@ -6,4 +8,53 @@ config_setting(
     values = {
         "compilation_mode": "opt",
     },
+)
+
+###############################################################################
+# PUSH CONTAINERS
+###############################################################################
+multirun(
+    name = "push",
+    commands = [
+        # IMS Data integrations
+        "binance_coin_future_push",
+        "binance_coin_future_testnet_push",
+        "binance_spot_push",
+        "binance_spot_testnet_push",
+        "binance_usd_future_push",
+        "binance_usd_future_testnet_push",
+    ],
+    jobs = 0,  # Set to 0 to run in parallel
+    visibility = ["//visibility:public"],
+)
+
+# IMS Data integrations
+command(
+    name = "binance_coin_future_push",
+    command = "//alias/service:binance_coin_future_push",
+)
+
+command(
+    name = "binance_coin_future_testnet_push",
+    command = "//alias/service:binance_coin_future_testnet_push",
+)
+
+command(
+    name = "binance_spot_push",
+    command = "//alias/service:binance_spot_push",
+)
+
+command(
+    name = "binance_spot_testnet_push",
+    command = "//alias/service:binance_spot_testnet_push",
+)
+
+command(
+    name = "binance_usd_future_push",
+    command = "//alias/service:binance_usd_future_push",
+)
+
+command(
+    name = "binance_usd_future_testnet_push",
+    command = "//alias/service:binance_usd_future_testnet_push",
 )

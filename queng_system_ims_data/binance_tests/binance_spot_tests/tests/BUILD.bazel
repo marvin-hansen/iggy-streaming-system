@@ -1,0 +1,58 @@
+load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "tests",
+    srcs = glob([
+        "*_tests.rs",
+    ]),
+    data = [
+        # copy Binary to test
+        ":copy_ims_data_binance_spot",
+        # copy iggy server
+        ":copy_iggy_server_darwin_aarch64",
+        ":copy_iggy_server_linux_x86_64",
+    ],
+    tags = [
+        # The first tag is for local testing, which must be in sequential order b/c there is just one DB
+        # Run with bazel test //... --test_tag_filters=binance_spot_acceptance_test --test_env=ENV=LOCAL
+        "binance_spot_acceptance_test",
+        # The second tag is for acceptance testing on the CI, which runs in parallel.
+        "ims-acceptance_test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate under test
+        "//alias/service:binance_spot",
+        # Internal crates
+        "//alias:common_exchange",
+        "//alias:config_manager",
+        "//alias:iggy_test_utils",
+        # External crates
+        "//thirdparty/crates:service_utils",
+        "//thirdparty/crates:tokio",
+    ],
+)
+
+# Copy binary to test
+copy_file(
+    name = "copy_ims_data_binance_spot",
+    src = "//alias/service:binance_spot",
+    out = "ims_data_service",
+    is_executable = True,
+)
+
+# Copy iggy server required for test
+copy_file(
+    name = "copy_iggy_server_darwin_aarch64",
+    src = "//alias/tool:iggy_server_darwin_aarch64",
+    out = "iggy_server_darwin_aarch64",
+    is_executable = True,
+)
+
+copy_file(
+    name = "copy_iggy_server_linux_x86_64",
+    src = "//alias/tool:iggy_server_linux_x86_64",
+    out = "iggy_server_linux_x86_64",
+    is_executable = True,
+)

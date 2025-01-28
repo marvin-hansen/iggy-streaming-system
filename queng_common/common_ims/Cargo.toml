@@ -10,3 +10,7 @@ authors.workspace = true
 [lints]
 workspace = true
 [dependencies]
+# Intertnal crates
+common_exchange = { workspace = true }
+# External crates
+iggy = { workspace = true }

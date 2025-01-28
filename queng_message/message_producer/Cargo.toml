@@ -1,0 +1,21 @@
+[package]
+name = "message_producer"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+
+[dependencies]
+# Internal crates
+message_shared = {workspace = true}
+trait_event_processor = { workspace = true }
+
+# External crates
+bytes = { workspace = true }
+iggy = {workspace = true}
+
+[lints]
+workspace = true

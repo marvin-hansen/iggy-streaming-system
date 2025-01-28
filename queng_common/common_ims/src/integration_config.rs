@@ -1,5 +1,6 @@
 use crate::integration_message_config::IntegrationMessageConfig;
 use crate::ImsIntegrationType;
+pub use common_exchange::ExchangeID;
 use std::fmt::Display;
 
 #[derive(Debug, Clone, Eq, PartialEq)]
@@ -8,6 +9,7 @@ pub struct IntegrationConfig {
     integration_version: u16,
     ims_integration_type: ImsIntegrationType,
     online: bool,
+    exchange_id: ExchangeID,
     integration_message_config: IntegrationMessageConfig,
 }
 
@@ -20,6 +22,7 @@ impl IntegrationConfig {
     /// * `integration_version`: The version of this integration.
     /// * `ims_integration_type`: The type of integration this is.
     /// * `online`: Whether this integration is currently online.
+    /// * `exchange_id`: The exchange with which this integration is associated.
     /// * `integration_message_config`: The configuration for the messages sent by this integration.
     ///
     /// # Returns
@@ -30,6 +33,7 @@ impl IntegrationConfig {
         integration_id: String,
         integration_version: u16,
         ims_integration_type: ImsIntegrationType,
+        exchange_id: ExchangeID,
         integration_message_config: IntegrationMessageConfig,
     ) -> Self {
         Self {
@@ -37,6 +41,7 @@ impl IntegrationConfig {
             integration_version,
             ims_integration_type,
             online: false,
+            exchange_id,
             integration_message_config,
         }
     }
@@ -61,6 +66,7 @@ impl IntegrationConfig {
         integration_version: u16,
         ims_integration_type: ImsIntegrationType,
         online: bool,
+        exchange_id: ExchangeID,
         integration_message_config: IntegrationMessageConfig,
     ) -> Self {
         Self {
@@ -68,6 +74,7 @@ impl IntegrationConfig {
             integration_version,
             ims_integration_type,
             online,
+            exchange_id,
             integration_message_config,
         }
     }
@@ -122,6 +129,12 @@ impl IntegrationConfig {
     #[must_use]
     pub const fn online(&self) -> bool {
         self.online
+    }
+
+    /// Returns the `ExchangeID` associated with this configuration.
+    #[must_use]
+    pub const fn exchange_id(&self) -> ExchangeID {
+        self.exchange_id
     }
 
     /// Returns a reference to the `IntegrationMessageConfig` associated with this configuration.

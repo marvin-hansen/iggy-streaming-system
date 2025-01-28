@@ -1,0 +1,34 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library", "rust_test_suite")
+
+rust_library(
+    name = "iggy_test_utils",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    tags = [
+        "iggy_test_utils",
+        "test_utils",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+        "//alias:common_env",
+        # External crates
+        "//thirdparty/crates:service_utils",
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":iggy_test_utils",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":iggy_test_utils",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

@@ -23,6 +23,7 @@ rust_library(
         "//alias:binance_core_data_integration",
         "//alias:sbe_types",
         "//alias:trait_data_integration",
+        "//alias:trait_event_processor",
         # External crates
         "//thirdparty/crates:rustls",
         "//thirdparty/crates:tokio",

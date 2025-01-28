@@ -17,6 +17,11 @@ alias(
 )
 
 alias(
+    name = "common_env",
+    actual = "//queng_common/common_env",
+)
+
+alias(
     name = "common_errors",
     actual = "//queng_common/common_errors",
 )
@@ -24,11 +29,6 @@ alias(
 alias(
     name = "common_exchange",
     actual = "//queng_common/common_exchange",
-)
-
-alias(
-    name = "common_iggy",
-    actual = "//queng_common/common_iggy",
 )
 
 alias(
@@ -45,6 +45,21 @@ alias(
     name = "common_service",
     actual = "//queng_common/common_service",
 )
+
+###############################################################################
+# Components
+###############################################################################
+
+alias(
+    name = "config_manager",
+    actual = "//queng_components/config_manager",
+)
+
+alias(
+    name = "environment_manager",
+    actual = "//queng_components/environment_manager",
+)
+
 
 ###############################################################################
 # Extensions
@@ -105,6 +120,30 @@ alias(
 )
 
 ###############################################################################
+# Message
+###############################################################################
+
+alias(
+    name = "message_consumer",
+    actual = "//queng_message/message_consumer",
+)
+
+alias(
+    name = "message_producer",
+    actual = "//queng_message/message_producer",
+)
+
+alias(
+    name = "message_shared",
+    actual = "//queng_message/message_shared",
+)
+
+alias(
+    name = "message_stream",
+    actual = "//queng_message/message_stream",
+)
+
+###############################################################################
 # SBE
 ###############################################################################
 
@@ -139,19 +178,30 @@ alias(
 )
 
 ###############################################################################
-# Templates
-###############################################################################
-
-alias(
-    name = "ims_data_bin",
-    actual = "//queng_template/ims_data_bin",
-)
-
-###############################################################################
 # Traits
 ###############################################################################
 
 alias(
     name = "trait_data_integration",
-    actual = "//queng_integration/traits/trait_data_integration",
+    actual = "//queng_traits/trait_data_integration",
+)
+
+alias(
+    name = "trait_event_consumer",
+    actual = "//queng_traits/trait_event_consumer",
+)
+
+alias(
+    name = "trait_event_processor",
+    actual = "//queng_traits/trait_event_processor",
+)
+
+
+###############################################################################
+# Utils Tests
+###############################################################################
+
+alias(
+    name = "iggy_test_utils",
+    actual = "//queng_utils_test/iggy_test_utils",
 )

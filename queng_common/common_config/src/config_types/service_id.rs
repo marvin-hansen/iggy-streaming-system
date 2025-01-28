@@ -21,39 +21,41 @@ pub enum ServiceID {
     QDGW = 0x4_u8,
     MDDB = 0x5_u8,
     VEX = 0x6_u8,
-    ImsDataBinance = 0x7_u8,
-    KaikoProxy = 0x8_u8,
+    ImsData = 0x7_u8,
+    ImsExec = 0x8_u8,
     IMDB = 0x9_u8,
+    KaikoProxy = 10_u8,
 }
 
 impl ServiceID {
-    #[must_use]
+    #[inline]
     pub const fn as_u8(&self) -> u8 {
         *self as u8
     }
 
-    #[must_use]
+    #[inline]
     pub const fn as_u16(&self) -> u16 {
         *self as u16
     }
 
-    #[must_use]
+    #[inline]
     pub const fn as_i32(&self) -> i32 {
         *self as i32
     }
 
-    #[must_use]
+    #[inline]
     pub const fn as_u32(&self) -> u32 {
         *self as u32
     }
 
-    #[must_use]
+    #[inline]
     pub fn name(&self) -> String {
         self.to_string()
     }
 }
 
 impl From<i16> for ServiceID {
+    #[inline]
     fn from(value: i16) -> Self {
         match value {
             0x0_i16 => Self::Default,
@@ -63,9 +65,10 @@ impl From<i16> for ServiceID {
             0x4_i16 => Self::QDGW,
             0x5_i16 => Self::MDDB,
             0x6_i16 => Self::VEX,
-            0x7_i16 => Self::ImsDataBinance,
-            0x8_i16 => Self::KaikoProxy,
+            0x7_i16 => Self::ImsData,
+            0x8_i16 => Self::ImsExec,
             0x9_i16 => Self::IMDB,
+            10_i16 => Self::KaikoProxy,
             _ => Self::Default,
         }
     }
@@ -82,9 +85,10 @@ impl From<i32> for ServiceID {
             0x4_i32 => Self::QDGW,
             0x5_i32 => Self::MDDB,
             0x6_i32 => Self::VEX,
-            0x7_i32 => Self::ImsDataBinance,
-            0x8_i32 => Self::KaikoProxy,
+            0x7_i32 => Self::ImsData,
+            0x8_i32 => Self::ImsExec,
             0x9_i32 => Self::IMDB,
+            10_i32 => Self::KaikoProxy,
             _ => Self::Default,
         }
     }
@@ -101,16 +105,17 @@ impl From<u8> for ServiceID {
             4 => Self::QDGW,
             5 => Self::MDDB,
             6 => Self::VEX,
-            7 => Self::ImsDataBinance,
-            8 => Self::KaikoProxy,
+            7 => Self::ImsData,
+            8 => Self::ImsExec,
             9 => Self::IMDB,
+            10 => Self::KaikoProxy,
             _ => Self::Default,
         }
     }
 }
 
 impl ServiceID {
-    #[must_use]
+    #[inline]
     pub fn from_string(n: &str) -> Option<Self> {
         match n {
             "Default" => Some(Self::Default),
@@ -120,7 +125,8 @@ impl ServiceID {
             "QDGW" => Some(Self::QDGW),
             "MDDB" => Some(Self::MDDB),
             "VEX" => Some(Self::VEX),
-            "ImsDataBinance" => Some(Self::ImsDataBinance),
+            "ImsData" => Some(Self::ImsData),
+            "ImsExec" => Some(Self::ImsExec),
             "KaikoProxy" => Some(Self::KaikoProxy),
             "KAIKO_PROXY" => Some(Self::KaikoProxy),
             "IMDB" => Some(Self::IMDB),

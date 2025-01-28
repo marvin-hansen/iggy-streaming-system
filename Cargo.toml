@@ -2,14 +2,17 @@
 resolver = "2"
 
 members = [
-    "queng_bin/data/*",
     "queng_common/*",
+    "queng_components/*",
     "queng_extensions/*",
     "queng_integration/data/*",
-    "queng_integration/traits/*",
     "queng_macros/*",
+    "queng_message/*",
+    "queng_system_ims_data/*/*",
     "queng_sbe/*",
     "queng_template/*",
+    "queng_traits/*",
+    "queng_utils_test/*"
 ]
 exclude = [
     "queng_sbe/sbe_schema",
@@ -53,18 +56,19 @@ codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimizati
 # Internal Aliases
 # ==============
 
-# binary templates
-ims_data_bin = { path = "queng_template/ims_data_bin" }
-
 # Common
 common_config = { path = "queng_common/common_config" }
 common_data_bar = { path = "queng_common/common_data_bar" }
+common_env = { path = "queng_common/common_env" }
 common_errors = { path = "queng_common/common_errors" }
 common_exchange = { path = "queng_common/common_exchange" }
-common_iggy = { path = "queng_common/common_iggy" }
 common_ims = { path = "queng_common/common_ims" }
 common_message = { path = "queng_common/common_message" }
 common_service = { path = "queng_common/common_service" }
+
+# Components
+config_manager = { path = "queng_components/config_manager" }
+environment_manager = { path = "queng_components/environment_manager" }
 
 # Extensions
 common_data_bar_ext = { path = "queng_extensions/common_data_bar_ext" }
@@ -83,6 +87,14 @@ binance_usd_futures_testnet_data_integration = { path = "queng_integration/data/
 # Macros
 data_integration_macro = { path = "queng_macros/data_integration_macro" }
 
+
+# Mesasge bus
+message_consumer = { path = "queng_message/message_consumer" }
+message_producer = { path = "queng_message/message_producer" }
+message_shared = { path = "queng_message/message_shared" }
+message_stream = { path = "queng_message/message_stream" }
+
+
 # SBE
 sbe_bindings = { path = "queng_sbe/sbe_bindings" }
 sbe_messages_client = { path = "queng_sbe/sbe_messages_client" }
@@ -91,22 +103,28 @@ sbe_messages_data = { path = "queng_sbe/sbe_messages_data" }
 sbe_types = { path = "queng_sbe/sbe_types" }
 sbe_utils = { path = "queng_sbe/sbe_utils" }
 
+# Template
+ims_data_service = { path = "queng_template/ims_data_service" }
+
 # Traits
-trait_data_integration = { path = "queng_integration/traits/trait_data_integration" }
+trait_data_integration = { path = "queng_traits/trait_data_integration" }
+trait_event_consumer = { path = "queng_traits/trait_event_consumer" }
+trait_event_processor = { path = "queng_traits/trait_event_processor" }
+
+# Test utils
+iggy_test_utils = { path = "queng_utils_test/iggy_test_utils" }
 
 # ==============
 # External crates
 # ==============
 # Proc Macro Dependencies
-async-trait = { version = "0.1" }
-enum_dispatch = { version = "0.3" }
 trait-variant = { version = "0.1" }
 quote = "1.0"
 syn = { version = "2.0", features = ["full", "extra-traits"] }
 # Dependencies for integration tests
-docker_utils = { version = "0.2" }
 service_utils = { version = "0.2" }
 # Regular dependencies
+bytes = { version = "1.8" }
 chrono = { version = "0.4.38", features = ["serde"] }
 rust_decimal = { version = "1.36" }
 futures = { version = "0.3.31" }

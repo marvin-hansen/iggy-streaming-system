@@ -1,0 +1,31 @@
+load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library", "rust_test_suite")
+
+rust_library(
+    name = "config_manager",
+    srcs = glob([
+        "src/**",
+    ]),
+    crate_root = "src/lib.rs",
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal crates
+        "//alias:common_config",
+        "//alias:common_env",
+        "//alias:common_exchange",
+        "//alias:environment_manager",
+    ],
+)
+
+rust_doc(
+    name = "doc",
+    crate = ":config_manager",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":config_manager",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)

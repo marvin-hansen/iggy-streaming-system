@@ -1,11 +1,11 @@
 use binance_core_data_integration::*;
 use common_data_bar::TimeResolution;
-use common_errors::MessageProcessingError;
 use data_integration_macro::ImsDataIntegrationImpl;
 use std::collections::HashSet;
 use std::future::Future;
 use std::sync::Arc;
 use trait_data_integration::*;
+use trait_event_processor::*;
 
 // All integration traits implementations are generated using the `ImsDataIntegrationImpl` macro
 #[derive(Default, ImsDataIntegrationImpl)]

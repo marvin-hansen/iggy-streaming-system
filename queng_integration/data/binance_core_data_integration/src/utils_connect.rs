@@ -1,5 +1,5 @@
-use common_errors::MessageProcessingError;
 use tokio_tungstenite::{connect_async, WebSocketStream};
+use trait_data_integration::ImsDataIntegrationError;
 
 /// Connects to the Binance WebSocket server with the specified stream name.
 ///
@@ -17,11 +17,14 @@ pub(crate) async fn connect_websocket_static(
     url: String,
 ) -> Result<
     WebSocketStream<tokio_tungstenite::MaybeTlsStream<tokio::net::TcpStream>>,
-    MessageProcessingError,
+    ImsDataIntegrationError,
 > {
     let url = format!("{}/{}", url, stream_name);
-    let (ws_stream, _) = connect_async(&url)
-        .await
-        .map_err(|e| MessageProcessingError::new(format!("WebSocket connection error: {}", e)))?;
+    let (ws_stream, _) = connect_async(&url).await.map_err(|e| {
+        ImsDataIntegrationError::FailedToConnectToWebSocket(format!(
+            "WebSocket connection error: {}",
+            e
+        ))
+    })?;
     Ok(ws_stream)
 }

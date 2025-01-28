@@ -2,13 +2,15 @@ use crate::{utils, MAX_RECONNECT_ATTEMPTS, RECONNECT_DELAY, RECONNECT_INTERVAL};
 use crate::{utils_connect, ImsBinanceDataIntegration};
 use common_data_bar::{OHLCVBar, TimeResolution};
 use common_data_bar_ext::SbeOHLCVBarExtension;
-use common_errors::MessageProcessingError;
 use futures_util::StreamExt;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::{sleep, Instant};
 use tokio_tungstenite::tungstenite::Message;
-use trait_data_integration::{EventProcessor, ImsOhlcvDataIntegration, ImsSymbolIntegration};
+use trait_data_integration::{
+    ImsDataIntegrationError, ImsOhlcvDataIntegration, ImsSymbolIntegration,
+};
+use trait_event_processor::EventProcessor;
 
 impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
     /// Starts real-time OHLCV (candlestick) data streams for the specified symbols.
@@ -31,7 +33,7 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
     ///
     /// # Returns
     /// - `Ok(())`: If all streams are started successfully
-    /// - `Err(MessageProcessingError)`: If symbol validation fails or connection errors occur
+    /// - `Err(ImsDataIntegrationError)`: If symbol validation fails or connection errors occur
     ///
     /// # Connection Management
     /// - Automatic reconnection every 12 hours
@@ -43,8 +45,8 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
         &self,
         symbols: &[String],
         time_resolution: TimeResolution,
-        processor: Arc<P>,
-    ) -> Result<(), MessageProcessingError>
+        processor: &Arc<P>,
+    ) -> Result<(), ImsDataIntegrationError>
     where
         P: EventProcessor + Send + Sync + 'static,
     {
@@ -65,7 +67,7 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
             let stream_name = format!("{}@kline_{}", symbol, time_resolution);
             let ws_stream =
                 utils_connect::connect_websocket_static(&stream_name, api_url.clone()).await?;
-            let processor = Arc::clone(&processor);
+            let processor = Arc::clone(processor);
 
             let symbol_clone = symbol.clone();
             let stream_name = format!("{}@kline_{}", symbol_clone, time_resolution);
@@ -93,8 +95,11 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
                                     if let Some(bar) = bar {
                                         let (_, data) = OHLCVBar::encode_to_sbe(bar)
                                             .expect("Failed to encode OHLCV data");
-                                        if let Err(e) = processor.process(&[data]).await {
-                                            eprintln!("Error processing OHLCV data: {}", e);
+                                        if let Err(e) = processor.process_one_event(data).await {
+                                            eprintln!(
+                                                "Error processing OHLCV data: {}",
+                                                e.to_string()
+                                            );
                                             return;
                                         }
                                     }
@@ -173,14 +178,14 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
     ///
     /// # Returns
     /// - `Ok(())`: If all specified streams are stopped successfully
-    /// - `Err(MessageProcessingError)`: If any symbols are not found in active streams
+    /// - `Err(ImsDataIntegrationError)`: If any symbols are not found in active streams
     ///
     /// # Resource Management
     /// - Aborts WebSocket connection tasks
     /// - Cleans up handler storage
     /// - Updates active symbols tracking
     ///
-    async fn stop_ohlcv_data(&self, symbols: &[String]) -> Result<(), MessageProcessingError> {
+    async fn stop_ohlcv_data(&self, symbols: &[String]) -> Result<(), ImsDataIntegrationError> {
         // If no symbols provided, do nothing
         if symbols.is_empty() {
             return Ok(());
@@ -213,7 +218,7 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
 
         // If any symbols were not found in ohlcv_handlers, return an error
         if !not_found_symbols.is_empty() {
-            return Err(MessageProcessingError::new(format!(
+            return Err(ImsDataIntegrationError::SymbolNotFoundError(format!(
                 "The following symbols were not active OHLCV streams: {:?}",
                 not_found_symbols
             )));
@@ -235,20 +240,23 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
     ///
     /// # Returns
     /// - `Ok(())`: If all streams are stopped successfully
-    /// - `Err(MessageProcessingError)`: If cleanup fails
+    /// - `Err(ImsDataIntegrationError)`: If cleanup fails
     ///
     /// # Resource Management
     /// - Aborts all WebSocket connection tasks
     /// - Clears handler storage
     /// - Clears active symbols tracking
     ///
-    async fn stop_all_ohlcv_data(&self) -> Result<(), MessageProcessingError> {
+    async fn stop_all_ohlcv_data(&self) -> Result<(), ImsDataIntegrationError> {
         let mut handlers = self.ohlcv_handlers.write().await;
         for (_, handle) in handlers.drain() {
             handle.abort();
-            // Clear active OHLCV symbols list when stopping all streams
-            self.symbols_active_ohlcv.write().await.clear();
         }
+
+        // Clear handler storage
+        self.ohlcv_handlers.write().await.clear();
+        // Clear active OHLCV symbols
+        self.symbols_active_ohlcv.write().await.clear();
         Ok(())
     }
 }

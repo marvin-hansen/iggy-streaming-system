@@ -1,0 +1,75 @@
+# Make all aliases public by default
+package(default_visibility = ["//visibility:public"])
+
+###############################################################################
+# Service Templates
+###############################################################################
+
+alias(
+    name = "ims_data_service",
+    actual = "//queng_template/ims_data_service",
+)
+
+###############################################################################
+# IMS Data Services
+###############################################################################
+
+alias(
+    name = "binance_coin_future",
+    actual = "//queng_system_ims_data/binance/binance_coin_future",
+)
+
+alias(
+    name = "binance_coin_future_push",
+    actual = "//queng_system_ims_data/binance/binance_coin_future:push",
+)
+
+alias(
+    name = "binance_coin_future_testnet",
+    actual = "//queng_system_ims_data/binance/binance_coin_future_testnet",
+)
+
+alias(
+    name = "binance_coin_future_testnet_push",
+    actual = "//queng_system_ims_data/binance/binance_coin_future_testnet:push",
+)
+
+alias(
+    name = "binance_spot",
+    actual = "//queng_system_ims_data/binance/binance_spot",
+)
+
+alias(
+    name = "binance_spot_push",
+    actual = "//queng_system_ims_data/binance/binance_spot:push",
+)
+
+alias(
+    name = "binance_spot_testnet",
+    actual = "//queng_system_ims_data/binance/binance_spot_testnet",
+)
+
+alias(
+    name = "binance_spot_testnet_push",
+    actual = "//queng_system_ims_data/binance/binance_spot_testnet:push",
+)
+
+alias(
+    name = "binance_usd_future",
+    actual = "//queng_system_ims_data/binance/binance_usd_future",
+)
+
+alias(
+    name = "binance_usd_future_push",
+    actual = "//queng_system_ims_data/binance/binance_usd_future:push",
+)
+
+alias(
+    name = "binance_usd_future_testnet",
+    actual = "//queng_system_ims_data/binance/binance_usd_future_testnet",
+)
+
+alias(
+    name = "binance_usd_future_testnet_push",
+    actual = "//queng_system_ims_data/binance/binance_usd_future_testnet:push",
+)

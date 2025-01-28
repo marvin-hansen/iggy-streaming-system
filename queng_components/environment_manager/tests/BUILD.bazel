@@ -1,0 +1,74 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+# Each test suit is a seperated task so that each test runs
+# in a dedicated runner. This isolates the environment and with it the env. variables.
+# If all tests were executed in one runner, then each test would override the env variables used by the other tests
+# which results in non-deterministic & flaky test execution.
+
+rust_test_suite(
+    name = "tests_ci_env",
+    srcs = [
+        "env_ci_tests.rs",
+    ],
+    tags = [
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:environment_manager",
+        # Internal crates
+        "//alias:common_env",
+    ],
+)
+
+rust_test_suite(
+    name = "tests_cluster_env",
+    srcs = [
+        "env_cluster_tests.rs",
+    ],
+    tags = [
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:environment_manager",
+        # Internal crates
+        "//alias:common_env",
+    ],
+)
+
+rust_test_suite(
+    name = "tests_local_env",
+    srcs = [
+        "env_local_tests.rs",
+    ],
+    tags = [
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:environment_manager",
+        # Internal crates
+        "//alias:common_env",
+    ],
+)
+
+rust_test_suite(
+    name = "tests_unknown_env",
+    srcs = [
+        "env_unknown_tests.rs",
+    ],
+    tags = [
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:environment_manager",
+        # Internal crates
+        "//alias:common_env",
+    ],
+)

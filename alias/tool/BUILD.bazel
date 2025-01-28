@@ -1,0 +1,16 @@
+# Make all aliases public by default
+package(default_visibility = ["//visibility:public"])
+
+###############################################################################
+# Iggy
+###############################################################################
+
+alias(
+    name = "iggy_server_darwin_aarch64",
+    actual = "//tools/iggy/darwin_aarch64:iggy_server",
+)
+
+alias(
+    name = "iggy_server_linux_x86_64",
+    actual = "//tools/iggy/linux_x86_64:iggy_server",
+)

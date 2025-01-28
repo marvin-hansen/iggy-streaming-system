@@ -1,0 +1,74 @@
+load("@rules_oci//oci:defs.bzl", "oci_push")
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_doc", "rust_doc_test")
+load("//:build/binary.bzl", "build_binary_opt")
+load("//:build/container.bzl", "build_multi_arch_image", "git_with_timestamp_tag")
+
+###############################################################################
+# Rust Binary
+###############################################################################
+build_binary_opt(
+    name = "binance_usd_future",
+    srcs = glob([
+        "src/*.rs",
+    ]),
+    deps = [
+        # Custom Memory Allocator
+        "//thirdparty/crates:mimalloc",
+        # Internal crates
+        "//alias:binance_usd_futures_data_integration",
+        "//alias:common_exchange",
+        "//alias/service:ims_data_service",
+        # External crates
+        "//thirdparty/crates:rustls",
+        "//thirdparty/crates:tokio",
+    ],
+)
+
+###############################################################################
+# Documentation
+###############################################################################
+rust_doc(
+    name = "doc",
+    crate = ":binance_usd_future",
+    tags = ["doc"],
+    visibility = ["//visibility:public"],
+)
+
+rust_doc_test(
+    name = "doc_test",
+    crate = ":binance_usd_future",
+    tags = ["doc-test"],
+    visibility = ["//visibility:public"],
+)
+
+###############################################################################
+# OCI Container Image
+###############################################################################
+build_multi_arch_image(
+    name = "image_index",
+    srcs = ["binance_usd_future"],
+    base = "//images/base_image",
+    entry_point = "binance_usd_future",
+    exposed_ports = [
+        "7070",
+        "8080",
+    ],
+    platforms = [
+        "//build/platforms:linux-x86_64",
+        "//build/platforms:linux-aarch64",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+git_with_timestamp_tag(
+    name = "remote_tag",
+    target = ":image_index",
+)
+
+oci_push(
+    name = "push",
+    image = ":image_index",
+    remote_tags = ":remote_tag",
+    repository = "my-registry.pkg.dev/my-project/my-repo/binance_usd_future",
+    visibility = ["//visibility:public"],
+)
