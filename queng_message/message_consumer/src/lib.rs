@@ -9,7 +9,9 @@ use message_shared::Args;
 use std::str::FromStr;
 
 mod event_consumer;
+mod event_error_handler;
 mod getters;
+mod shutdown;
 
 pub struct MessageConsumer {
     dbg: bool,

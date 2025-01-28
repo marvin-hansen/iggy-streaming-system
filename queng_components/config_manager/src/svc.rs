@@ -17,7 +17,7 @@ impl ConfigManager {
     }
 
     pub fn get_data_svc_port(&self, exchange_id: ExchangeID) -> Result<u16, ConfigError> {
-        self.get_port(&exchange_id)
+        self.get_ims_port(&exchange_id)
     }
 
     pub fn get_data_svc_socket_addr(&self, exchange_id: ExchangeID) -> Result<String, ConfigError> {
@@ -26,7 +26,7 @@ impl ConfigManager {
 
         // Adjust the port relative to the environment.
         let port = self
-            .get_port(&exchange_id)
+            .get_ims_port(&exchange_id)
             .expect("Failed to get port from config");
 
         // Merge the host and port into a socket address i.e. 0.0.0.0:7070
@@ -38,7 +38,7 @@ impl ConfigManager {
     // Adjust the port relative to the environment.
     // For local and CI environments, the port is shifted by the exchange id
     // to prevent ports from clashing.
-    fn get_port(&self, exchange_id: &ExchangeID) -> Result<u16, ConfigError> {
+    fn get_ims_port(&self, exchange_id: &ExchangeID) -> Result<u16, ConfigError> {
         match self.env_type {
             EnvironmentType::LOCAL => Ok(DEFAULT_PORT + exchange_id.as_u16()),
             EnvironmentType::CLUSTER => Ok(DEFAULT_PORT),

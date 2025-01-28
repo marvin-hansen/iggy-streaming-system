@@ -1,7 +1,7 @@
-use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
 use common_exchange::ExchangeID;
 use config_manager::ConfigManager;
 use iggy_test_utils::{iggy_start_config_builder, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64};
+use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
 
 const ROOT_PATH: &str = "queng_system_ims_data/binance_tests/binance_spot_testnet_tests/tests";
 
@@ -10,8 +10,6 @@ const PROGRAM: &str = "ims_data_service";
 const BINARIES: [&str; 3] = [PROGRAM, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64];
 
 const EXCHANGE_ID: ExchangeID = ExchangeID::BinanceSpotTestnet;
-
-
 
 fn get_service_start_config(health_url: String) -> ServiceStartConfig {
     ServiceStartConfig::builder()

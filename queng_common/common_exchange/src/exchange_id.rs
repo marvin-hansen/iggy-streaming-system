@@ -17,8 +17,16 @@ pub enum ExchangeID {
 }
 
 impl ExchangeID {
+    pub fn as_u8(&self) -> u8 {
+        *self as u8
+    }
+
     pub fn as_u16(&self) -> u16 {
         *self as u16
+    }
+
+    pub fn as_u32(&self) -> u32 {
+        *self as u32
     }
 }
 

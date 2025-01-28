@@ -1,7 +1,7 @@
-use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
 use common_exchange::ExchangeID;
 use config_manager::ConfigManager;
 use iggy_test_utils::{iggy_start_config_builder, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64};
+use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
 
 const ROOT_PATH: &str = "queng_system_ims_data/binance_tests/binance_usd_future_tests/tests";
 
@@ -11,14 +11,12 @@ const BINARIES: [&str; 3] = [PROGRAM, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64];
 
 const EXCHANGE_ID: ExchangeID = ExchangeID::BinanceUsdMarginFuture;
 
-
 fn get_service_start_config(health_url: String) -> ServiceStartConfig {
     ServiceStartConfig::builder()
         .program(PROGRAM)
         .wait_strategy(WaitStrategy::WaitForHttpHealthCheck(health_url, 5))
         .build()
 }
-
 
 #[tokio::test]
 async fn test_binance_spot() {

@@ -94,7 +94,9 @@ where
     let routes = health_check;
 
     dbg_print("Configure http service");
-    let port_http = cfg_manager.get_data_svc_port(exchange_id).expect("Failed to get port");
+    let port_http = cfg_manager
+        .get_data_svc_port(exchange_id)
+        .expect("Failed to get port");
     let http_signal = shutdown_utils::signal_handler("http server");
     let (_, http_server) =
         warp::serve(routes).bind_with_graceful_shutdown(([0, 0, 0, 0], port_http), http_signal);
