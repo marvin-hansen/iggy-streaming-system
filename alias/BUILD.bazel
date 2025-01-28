@@ -42,6 +42,11 @@ alias(
 )
 
 alias(
+    name = "common_platform",
+    actual = "//queng_common/common_platform",
+)
+
+alias(
     name = "common_service",
     actual = "//queng_common/common_service",
 )
