@@ -12,6 +12,7 @@ rust_library(
         "//alias:common_config",
         "//alias:common_env",
         "//alias:common_exchange",
+        "//alias:common_platform",
         "//alias:environment_manager",
     ],
 )

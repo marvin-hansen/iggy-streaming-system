@@ -14,7 +14,7 @@ rust_test_suite(
         # Crate under test
         "//alias:iggy_test_utils",
         # Internal crates
-        "//alias:common_env",
+        "//alias:common_platform",
         # External crates
         "//thirdparty/crates:service_utils",
     ],

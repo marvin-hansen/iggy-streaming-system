@@ -2,10 +2,6 @@ use crate::ConfigManager;
 use common_env::EnvironmentType;
 
 impl ConfigManager {
-    pub const fn env_type(&self) -> EnvironmentType {
-        self.env_type
-    }
-
     pub fn env_var(&self) -> (String, String) {
         self.dbg_print("env_var");
         self.dbg_print("EnvironmentType");

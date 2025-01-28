@@ -72,8 +72,20 @@ pub(crate)  fn detect_env_type(dbg: bool) -> EnvironmentType {
     env_type
 }
 
-// Detects the host platform by running the `uname -v` command to determine the architecture and operating system.
-// Returns the detected `PlatformType`.
+/// Detects the platform type based on the value of the "uname -v" command.
+///
+/// # Arguments
+///
+/// * `dbg`: If true, debug messages are printed.
+///
+/// # Returns
+///
+/// The detected `PlatformType`.
+///
+/// # Panics
+///
+/// If the "uname -v" command fails to execute.
+///
 pub(crate)  fn detect_platform_type(dbg: bool) -> PlatformType {
     if dbg {
         println!("[EnvironmentManager]: Debug mode enabled");
@@ -82,7 +94,7 @@ pub(crate)  fn detect_platform_type(dbg: bool) -> PlatformType {
     let output = std::process::Command::new("uname")
         .arg("-v")
         .output()
-        .expect("Failed to execute command");
+        .expect("Failed to execute uname -v command");
 
     let stdout = String::from_utf8_lossy(&output.stdout);
 
@@ -97,7 +109,7 @@ pub(crate)  fn detect_platform_type(dbg: bool) -> PlatformType {
         PlatformType::LinuxX86_64
     } else if stdout.contains("aarch64") && stdout.contains("Linux") {
         PlatformType::LinuxAarch64
-    } else if stdout.contains("arm64") && stdout.contains("Darwin") {
+    } else if stdout.contains("RELEASE_ARM64") && stdout.contains("Darwin") {
         PlatformType::MacOSAarch64
     } else {
         PlatformType::UnknownPlatform

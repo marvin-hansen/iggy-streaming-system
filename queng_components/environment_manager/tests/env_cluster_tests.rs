@@ -7,7 +7,7 @@ fn test_cluster_env_type() {
     // Environment access only happens in single-threaded code.
     unsafe { env::set_var("ENV", "CLUSTER") };
 
-    let config_manager = EnvironmentManager::new();
+    let config_manager = EnvironmentManager::with_debug();
 
     assert_eq!(config_manager.env_type(), EnvironmentType::CLUSTER);
 }

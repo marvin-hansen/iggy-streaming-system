@@ -38,8 +38,11 @@ async fn test_binance_spot() {
     let env = config_manager.env_type();
     dbg!(&format!("✅ Detected Environment: {}", env));
 
+    let platform = config_manager.platform_type();
+    dbg!(&format!("✅ Detected platform: {}", platform));
+
     dbg!("Configure iggy messaging service");
-    let iggy_start_config = iggy_start_config_builder(env);
+    let iggy_start_config = iggy_start_config_builder(platform);
 
     dbg!("Start iggy messaging service");
     let result = svc_util.start_service_from_config(iggy_start_config).await;
