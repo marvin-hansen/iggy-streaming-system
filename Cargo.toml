@@ -79,12 +79,9 @@ binance_spot_data_integration = { path = "queng_integration/data/binance_spot_da
 binance_spot_testnet_data_integration = { path = "queng_integration/data/binance_spot_testnet_data_integration" }
 binance_usd_futures_data_integration = { path = "queng_integration/data/binance_usd_futures_data_integration" }
 binance_usd_futures_testnet_data_integration = { path = "queng_integration/data/binance_usd_futures_testnet_data_integration" }
-# Integration Traits
-trait_data_integration = { path = "queng_integration/traits/trait_data_integration" }
 
 # Macros
 data_integration_macro = { path = "queng_macros/data_integration_macro" }
-
 
 # SBE
 sbe_bindings = { path = "queng_sbe/sbe_bindings" }
@@ -94,14 +91,21 @@ sbe_messages_data = { path = "queng_sbe/sbe_messages_data" }
 sbe_types = { path = "queng_sbe/sbe_types" }
 sbe_utils = { path = "queng_sbe/sbe_utils" }
 
+# Traits
+trait_data_integration = { path = "queng_integration/traits/trait_data_integration" }
 
 # ==============
 # External crates
 # ==============
-# Dependencies for macros
-syn = { version = "2.0", features = ["full", "extra-traits"] }
+# Proc Macro Dependencies
+async-trait = { version = "0.1" }
+enum_dispatch = { version = "0.3" }
+trait-variant = { version = "0.1" }
 quote = "1.0"
-trait-variant = { version = "0.1.2" }
+syn = { version = "2.0", features = ["full", "extra-traits"] }
+# Dependencies for integration tests
+docker_utils = { version = "0.2" }
+service_utils = { version = "0.2" }
 # Regular dependencies
 chrono = { version = "0.4.38", features = ["serde"] }
 rust_decimal = { version = "1.36" }
