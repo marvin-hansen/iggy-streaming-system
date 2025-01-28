@@ -47,6 +47,17 @@ crates_vendor(
         #
         # Regular Rust dependencies
         #
+        "ahash": crate.spec(
+            default_features = False,
+            features = ["serde"],
+            package = "ahash",
+            version = "0.8",
+        ),
+        "bytes": crate.spec(
+            default_features = True,
+            package = "bytes",
+            version = "1.8",
+        ),
         "chrono": crate.spec(
             features = ["serde"],
             package = "chrono",

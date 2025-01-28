@@ -293,6 +293,8 @@ def aliases(
 _NORMAL_DEPENDENCIES = {
     "": {
         _COMMON_CONDITION: {
+            "ahash": Label("//thirdparty/crates/ahash-0.8.11:ahash"),
+            "bytes": Label("//thirdparty/crates/bytes-1.9.0:bytes"),
             "chrono": Label("//thirdparty/crates/chrono-0.4.39:chrono"),
             "crossbeam": Label("//thirdparty/crates/crossbeam-0.8.4:crossbeam"),
             "docker_utils": Label("//thirdparty/crates/docker_utils-0.2.3:docker_utils"),
