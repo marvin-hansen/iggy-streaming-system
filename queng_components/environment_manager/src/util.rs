@@ -1,5 +1,23 @@
 use common_env::EnvironmentType;
+use common_platform::PlatformType;
 use std::env;
+
+/// Checks if an environment variable is set and non-empty.
+///
+/// # Arguments
+///
+/// `key`: The name of the environment variable.
+///
+/// # Returns
+///
+/// `true` if the environment variable is set and non-empty, `false` otherwise.
+fn env_is_set(key: &str) -> bool {
+    match env::var(key) {
+        Ok(s) => !s.is_empty(),
+
+        _ => false,
+    }
+}
 
 /// Detects the environment type based on the value of the "ENV" environment variable.
 ///
@@ -15,7 +33,7 @@ use std::env;
 ///
 /// If the "ENV" environment variable is not set or empty.
 ///
-pub fn detect_env_type(dbg: bool) -> EnvironmentType {
+pub(crate)  fn detect_env_type(dbg: bool) -> EnvironmentType {
     if dbg {
         println!("[EnvironmentManager]: Debug mode enabled");
     }
@@ -54,19 +72,34 @@ pub fn detect_env_type(dbg: bool) -> EnvironmentType {
     env_type
 }
 
-/// Checks if an environment variable is set and non-empty.
-///
-/// # Arguments
-///
-/// `key`: The name of the environment variable.
-///
-/// # Returns
-///
-/// `true` if the environment variable is set and non-empty, `false` otherwise.
-fn env_is_set(key: &str) -> bool {
-    match env::var(key) {
-        Ok(s) => !s.is_empty(),
+// Detects the host platform by running the `uname -v` command to determine the architecture and operating system.
+// Returns the detected `PlatformType`.
+pub(crate)  fn detect_platform_type(dbg: bool) -> PlatformType {
+    if dbg {
+        println!("[EnvironmentManager]: Debug mode enabled");
+    }
 
-        _ => false,
+    let output = std::process::Command::new("uname")
+        .arg("-v")
+        .output()
+        .expect("Failed to execute command");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+
+    if dbg {
+        println!("[EnvironmentManager]: Detected host platform: {}", &stdout);
+    }
+
+    // Test if output is x86_64 and linux for PlatformType::LinuxX86_64
+    // Test if output is aarch64 and linux for PlatformType::LinuxAarch64
+    // Test if output is arm64 and Darwin for PlatformType::MacOSAarch64
+    if stdout.contains("x86_64") && stdout.contains("Linux") {
+        PlatformType::LinuxX86_64
+    } else if stdout.contains("aarch64") && stdout.contains("Linux") {
+        PlatformType::LinuxAarch64
+    } else if stdout.contains("arm64") && stdout.contains("Darwin") {
+        PlatformType::MacOSAarch64
+    } else {
+        PlatformType::UnknownPlatform
     }
 }

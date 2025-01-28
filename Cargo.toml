@@ -63,6 +63,7 @@ common_env = { path = "queng_common/common_env" }
 common_errors = { path = "queng_common/common_errors" }
 common_exchange = { path = "queng_common/common_exchange" }
 common_ims = { path = "queng_common/common_ims" }
+common_platform = { path = "queng_common/common_platform" }
 common_message = { path = "queng_common/common_message" }
 common_service = { path = "queng_common/common_service" }
 

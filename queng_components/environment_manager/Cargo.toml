@@ -11,3 +11,4 @@ authors.workspace = true
 workspace = true
 [dependencies]
 common_env = { workspace = true }
+common_platform = { workspace = true }

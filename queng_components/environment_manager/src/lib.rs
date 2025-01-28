@@ -1,11 +1,13 @@
 mod util;
 
 use common_env::EnvironmentType;
+use common_platform::PlatformType;
 
 #[derive(Debug, Copy, Clone, Default, Eq, PartialEq)]
 pub struct EnvironmentManager {
     dbg: bool,
     env_type: EnvironmentType,
+    platform_type: PlatformType,
 }
 
 impl EnvironmentManager {
@@ -17,10 +19,8 @@ impl EnvironmentManager {
     ///
     /// The constructed instance of `EnvironmentManager`.
     ///
-    #[must_use]
     pub fn new() -> Self {
-        let env_type = util::detect_env_type(false);
-        Self::build(false, env_type)
+        Self::build(false)
     }
 
     /// Creates a new instance of `EnvironmentManager` with debug mode enabled.
@@ -29,14 +29,18 @@ impl EnvironmentManager {
     ///
     /// The constructed instance of `EnvironmentManager`.
     ///
-    #[must_use]
     pub fn with_debug() -> Self {
-        let env_type = util::detect_env_type(true);
-        Self::build(true, env_type)
+        Self::build(true)
     }
 
-    const fn build(dbg: bool, env_type: EnvironmentType) -> Self {
-        Self { dbg, env_type }
+    fn build(dbg: bool) -> Self {
+        let env_type = util::detect_env_type(dbg);
+        let platform_type = util::detect_platform_type(dbg);
+        Self {
+            dbg,
+            env_type,
+            platform_type,
+        }
     }
 }
 
@@ -49,8 +53,22 @@ impl EnvironmentManager {
     ///
     /// The `EnvironmentType` associated with this manager.
     ///
-    #[must_use]
+    #[inline]
     pub const fn env_type(&self) -> EnvironmentType {
         self.env_type
+    }
+
+
+    /// Returns the platform type.
+    ///
+    /// This method returns the `PlatformType` of the current `EnvironmentManager` instance.
+    ///
+    /// # Returns
+    ///
+    /// The `PlatformType` associated with this manager.
+    ///
+    #[inline]
+    pub const fn platform_type(&self) -> PlatformType {
+        self.platform_type
     }
 }
