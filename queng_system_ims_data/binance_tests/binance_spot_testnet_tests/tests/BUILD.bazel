@@ -8,15 +8,15 @@ rust_test_suite(
     ]),
     data = [
         # copy Binary to test
-        ":copy_binance_spot",
+        ":copy_binance_spot_testnet",
         # copy iggy server
         ":copy_iggy_server_darwin_aarch64",
         ":copy_iggy_server_linux_x86_64",
     ],
     tags = [
         # The first tag is for local testing, which must be in sequential order b/c there is just one DB
-        # Run with bazel test //... --test_tag_filters=binance_spot_acceptance_test --test_env=ENV=LOCAL
-        "binance_spot_acceptance_test",
+        # Run with bazel test //... --test_tag_filters=binance_spot_testnet_test --test_env=ENV=LOCAL
+        "binance_spot_testnet_test",
         # The second tag is for acceptance testing on the CI, which runs in parallel.
         "ims-acceptance_test",
     ],
@@ -34,8 +34,8 @@ rust_test_suite(
 
 # Copy binary to test
 copy_file(
-    name = "copy_binance_spot",
-    src = "//alias/service:binance_spot",
+    name = "copy_binance_spot_testnet",
+    src = "//alias/service:binance_spot_testnet",
     out = "ims_data_service",
     is_executable = True,
 )
