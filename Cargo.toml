@@ -8,11 +8,12 @@ members = [
     "queng_integration/data/*",
     "queng_macros/*",
     "queng_message/*",
+    "queng_system_ims_client/*",
     "queng_system_ims_data/*/*",
     "queng_sbe/*",
     "queng_template/*",
     "queng_traits/*",
-    "queng_utils_test/*"
+    "queng_utils_test/*",
 ]
 exclude = [
     "queng_sbe/sbe_schema",
@@ -64,7 +65,6 @@ common_errors = { path = "queng_common/common_errors" }
 common_exchange = { path = "queng_common/common_exchange" }
 common_ims = { path = "queng_common/common_ims" }
 common_platform = { path = "queng_common/common_platform" }
-common_message = { path = "queng_common/common_message" }
 common_service = { path = "queng_common/common_service" }
 
 # Components

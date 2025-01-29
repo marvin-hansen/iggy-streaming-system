@@ -37,11 +37,6 @@ alias(
 )
 
 alias(
-    name = "common_message",
-    actual = "//queng_common/common_message",
-)
-
-alias(
     name = "common_platform",
     actual = "//queng_common/common_platform",
 )
