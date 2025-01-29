@@ -11,6 +11,7 @@ help:
 	@echo '    make lint   	Lints and formats the code of the project.'
 	@echo '    make fix   		Fixes linting issues as reported by clippy.'
 	@echo '    make test   	Tests across all crates.'
+	@echo '    make release   	Build release optimized binaries and containers.'
 	@echo '    make sbe   		Generates Rust bindings for SBE messages.'
 	@echo '    make vendor         Vendors all Bazel managed Rust dependencies to folder thirdparty.'
 
@@ -42,6 +43,10 @@ fix:
 .PHONY: test
 test:
 	@source scripts/test.sh
+
+.PHONY: release
+release:
+	@source scripts/release.sh
 
 .PHONY: sbe
 sbe:

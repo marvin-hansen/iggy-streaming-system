@@ -4,7 +4,8 @@ set -o nounset
 set -o pipefail
 
 # When adding new bazel commands, also update buildbuddy.yaml with the same command for CI testing
-
+# Bazel env variables
+# https://www.kevinsimper.dk/posts/how-to-bazel-pass-environment-vari
 echo "=============="
 echo "Build targets "
 echo "=============="
