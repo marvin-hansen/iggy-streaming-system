@@ -20,11 +20,11 @@ exclude = [
 
 [workspace.package]
 edition = "2021"
-rust-version = "1.82.0"
+rust-version = "1.84.0"
 readme = "README.md"
 repository = "https://github.com/marvin-hansen/cgp-exploration"
 authors = ["Marvin Hansen <marvin.hansen@gmail.com>"]
-license = "MIT"
+license = "Apache-2.0"
 
 # Linting with clippy
 [workspace.lints.clippy]
