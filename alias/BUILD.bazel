@@ -80,9 +80,6 @@ alias(
 # Integration
 ###############################################################################
 
-# Data Integration
-##################
-
 alias(
     name = "binance_coin_futures_data_integration",
     actual = "//queng_integration/data/binance_coin_futures_data_integration",
@@ -117,6 +114,15 @@ alias(
 alias(
     name = "binance_usd_futures_testnet_data_integration",
     actual = "//queng_integration/data/binance_usd_futures_testnet_data_integration",
+)
+
+###############################################################################
+# Macros
+###############################################################################
+
+alias(
+    name = "data_integration_macro",
+    actual = "//queng_macros/data_integration_macro",
 )
 
 ###############################################################################

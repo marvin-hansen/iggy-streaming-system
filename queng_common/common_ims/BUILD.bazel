@@ -15,7 +15,6 @@ rust_library(
         # Internal crates
         "//alias:common_exchange",
         # External crates
-        "//thirdparty/crates:iggy",
     ],
 )
 

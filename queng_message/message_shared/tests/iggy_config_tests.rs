@@ -1,5 +1,5 @@
-use common_ims::{IggyConfig, IggyUser};
 use iggy::identifier::Identifier;
+use message_shared::{IggyConfig, IggyUser};
 
 fn create_test_user() -> IggyUser {
     IggyUser::new("test_user", "test_pass")

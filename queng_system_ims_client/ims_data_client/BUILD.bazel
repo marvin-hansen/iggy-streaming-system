@@ -1,44 +1,42 @@
 load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
 
 rust_library(
-    name = "binance_spot_data_integration",
+    name = "ims_data_client",
     srcs = glob([
         "src/**",
     ]),
     crate_root = "src/lib.rs",
-    proc_macro_deps = [
-        # Internal macros
-        "//alias:data_integration_macro",
-    ],
-    tags = [
-        "binance_spot_data_integration",
-        "data_integration",
-    ],
+    tags = ["client"],
     visibility = ["//visibility:public"],
     deps = [
         # Internal crates
-        "//alias:common_data_bar",
-        "//alias:common_data_bar_ext",
-        "//alias:binance_core_data_integration",
+        "//alias:common_exchange",
+        "//alias:common_ims",
+        "//alias:message_consumer",
+        "//alias:message_producer",
+        "//alias:message_shared",
+        "//alias:sbe_messages_client",
+        "//alias:sbe_messages_control",
         "//alias:sbe_types",
-        "//alias:trait_data_integration",
         "//alias:trait_event_processor",
         # External crates
-        "//thirdparty/crates:rustls",
+        "//thirdparty/crates:bytes",
+        "//thirdparty/crates:futures-util",
+        "//thirdparty/crates:iggy",
         "//thirdparty/crates:tokio",
     ],
 )
 
 rust_doc(
     name = "doc",
-    crate = ":binance_spot_data_integration",
+    crate = ":ims_data_client",
     tags = ["doc"],
     visibility = ["//visibility:public"],
 )
 
 rust_doc_test(
     name = "doc_test",
-    crate = ":binance_spot_data_integration",
+    crate = ":ims_data_client",
     tags = ["doc-test"],
     visibility = ["//visibility:public"],
 )

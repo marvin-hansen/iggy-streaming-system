@@ -1,8 +1,9 @@
 use common_exchange::ExchangeID;
-use common_ims::{IggyConfig, IntegrationConfig};
+use common_ims::IntegrationConfig;
 use iggy::clients::client::IggyClient;
 use message_consumer::MessageConsumer;
 use message_producer::MessageProducer;
+use message_shared::IggyConfig;
 use message_stream::MessageStream;
 use std::collections::HashMap;
 use std::error::Error;

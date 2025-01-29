@@ -7,8 +7,3 @@ mod integration_message_config_tests;
 #[cfg(test)]
 mod integration_type_tests;
 
-#[cfg(test)]
-mod iggy_config_tests;
-
-#[cfg(test)]
-mod iggy_user_tests;

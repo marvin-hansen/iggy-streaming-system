@@ -13,4 +13,3 @@ workspace = true
 # Intertnal crates
 common_exchange = { workspace = true }
 # External crates
-iggy = { workspace = true }

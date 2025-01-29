@@ -1,8 +1,8 @@
-use common_ims::{IggyConfig, IggyUser};
 use iggy::client::{Client, UserClient};
 use iggy::clients::client::IggyClient;
 use iggy::identifier::Identifier;
 use message_producer::MessageProducer;
+use message_shared::{IggyConfig, IggyUser};
 use std::fmt::Error;
 
 pub struct MessageStream {

@@ -1,4 +1,4 @@
-use common_ims::IggyUser;
+use message_shared::IggyUser;
 
 #[test]
 fn test_new_iggy_user() {

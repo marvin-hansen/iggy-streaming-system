@@ -14,5 +14,8 @@ rust_test_suite(
     deps = [
         # Crate to test
         "//alias:message_shared",
+        # Internal crates
+        # External crates
+        "//thirdparty/crates:iggy",
     ],
 )

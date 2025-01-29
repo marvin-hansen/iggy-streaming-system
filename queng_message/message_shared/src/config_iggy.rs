@@ -1,6 +1,6 @@
 use std::fmt::{Display, Formatter};
 
-use crate::iggy_user::IggyUser;
+use crate::config_iggy_user::IggyUser;
 use iggy::identifier::Identifier;
 
 /// Configuration for Iggy, containing user information, stream and topic identifiers,
