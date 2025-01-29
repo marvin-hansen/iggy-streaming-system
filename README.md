@@ -1,7 +1,8 @@
 # Iggy Streaming System
 
-A sample streaming project that showcases end to end streaming with the [Iggy.rs messaging system](https://iggy.rs/)
-that is capable of processing millions of messages per second on a single machine.
+A sample streaming project written in Rust that showcases end to end streaming with
+the [Iggy.rs messaging system](https://iggy.rs/) that is capable of processing millions of messages per second on a
+single machine.
 
 This project integrates all three Binance services: spot, coin future and usd future and relays market data SBE encoded
 via iggy.
@@ -33,6 +34,7 @@ via iggy.
     RUSTFLAGS='-C target-cpu=native' cargo build --release
     # Start the iggy server
     ./target/release/iggy-server 
+     
   ___                             ____                                      
  |_ _|   __ _    __ _   _   _    / ___|    ___   _ __  __   __   ___   _ __ 
   | |   / _` |  / _` | | | | |   \___ \   / _ \ | '__| \ \ / /  / _ \ | '__|
@@ -46,6 +48,10 @@ Config loaded successfully.
 ``` 
 
 ### **2) Clone this repo and build it:**
+
+Note, if you want to build with Bazel, ensure you
+have [Bazelisk installed](https://github.com/bazelbuild/bazelisk?tab=readme-ov-file#installation). Bazelisk then
+downloads Bazel automatically.
 
 ```text
     git clone https://github.com/marvin-hansen/iggy-streaming-system.git
