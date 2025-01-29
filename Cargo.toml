@@ -23,39 +23,29 @@ exclude = [
 edition = "2021"
 rust-version = "1.84.0"
 readme = "README.md"
-repository = "https://github.com/marvin-hansen/cgp-exploration"
+repository = "https://github.com/marvin-hansen/iggy-streaming-system"
 authors = ["Marvin Hansen <marvin.hansen@gmail.com>"]
 license = "Apache-2.0"
+
 
 # Linting with clippy
 [workspace.lints.clippy]
 all = "warn"
 
-# Linting strict mode
+# Linting with rust
 [workspace.lints.rust]
 # Warnings
 deprecated-safe = "warn"
 deprecated_safe_2024 = "warn"
 
-# Optimize all crates
-[profile.release]
-opt-level = 3
-strip = true  # Automatically strip debug symbols from the binary
-lto = true    # Enable Link Time Optimization (LTO)
-codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization
-
-# There's a Cargo feature named profile-overrides
-# that lets you override the optimization level of dependencies.
-# https://docs.rust-embedded.org/book/unsorted/speed-vs-size.html
-[profile.release.package."*"]
-opt-level = 3
-strip = 'debuginfo'  # Automatically strip debug infos from the binary to reduce size
-codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization
 
 [workspace.dependencies]
 # ==============
 # Internal Aliases
 # ==============
+
+# Clients
+#ims_client = { path = "queng_system_ims_client/ims_data_client" }
 
 # Common
 common_config = { path = "queng_common/common_config" }
@@ -88,13 +78,11 @@ binance_usd_futures_testnet_data_integration = { path = "queng_integration/data/
 # Macros
 data_integration_macro = { path = "queng_macros/data_integration_macro" }
 
-
 # Mesasge bus
 message_consumer = { path = "queng_message/message_consumer" }
 message_producer = { path = "queng_message/message_producer" }
 message_shared = { path = "queng_message/message_shared" }
 message_stream = { path = "queng_message/message_stream" }
-
 
 # SBE
 sbe_bindings = { path = "queng_sbe/sbe_bindings" }
@@ -104,7 +92,7 @@ sbe_messages_data = { path = "queng_sbe/sbe_messages_data" }
 sbe_types = { path = "queng_sbe/sbe_types" }
 sbe_utils = { path = "queng_sbe/sbe_utils" }
 
-# Template
+# Template for microservices in /queng_system_ims_data
 ims_data_service = { path = "queng_template/ims_data_service" }
 
 # Traits
@@ -112,7 +100,7 @@ trait_data_integration = { path = "queng_traits/trait_data_integration" }
 trait_event_consumer = { path = "queng_traits/trait_event_consumer" }
 trait_event_processor = { path = "queng_traits/trait_event_processor" }
 
-# Test utils
+# Utils for integration testing
 iggy_test_utils = { path = "queng_utils_test/iggy_test_utils" }
 
 # ==============
@@ -139,3 +127,18 @@ rustls = { version = "0.23", features = ["ring"] }
 tokio = { version = "1.42", default-features = false, features = ["macros", "net", "rt-multi-thread", "signal", "time"] }
 tokio-tungstenite = { version = "0.26", features = ["rustls-tls-webpki-roots"] }
 warp = { version = "0.3", default-features = false }
+
+# Optimize all crates
+[profile.release]
+opt-level = 3
+strip = true  # Automatically strip debug symbols from the binary
+lto = true    # Enable Link Time Optimization (LTO)
+codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization
+
+# There's a Cargo feature named profile-overrides
+# that lets you override the optimization level of dependencies.
+# https://docs.rust-embedded.org/book/unsorted/speed-vs-size.html
+[profile.release.package."*"]
+opt-level = 3
+strip = 'debuginfo'  # Automatically strip debug infos from the binary to reduce size
+codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization
