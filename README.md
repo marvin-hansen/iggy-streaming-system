@@ -8,23 +8,23 @@ via iggy.
 
 ## This project features:
 
-* Multiple streaming microservices in [the ims data folder](queng_system_ims_data)
-* Pluggable data source integration in the [integration/data folder](queng_integration/data)
+* Multiple streaming microservices in [the ims data folder](queng_system_ims_data).
+* Pluggable data source integration in the [integration/data folder](queng_integration/data).
 * Efficient SBE message encoding in the [SBE folder](queng_sbe).
-* Type extension based serialization in the [extensions folder](queng_extensions)
-* Template based microservices in [the template folder](queng_template)
+* Type extension based serialization in the [extensions folder](queng_extensions).
+* Template based microservices in [the template folder](queng_template).
 * Docker-free container builds via [Bazel's rules_oci](https://github.com/bazel-contrib/rules_oci) with secure base
-  images via [rules_apko](https://github.com/chainguard-dev/rules_apko)
-* Fast multi-arch container builds via [custom build rules](build)..
+  images via [rules_apko](https://github.com/chainguard-dev/rules_apko).
+* Fast multi-arch container builds via [custom build rules](build).
 * Parallel docker-free integration tests via Bazel and
   the [bazel build_utils](https://github.com/marvin-hansen/buildutils) in
   the [tests folder](queng_system_ims_data/binance_tests).
 * Fast cross compilation to linux ARM64 via Bazel, [rules_rust](https://github.com/bazelbuild/rules_rust),
-  and [musl-toolchain](https://github.com/bazel-contrib/musl-toolchain)
+  and [musl-toolchain](https://github.com/bazel-contrib/musl-toolchain).
 
 ## Quick start
 
-### **1) Clone iggy and start the iggy-server:**
+### **1) Clone the iggy repo and start the iggy-server:**
 
 ```text
     git clone https://github.com/marvin-hansen/iggy.git
