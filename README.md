@@ -1,6 +1,7 @@
 # Iggy Streaming System
 
-
+Sample project that showcases end to end streaming with the [Iggy.rs messaging system](https://iggy.rs/)
+that is capable of processing millions of messages per second on a single machine.
 
 
 ## Build commands
@@ -23,4 +24,3 @@ This project is licensed under the [Apache License, Version 2.0](LICENSE).
 ## Author
 * [Marvin Hansen](https://github.com/marvin-hansen)
 * Contact: https://deepcausality.com/contact/
-* Github GPG key ID: 369D5A0B210D39BC
