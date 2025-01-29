@@ -15,3 +15,12 @@
     make test           Tests across all crates.
     make vendor         Vendors all Bazel managed Rust dependencies to folder thirdparty.
 ```
+
+
+## Licence
+This project is licensed under the [Apache License, Version 2.0](LICENSE).
+
+## Author
+* [Marvin Hansen](https://github.com/marvin-hansen)
+* Contact: https://deepcausality.com/contact/
+* Github GPG key ID: 369D5A0B210D39BC
