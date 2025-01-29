@@ -57,6 +57,7 @@ rust_library(
         "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [],
         "@rules_rust//rust/platform:aarch64-unknown-nixos-gnu": [],
         "@rules_rust//rust/platform:aarch64-unknown-nto-qnx710": [],
+        "@rules_rust//rust/platform:aarch64-unknown-uefi": [],
         "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [],
         "@rules_rust//rust/platform:armv7-linux-androideabi": [],
         "@rules_rust//rust/platform:armv7-unknown-linux-gnueabi": [],
@@ -82,6 +83,7 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [],
         "@rules_rust//rust/platform:x86_64-unknown-nixos-gnu": [],
         "@rules_rust//rust/platform:x86_64-unknown-none": [],
+        "@rules_rust//rust/platform:x86_64-unknown-uefi": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
     version = "0.25.0",
@@ -162,6 +164,9 @@ cargo_build_script(
         "@rules_rust//rust/platform:aarch64-unknown-nto-qnx710": [
             "//thirdparty/crates/bindgen-0.69.5:bindgen",  # cfg(not(any(all(any(target_arch = "x86_64", target_arch = "aarch64"), any(target_os = "linux", target_os = "macos", target_os = "windows"), any(target_env = "gnu", target_env = "musl", target_env = "msvc", target_env = "")), all(target_arch = "x86", target_os = "windows", target_env = "msvc"), all(target_arch = "x86", target_os = "linux", target_env = "gnu"))))
         ],
+        "@rules_rust//rust/platform:aarch64-unknown-uefi": [
+            "//thirdparty/crates/bindgen-0.69.5:bindgen",  # cfg(not(any(all(any(target_arch = "x86_64", target_arch = "aarch64"), any(target_os = "linux", target_os = "macos", target_os = "windows"), any(target_env = "gnu", target_env = "musl", target_env = "msvc", target_env = "")), all(target_arch = "x86", target_os = "windows", target_env = "msvc"), all(target_arch = "x86", target_os = "linux", target_env = "gnu"))))
+        ],
         "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [
             "//thirdparty/crates/bindgen-0.69.5:bindgen",  # cfg(not(any(all(any(target_arch = "x86_64", target_arch = "aarch64"), any(target_os = "linux", target_os = "macos", target_os = "windows"), any(target_env = "gnu", target_env = "musl", target_env = "msvc", target_env = "")), all(target_arch = "x86", target_os = "windows", target_env = "msvc"), all(target_arch = "x86", target_os = "linux", target_env = "gnu"))))
         ],
@@ -217,6 +222,9 @@ cargo_build_script(
             "//thirdparty/crates/bindgen-0.69.5:bindgen",  # cfg(not(any(all(any(target_arch = "x86_64", target_arch = "aarch64"), any(target_os = "linux", target_os = "macos", target_os = "windows"), any(target_env = "gnu", target_env = "musl", target_env = "msvc", target_env = "")), all(target_arch = "x86", target_os = "windows", target_env = "msvc"), all(target_arch = "x86", target_os = "linux", target_env = "gnu"))))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-none": [
+            "//thirdparty/crates/bindgen-0.69.5:bindgen",  # cfg(not(any(all(any(target_arch = "x86_64", target_arch = "aarch64"), any(target_os = "linux", target_os = "macos", target_os = "windows"), any(target_env = "gnu", target_env = "musl", target_env = "msvc", target_env = "")), all(target_arch = "x86", target_os = "windows", target_env = "msvc"), all(target_arch = "x86", target_os = "linux", target_env = "gnu"))))
+        ],
+        "@rules_rust//rust/platform:x86_64-unknown-uefi": [
             "//thirdparty/crates/bindgen-0.69.5:bindgen",  # cfg(not(any(all(any(target_arch = "x86_64", target_arch = "aarch64"), any(target_os = "linux", target_os = "macos", target_os = "windows"), any(target_env = "gnu", target_env = "musl", target_env = "msvc", target_env = "")), all(target_arch = "x86", target_os = "windows", target_env = "msvc"), all(target_arch = "x86", target_os = "linux", target_env = "gnu"))))
         ],
         "//conditions:default": [],

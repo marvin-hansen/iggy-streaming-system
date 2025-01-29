@@ -31,8 +31,20 @@ filegroup(
 
 # Workspace Member Dependencies
 alias(
+    name = "ahash-0.8.11",
+    actual = "//thirdparty/crates/ahash-0.8.11:ahash",
+    tags = ["manual"],
+)
+
+alias(
     name = "ahash",
     actual = "//thirdparty/crates/ahash-0.8.11:ahash",
+    tags = ["manual"],
+)
+
+alias(
+    name = "async-trait-0.1.85",
+    actual = "//thirdparty/crates/async-trait-0.1.85:async_trait",
     tags = ["manual"],
 )
 
@@ -43,8 +55,20 @@ alias(
 )
 
 alias(
+    name = "bytes-1.9.0",
+    actual = "//thirdparty/crates/bytes-1.9.0:bytes",
+    tags = ["manual"],
+)
+
+alias(
     name = "bytes",
     actual = "//thirdparty/crates/bytes-1.9.0:bytes",
+    tags = ["manual"],
+)
+
+alias(
+    name = "chrono-0.4.39",
+    actual = "//thirdparty/crates/chrono-0.4.39:chrono",
     tags = ["manual"],
 )
 
@@ -55,8 +79,20 @@ alias(
 )
 
 alias(
+    name = "crossbeam-0.8.4",
+    actual = "//thirdparty/crates/crossbeam-0.8.4:crossbeam",
+    tags = ["manual"],
+)
+
+alias(
     name = "crossbeam",
     actual = "//thirdparty/crates/crossbeam-0.8.4:crossbeam",
+    tags = ["manual"],
+)
+
+alias(
+    name = "deep_causality_macros-0.4.10",
+    actual = "//thirdparty/crates/deep_causality_macros-0.4.10:deep_causality_macros",
     tags = ["manual"],
 )
 
@@ -67,8 +103,20 @@ alias(
 )
 
 alias(
+    name = "docker_utils-0.2.3",
+    actual = "//thirdparty/crates/docker_utils-0.2.3:docker_utils",
+    tags = ["manual"],
+)
+
+alias(
     name = "docker_utils",
     actual = "//thirdparty/crates/docker_utils-0.2.3:docker_utils",
+    tags = ["manual"],
+)
+
+alias(
+    name = "enum_dispatch-0.3.13",
+    actual = "//thirdparty/crates/enum_dispatch-0.3.13:enum_dispatch",
     tags = ["manual"],
 )
 
@@ -79,8 +127,20 @@ alias(
 )
 
 alias(
+    name = "futures-0.3.31",
+    actual = "//thirdparty/crates/futures-0.3.31:futures",
+    tags = ["manual"],
+)
+
+alias(
     name = "futures",
     actual = "//thirdparty/crates/futures-0.3.31:futures",
+    tags = ["manual"],
+)
+
+alias(
+    name = "futures-util-0.3.31",
+    actual = "//thirdparty/crates/futures-util-0.3.31:futures_util",
     tags = ["manual"],
 )
 
@@ -91,8 +151,20 @@ alias(
 )
 
 alias(
+    name = "iggy-0.6.91",
+    actual = "//thirdparty/crates/iggy-0.6.91:iggy",
+    tags = ["manual"],
+)
+
+alias(
     name = "iggy",
-    actual = "//thirdparty/crates/iggy-0.6.90:iggy",
+    actual = "//thirdparty/crates/iggy-0.6.91:iggy",
+    tags = ["manual"],
+)
+
+alias(
+    name = "mimalloc-0.1.43",
+    actual = "//thirdparty/crates/mimalloc-0.1.43:mimalloc",
     tags = ["manual"],
 )
 
@@ -103,8 +175,20 @@ alias(
 )
 
 alias(
+    name = "quote-1.0.38",
+    actual = "//thirdparty/crates/quote-1.0.38:quote",
+    tags = ["manual"],
+)
+
+alias(
     name = "quote",
     actual = "//thirdparty/crates/quote-1.0.38:quote",
+    tags = ["manual"],
+)
+
+alias(
+    name = "reqwest-0.12.12",
+    actual = "//thirdparty/crates/reqwest-0.12.12:reqwest",
     tags = ["manual"],
 )
 
@@ -115,8 +199,20 @@ alias(
 )
 
 alias(
+    name = "rust_decimal-1.36.0",
+    actual = "//thirdparty/crates/rust_decimal-1.36.0:rust_decimal",
+    tags = ["manual"],
+)
+
+alias(
     name = "rust_decimal",
     actual = "//thirdparty/crates/rust_decimal-1.36.0:rust_decimal",
+    tags = ["manual"],
+)
+
+alias(
+    name = "rust_decimal_macros-1.36.0",
+    actual = "//thirdparty/crates/rust_decimal_macros-1.36.0:rust_decimal_macros",
     tags = ["manual"],
 )
 
@@ -127,8 +223,20 @@ alias(
 )
 
 alias(
+    name = "rustls-0.23.21",
+    actual = "//thirdparty/crates/rustls-0.23.21:rustls",
+    tags = ["manual"],
+)
+
+alias(
     name = "rustls",
     actual = "//thirdparty/crates/rustls-0.23.21:rustls",
+    tags = ["manual"],
+)
+
+alias(
+    name = "serde-1.0.217",
+    actual = "//thirdparty/crates/serde-1.0.217:serde",
     tags = ["manual"],
 )
 
@@ -139,8 +247,20 @@ alias(
 )
 
 alias(
+    name = "serde_json-1.0.138",
+    actual = "//thirdparty/crates/serde_json-1.0.138:serde_json",
+    tags = ["manual"],
+)
+
+alias(
     name = "serde_json",
-    actual = "//thirdparty/crates/serde_json-1.0.137:serde_json",
+    actual = "//thirdparty/crates/serde_json-1.0.138:serde_json",
+    tags = ["manual"],
+)
+
+alias(
+    name = "service_utils-0.2.0",
+    actual = "//thirdparty/crates/service_utils-0.2.0:service_utils",
     tags = ["manual"],
 )
 
@@ -151,8 +271,20 @@ alias(
 )
 
 alias(
+    name = "sha3-0.11.0-pre.4",
+    actual = "//thirdparty/crates/sha3-0.11.0-pre.4:sha3",
+    tags = ["manual"],
+)
+
+alias(
     name = "sha3",
     actual = "//thirdparty/crates/sha3-0.11.0-pre.4:sha3",
+    tags = ["manual"],
+)
+
+alias(
+    name = "syn-2.0.96",
+    actual = "//thirdparty/crates/syn-2.0.96:syn",
     tags = ["manual"],
 )
 
@@ -163,8 +295,20 @@ alias(
 )
 
 alias(
+    name = "tokio-1.43.0",
+    actual = "//thirdparty/crates/tokio-1.43.0:tokio",
+    tags = ["manual"],
+)
+
+alias(
     name = "tokio",
     actual = "//thirdparty/crates/tokio-1.43.0:tokio",
+    tags = ["manual"],
+)
+
+alias(
+    name = "tokio-tungstenite-0.26.1",
+    actual = "//thirdparty/crates/tokio-tungstenite-0.26.1:tokio_tungstenite",
     tags = ["manual"],
 )
 
@@ -175,8 +319,20 @@ alias(
 )
 
 alias(
+    name = "tonic-0.12.3",
+    actual = "//thirdparty/crates/tonic-0.12.3:tonic",
+    tags = ["manual"],
+)
+
+alias(
     name = "tonic",
     actual = "//thirdparty/crates/tonic-0.12.3:tonic",
+    tags = ["manual"],
+)
+
+alias(
+    name = "tonic-build-0.12.3",
+    actual = "//thirdparty/crates/tonic-build-0.12.3:tonic_build",
     tags = ["manual"],
 )
 
@@ -187,14 +343,32 @@ alias(
 )
 
 alias(
+    name = "tonic-health-0.12.3",
+    actual = "//thirdparty/crates/tonic-health-0.12.3:tonic_health",
+    tags = ["manual"],
+)
+
+alias(
     name = "tonic-health",
     actual = "//thirdparty/crates/tonic-health-0.12.3:tonic_health",
     tags = ["manual"],
 )
 
 alias(
+    name = "trait-variant-0.1.2",
+    actual = "//thirdparty/crates/trait-variant-0.1.2:trait_variant",
+    tags = ["manual"],
+)
+
+alias(
     name = "trait-variant",
     actual = "//thirdparty/crates/trait-variant-0.1.2:trait_variant",
+    tags = ["manual"],
+)
+
+alias(
+    name = "warp-0.3.7",
+    actual = "//thirdparty/crates/warp-0.3.7:warp",
     tags = ["manual"],
 )
 

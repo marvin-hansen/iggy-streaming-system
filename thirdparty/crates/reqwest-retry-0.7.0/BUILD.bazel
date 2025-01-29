@@ -57,6 +57,7 @@ rust_library(
         "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [],
         "@rules_rust//rust/platform:aarch64-unknown-nixos-gnu": [],
         "@rules_rust//rust/platform:aarch64-unknown-nto-qnx710": [],
+        "@rules_rust//rust/platform:aarch64-unknown-uefi": [],
         "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [],
         "@rules_rust//rust/platform:armv7-linux-androideabi": [],
         "@rules_rust//rust/platform:armv7-unknown-linux-gnueabi": [],
@@ -82,6 +83,7 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [],
         "@rules_rust//rust/platform:x86_64-unknown-nixos-gnu": [],
         "@rules_rust//rust/platform:x86_64-unknown-none": [],
+        "@rules_rust//rust/platform:x86_64-unknown-uefi": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
     version = "0.7.0",
@@ -96,95 +98,99 @@ rust_library(
         "//thirdparty/crates/tracing-0.1.41:tracing",
     ] + select({
         "@rules_rust//rust/platform:aarch64-apple-darwin": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-apple-ios-sim": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-linux-android": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-pc-windows-msvc": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-unknown-fuchsia": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-unknown-linux-gnu": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nixos-gnu": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:aarch64-unknown-nto-qnx710": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
+        ],
+        "@rules_rust//rust/platform:aarch64-unknown-uefi": [
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:armv7-linux-androideabi": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:armv7-unknown-linux-gnueabi": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:i686-apple-darwin": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:i686-linux-android": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:i686-pc-windows-msvc": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:i686-unknown-freebsd": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:i686-unknown-linux-gnu": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:powerpc-unknown-linux-gnu": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:riscv32imc-unknown-none-elf": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:riscv64gc-unknown-none-elf": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:s390x-unknown-linux-gnu": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:thumbv7em-none-eabi": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:thumbv8m.main-none-eabi": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:wasm32-unknown-unknown": [
@@ -198,39 +204,43 @@ rust_library(
             "//thirdparty/crates/wasm-timer-0.2.5:wasm_timer",  # cfg(target_arch = "wasm32")
         ],
         "@rules_rust//rust/platform:x86_64-apple-darwin": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-apple-ios": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-linux-android": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-pc-windows-msvc": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-freebsd": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-fuchsia": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-linux-gnu": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-nixos-gnu": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "@rules_rust//rust/platform:x86_64-unknown-none": [
-            "//thirdparty/crates/hyper-1.5.2:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
+            "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
+        ],
+        "@rules_rust//rust/platform:x86_64-unknown-uefi": [
+            "//thirdparty/crates/hyper-1.6.0:hyper",  # cfg(not(target_arch = "wasm32"))
             "//thirdparty/crates/tokio-1.43.0:tokio",  # cfg(not(target_arch = "wasm32"))
         ],
         "//conditions:default": [],

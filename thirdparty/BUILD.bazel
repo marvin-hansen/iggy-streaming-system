@@ -139,22 +139,22 @@ crates_vendor(
         "tokio-tungstenite": crate.spec(
             features = ["rustls-tls-webpki-roots"],
             package = "tokio-tungstenite",
-            version = "0.26.0",
+            version = "0.26",
         ),
         "tonic": crate.spec(
             features = ["transport"],
             package = "tonic",
-            version = "0.12.1",
+            version = "0.12",
         ),
         "tonic-build": crate.spec(
             package = "tonic-build",
-            version = "0.12.1",
+            version = "0.12",
         ),
         "tonic-health": crate.spec(
             default_features = False,
             features = ["transport"],
             package = "tonic-health",
-            version = "0.12.3",
+            version = "0.12",
         ),
         "warp": crate.spec(
             package = "warp",
