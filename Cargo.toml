@@ -73,7 +73,7 @@ environment_manager = { path = "queng_components/environment_manager" }
 
 # Extensions
 common_data_bar_ext = { path = "queng_extensions/common_data_bar_ext" }
-cow_ext = { path = "queng_extensions/cow_ext" }
+#cow_ext = { path = "queng_extensions/cow_ext" }
 
 # Integration
 # Data integration
