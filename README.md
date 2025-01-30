@@ -66,6 +66,24 @@ downloads Bazel automatically.
 
 @TODO
 
+## Repo structure
+
+The main folders of this project:
+
+* [queng_common](queng_common): common libraries shared across the project
+* [queng_components](queng_components): common components shared across the project
+* [queng_extensions](queng_extensions): type extensions shared across the project
+* [queng_macros](queng_macros): macros mostly used in [queng_integration](queng_integration)
+* [queng_message](queng_message): iggy messaging utils
+* [queng_sbe](queng_sbe): SBE message encoding
+* [queng_system_ims_client](queng_system_ims_client): client for the IMS data system
+* [queng_system_ims_data](queng_system_ims_data): microservices of the IMS data system
+* [queng_integration](queng_integration): integration code for the IMS data system
+* [queng_template](queng_template): microservice template used in [queng_system_ims_data](queng_system_ims_data)
+* [queng_traits](queng_traits): traits used across all parts of the IMS data system.
+* [queng_utils_test](queng_utils_test): Utils for integration tests mostly used
+  in [queng_system_ims_data](queng_system_ims_data)
+
 ## Build
 
 This project is built using [Bazel](https://bazel.build/) and [Cargo](https://doc.rust-lang.org/cargo/).
