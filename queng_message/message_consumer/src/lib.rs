@@ -13,9 +13,11 @@ mod event_error_handler;
 mod getters;
 mod shutdown;
 
+type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
+
 pub struct MessageConsumer {
     dbg: bool,
-    consumer: IggyConsumer,
+    consumer: Guarded<IggyConsumer>,
     stream_id: Identifier,
     topic_id: Identifier,
 }
@@ -88,6 +90,8 @@ impl MessageConsumer {
             .init()
             .await
             .expect("[MessageConsumer]: Failed to initialize consumer");
+
+        let consumer = std::sync::Arc::new(tokio::sync::RwLock::new(consumer));
 
         Ok(Self {
             dbg,

@@ -3,7 +3,7 @@ use iggy::error::IggyError;
 use std::fmt::Error;
 
 impl MessageConsumer {
-    pub(crate) async fn handle_iggy_error(&mut self, err: IggyError) -> Result<(), Error> {
+    pub(crate) async fn handle_iggy_error(&self, err: IggyError) -> Result<(), Error> {
         match err {
             IggyError::Disconnected => {
                 self.dbg_print("Disconnected:  shutdown client");
@@ -35,7 +35,7 @@ impl MessageConsumer {
             }
             _ => {
                 eprintln!(
-                    "[MessageConsumer]: Error polling messages from iggy message bus: {}",
+                    "[MessageConsumer]: Error polling messages from iggy message bus due to error: {}",
                     err
                 );
 
