@@ -13,7 +13,6 @@ mod event_error_handler;
 mod getters;
 mod shutdown;
 
-
 pub struct MessageConsumer {
     dbg: bool,
     consumer: IggyConsumer,

@@ -131,7 +131,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
-
     pub fn exchange_id(&self) -> ExchangeID {
         self.exchange_id
     }
