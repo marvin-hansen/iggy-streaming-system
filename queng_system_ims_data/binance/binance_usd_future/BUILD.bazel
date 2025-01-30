@@ -19,7 +19,6 @@ build_binary_opt(
         "//alias:common_exchange",
         "//alias/service:ims_data_service",
         # External crates
-        "//thirdparty/crates:rustls",
         "//thirdparty/crates:tokio",
     ],
 )
