@@ -18,7 +18,7 @@ rust_library(
         "//alias:sbe_messages_client",
         "//alias:sbe_messages_control",
         "//alias:sbe_types",
-        "//alias:trait_event_processor",
+        "//alias:trait_event_consumer",
         # External crates
         "//thirdparty/crates:bytes",
         "//thirdparty/crates:futures-util",

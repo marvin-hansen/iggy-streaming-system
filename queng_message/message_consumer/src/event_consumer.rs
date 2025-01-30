@@ -1,5 +1,6 @@
 use crate::MessageConsumer;
 use futures_util::stream::StreamExt;
+use std::fmt::Error;
 use tokio::sync::oneshot;
 use trait_event_consumer::EventConsumer;
 //
@@ -9,7 +10,7 @@ impl MessageConsumer {
         mut self,
         data_event_processor: &'static (impl EventConsumer + Sync),
         shutdown_rx: oneshot::Receiver<()>, // or any `Future<Output=()>`
-    ) {
+    ) -> Result<(), Error> {
         self.dbg_print("consume_messages");
 
         tokio::spawn(async move {
@@ -42,5 +43,7 @@ impl MessageConsumer {
                 }
             }
         });
+
+        Ok(())
     }
 }

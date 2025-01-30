@@ -65,13 +65,13 @@ impl IggyConfig {
     ///
     /// The `stream_id`, `stream_name`, `topic_id`, `topic_name`, and `partition_id` are all set to
     /// the value of `client_id`.
-    pub fn from_client_id(user: IggyUser, client_id: u16) -> Self {
+    pub fn from_client_id(user: &IggyUser, client_id: u16) -> Self {
         assert!(client_id >= 100, "id must be greater than 100");
 
         let client_id = client_id as u32;
 
         Self {
-            user,
+            user: user.to_owned(),
             stream_id: Identifier::numeric(client_id).unwrap(),
             stream_name: format!("stream_{}", client_id),
             topic_id: Identifier::numeric(client_id).unwrap(),
