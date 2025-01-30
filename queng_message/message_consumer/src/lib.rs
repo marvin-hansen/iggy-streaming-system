@@ -92,7 +92,6 @@ impl MessageConsumer {
             .await
             .expect("[MessageConsumer]: Failed to initialize consumer");
 
-
         Ok(Self {
             dbg,
             consumer,
