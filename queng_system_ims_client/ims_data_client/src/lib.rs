@@ -1,4 +1,6 @@
+mod api;
 mod error;
+mod handler;
 mod shutdown;
 
 use crate::error::ImsClientError;
@@ -10,14 +12,20 @@ use message_consumer::MessageConsumer;
 use message_producer::MessageProducer;
 use message_shared::{IggyConfig, IggyUser};
 use tokio::sync::oneshot;
+use tokio::task::JoinHandle;
 use trait_event_consumer::EventConsumer;
 
-type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
+// Re-export
+pub use api::*;
+pub use error::*;
+
+// type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 
 pub struct ImsDataClient {
+    dbg: bool,
     client_id: u16,
     control_client: IggyClient,
-    control_consumer: MessageConsumer,
+    control_handler: JoinHandle<()>,
     control_producer: MessageProducer,
     exchange_id: ExchangeID,
 }
@@ -27,9 +35,16 @@ impl ImsDataClient {
         client_id: u16,
         integration_config: IntegrationConfig,
         data_event_processor: &'static (impl EventConsumer + Sync),
-        shutdown_rx: oneshot::Receiver<()>, // or any `Future<Output=()>`
+        shutdown_rx: oneshot::Receiver<()>,
     ) -> Result<Self, ImsClientError> {
-        Self::build(false, client_id, integration_config, data_event_processor, shutdown_rx).await
+        Self::build(
+            false,
+            client_id,
+            integration_config,
+            data_event_processor,
+            shutdown_rx,
+        )
+            .await
     }
 
     pub async fn build(
@@ -37,7 +52,7 @@ impl ImsDataClient {
         client_id: u16,
         integration_config: IntegrationConfig,
         data_event_processor: &'static (impl EventConsumer + Sync),
-        shutdown_rx: oneshot::Receiver<()>, // or any `Future<Output=()>`
+        shutdown_rx: oneshot::Receiver<()>,
     ) -> Result<Self, ImsClientError> {
         let exchange_id = integration_config.exchange_id();
 
@@ -108,15 +123,17 @@ impl ImsDataClient {
             }
         };
 
-        // Value moved here b/c consume_messages takes ownership of self
-        control_consumer.consume_messages(data_event_processor, shutdown_rx)
-            .await;
+        let control_handler = tokio::spawn(async move {
+            control_consumer
+                .consume_messages(data_event_processor, shutdown_rx)
+                .await;
+        });
 
         Ok(Self {
+            dbg,
             client_id,
             control_client,
-            // Value used after being moved [E0382]
-            control_consumer,
+            control_handler,
             control_producer,
             exchange_id,
         })
@@ -134,5 +151,13 @@ impl ImsDataClient {
 
     pub fn exchange_id(&self) -> ExchangeID {
         self.exchange_id
+    }
+}
+
+impl ImsDataClient {
+    pub(crate) fn dbg_print(&self, msg: &str) {
+        if self.dbg {
+            println!("[ImsDataClient]: {msg}");
+        }
     }
 }

@@ -16,7 +16,11 @@ common_ims = { workspace = true }
 message_consumer = { workspace = true }
 message_producer = { workspace = true }
 message_shared = { workspace = true }
+sbe_messages_control = { workspace = true }
+sbe_messages_client = { workspace = true }
+sbe_types = { workspace = true }
 trait_event_consumer = { workspace = true }
+trait_event_processor = { workspace = true }
 # External crates
 iggy = { workspace = true }
 tokio = { workspace = true }
