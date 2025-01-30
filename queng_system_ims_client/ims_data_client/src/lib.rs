@@ -35,7 +35,7 @@ impl ImsDataClient {
             data_event_processor,
             shutdown_rx,
         )
-        .await
+            .await
     }
 
     pub async fn build(
@@ -86,7 +86,7 @@ impl ImsDataClient {
             control_stream_id.clone(),
             control_topic_id.clone(),
         )
-        .await
+            .await
         {
             Ok(producer) => producer,
             Err(err) => {
@@ -104,7 +104,7 @@ impl ImsDataClient {
             control_stream_id.clone(),
             control_topic_id.clone(),
         )
-        .await
+            .await
         {
             Ok(consumer) => consumer,
             Err(err) => {
