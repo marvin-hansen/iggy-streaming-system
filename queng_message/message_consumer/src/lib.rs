@@ -1,4 +1,4 @@
-use futures_util::{Stream, StreamExt};
+use futures_util::StreamExt;
 use iggy::clients::client::IggyClient;
 use iggy::clients::consumer::{AutoCommit, AutoCommitWhen, IggyConsumer};
 use iggy::consumer::ConsumerKind;

@@ -16,8 +16,6 @@ use tokio::task::JoinHandle;
 use trait_event_consumer::EventConsumer;
 
 // Re-export
-pub use api::*;
-pub use error::*;
 
 // type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 
