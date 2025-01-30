@@ -66,6 +66,12 @@ downloads Bazel automatically.
 
 @TODO
 
+## Build
+
+This project is built using [Bazel](https://bazel.build/) and [Cargo](https://doc.rust-lang.org/cargo/).
+For details about Bazel, see the official documentation [https://bazel.build](https://bazel.build)
+and the project specific notes in the [Bazel](BAZEL.md) document.
+
 ## Repo structure
 
 The main folders of this project:
@@ -84,11 +90,37 @@ The main folders of this project:
 * [queng_utils_test](queng_utils_test): Utils for integration tests mostly used
   in [queng_system_ims_data](queng_system_ims_data)
 
-## Build
+## Pluggable data source integration
 
-This project is built using [Bazel](https://bazel.build/) and [Cargo](https://doc.rust-lang.org/cargo/).
-For details about Bazel, see the official documentation [https://bazel.build](https://bazel.build)
-and the project specific notes in the [Bazel](BAZEL.md) document.
+The data source integration is implemented in the [queng_integration](queng_integration) folder.
+Each integration implements the [ImsDataIntegration](queng_traits/trait_data_integration/src/lib.rs) trait. Notice, the
+Binance integration is s special case because of its separation into spot, coin future and usd future markets for which
+all API's are almost identical. Therefore, the core integration for all of Binance is implemented in
+the [BinanceIntegration](queng_integration/data/binance_core_data_integration) crate. All specialized implementations
+i.e. Spot, Coin Future and Usd Future are derived from the core implementation via
+the [data_integration_macro](queng_macros/data_integration_macro/src/lib.rs).
+
+Each data source integration is implemented as a standalone library crate with no other dependency other than the
+ImsDataIntegration trait and supporting macros.
+
+The standalone integration is then plugged into a [microservice template](queng_template/ims_data_service)via a simple
+main function to serve as a data microservice for the IMS data
+system. [The Binance Spot integration](queng_system_ims_data/binance/binance_spot/src/main.rs), is shown below as an
+example:
+
+```rust
+const DBG: bool = true;
+const EXCHANGE_ID: ExchangeID = ExchangeID::BinanceSpot;
+  
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    ims_data_service::start(DBG, EXCHANGE_ID, ImsBinanceSpotDataIntegration::new())
+        .await
+        .expect("Failed to start Binance IMS Data service");
+
+    Ok(())
+}
+```
 
 ## Licence
 This project is licensed under the [Apache License, Version 2.0](LICENSE).
