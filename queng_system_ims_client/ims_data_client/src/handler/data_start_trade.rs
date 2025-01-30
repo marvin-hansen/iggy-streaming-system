@@ -20,23 +20,25 @@ impl ImsDataClient {
         );
 
         self.dbg_print("Encode SBE message");
-        let (_, message) =
-            match start_data_message.encode() {
-                Ok(res) => res,
-                Err(err) => return Err(ImsClientError::FailedToEncodeControlMessage(format!(
+        let (_, message) = match start_data_message.encode() {
+            Ok(res) => res,
+            Err(err) => {
+                return Err(ImsClientError::FailedToEncodeControlMessage(format!(
                     "[ImsDataClient/start_data]: Failed to encode start_trade_data message: {err}"
-                ))),
-            };
+                )))
+            }
+        };
 
         self.dbg_print("Send start_data message");
-        match self.send_one_message(message)
-            .await {
+        match self.send_one_message(message).await {
             Ok(_) => {}
-            Err(err) => return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
-                format!(
+            Err(err) => {
+                return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
+                    format!(
                     "[ImsDataClient/start_data]: Failed to send start_trade_data message: {err}"
                 ),
-            )),
+                ))
+            }
         }
 
         Ok(())

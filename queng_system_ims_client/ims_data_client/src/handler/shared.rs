@@ -15,7 +15,9 @@ impl ImsDataClient {
     pub(crate) async fn send_one_message(&self, bytes: Vec<u8>) -> Result<(), ImsClientError> {
         match self.control_producer.process_one_event(bytes).await {
             Ok(_) => Ok(()),
-            Err(e) => Err(ImsClientError::FailedToSendControlMessageToIggyServer(e.to_string())),
+            Err(e) => Err(ImsClientError::FailedToSendControlMessageToIggyServer(
+                e.to_string(),
+            )),
         }
     }
 }

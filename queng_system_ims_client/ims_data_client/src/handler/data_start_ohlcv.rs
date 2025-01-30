@@ -31,11 +31,13 @@ impl ImsDataClient {
         self.dbg_print("Send start_data message");
         match self.send_one_message(message).await {
             Ok(_) => {}
-            Err(err) => return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
-                format!(
+            Err(err) => {
+                return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
+                    format!(
                     "[ImsDataClient/start_data]: Failed to send start_ohlcv_data message: {err}"
                 ),
-            )),
+                ))
+            }
         };
 
         Ok(())

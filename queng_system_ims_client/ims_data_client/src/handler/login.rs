@@ -27,11 +27,13 @@ impl ImsDataClient {
         self.dbg_print("Send login message");
         match self.send_one_message(message).await {
             Ok(_) => {}
-            Err(err) => return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
-                format!(
+            Err(err) => {
+                return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
+                    format!(
                     "[ImsDataClient/login]: Failed to send login message to control channel: {err}"
                 ),
-            )),
+                ))
+            }
         };
 
         Ok(())
