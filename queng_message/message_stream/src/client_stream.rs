@@ -44,7 +44,7 @@ impl MessageStream {
 
     async fn build(dbg: bool, client_id: u16) -> Result<Self, Error> {
         let user = IggyUser::default();
-        let iggy_config = IggyConfig::from_client_id(user, client_id);
+        let iggy_config = IggyConfig::from_client_id(&user, client_id);
         let stream_id = iggy_config.stream_id();
         let topic_id = iggy_config.topic_id();
 

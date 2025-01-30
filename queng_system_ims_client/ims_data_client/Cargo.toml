@@ -11,6 +11,7 @@ license.workspace = true
 [dependencies]
 
 # Internal crates
+common_data_bar = { workspace = true }
 common_exchange = { workspace = true }
 common_ims = { workspace = true }
 message_consumer = { workspace = true }
