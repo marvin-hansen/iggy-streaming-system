@@ -46,68 +46,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         )
         .await
     }
-
-    /// Creates a new server instance with debugging disabled.
-    ///
-    /// # Arguments
-    ///
-    /// * `consumer_client` - The Iggy client used for message consumption.
-    /// * `producer_client` - The Iggy client used for message production.
-    /// * `integration_config` - The integration configuration for the server.
-    /// * `iggy_config` - The Iggy configuration for the server.
-    ///
-    /// # Returns
-    ///
-    /// A `Result` containing the newly created `Server` instance or an error.
-    ///
-    pub async fn new(
-        consumer_client: &IggyClient,
-        producer_client: &IggyClient,
-        ims_integration: Integration,
-        integration_config: &IntegrationConfig,
-        iggy_config: &IggyConfig,
-    ) -> Result<Self, Box<dyn Error>> {
-        Self::build(
-            false,
-            consumer_client,
-            producer_client,
-            ims_integration,
-            integration_config,
-            iggy_config,
-        )
-        .await
-    }
-
-    /// Creates a new server instance with debugging enabled.
-    ///
-    /// # Arguments
-    ///
-    /// * `consumer_client` - The Iggy client used for message consumption.
-    /// * `producer_client` - The Iggy client used for message production.
-    /// * `integration_config` - The integration configuration for the server.
-    /// * `iggy_config` - The Iggy configuration for the server.
-    ///
-    /// # Returns
-    ///
-    /// A `Result` containing the newly created `Server` instance or an error.
-    ///
-    pub async fn with_debug(
-        consumer_client: &IggyClient,
-        producer_client: &IggyClient,
-        ims_integration: Integration,
-        integration_config: &IntegrationConfig,
-        iggy_config: &IggyConfig,
-    ) -> Result<Self, Box<dyn Error>> {
-        Self::build(
-            true,
-            consumer_client,
-            producer_client,
-            ims_integration,
-            integration_config,
-            iggy_config,
-        )
-        .await
-    }
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {

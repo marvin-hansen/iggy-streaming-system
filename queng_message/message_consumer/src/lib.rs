@@ -1,4 +1,3 @@
-use futures_util::StreamExt;
 use iggy::clients::client::IggyClient;
 use iggy::clients::consumer::{AutoCommit, AutoCommitWhen, IggyConsumer};
 use iggy::consumer::ConsumerKind;
@@ -14,7 +13,6 @@ mod event_error_handler;
 mod getters;
 mod shutdown;
 
-type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 
 pub struct MessageConsumer {
     dbg: bool,
