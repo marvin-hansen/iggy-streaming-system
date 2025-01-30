@@ -15,6 +15,7 @@ type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 ///
 /// The server manages message consumption and production for both control and data channels,
 /// maintaining thread-safe access to shared resources using Tokio's async-aware locks.
+#[allow(dead_code)] // Supress dead code warning until its clear which fields to remove.
 pub struct Service<Integration: ImsDataIntegration> {
     dbg: bool,
     exchange_id: ExchangeID,
@@ -28,6 +29,21 @@ pub struct Service<Integration: ImsDataIntegration> {
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
+    /// Creates a new instance of the service.
+    ///
+    /// # Arguments
+    ///
+    /// * `dbg` - A boolean flag to enable debug printing.
+    /// * `consumer_client` - The `IggyClient` instance used for consuming messages.
+    /// * `producer_client` - The `IggyClient` instance used for producing messages.
+    /// * `ims_integration` - The integration instance to use for IMS data processing.
+    /// * `integration_config` - The configuration for the integration.
+    /// * `iggy_config` - The configuration for the Iggy client.
+    ///
+    /// # Returns
+    ///
+    /// A `Result` wrapping the `Service` instance or an `Error`.
+    ///
     pub async fn build_service(
         dbg: bool,
         consumer_client: &IggyClient,
@@ -115,28 +131,13 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
-    pub fn dbg(&self) -> bool {
-        self.dbg
-    }
 
     pub fn exchange_id(&self) -> ExchangeID {
         self.exchange_id
     }
 
-    pub fn iggy_config(&self) -> &IggyConfig {
-        &self.iggy_config
-    }
-
     pub fn ims_integration(&self) -> &Guarded<Integration> {
         &self.ims_integration
-    }
-
-    pub fn integration_config(&self) -> &IntegrationConfig {
-        &self.integration_config
-    }
-
-    pub fn client_configs(&self) -> &Guarded<HashMap<u16, IggyConfig>> {
-        &self.client_configs
     }
 
     pub fn client_producers(&self) -> &Guarded<HashMap<u16, MessageStream>> {

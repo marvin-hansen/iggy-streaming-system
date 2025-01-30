@@ -1,5 +1,11 @@
 use iggy::clients::client::IggyClient;
-
+/// Shuts down iggy clients and user.
+///
+/// # Parameters
+///
+/// * `dbg_print` - A function to print debug messages.
+/// * `producer_client` - The iggy producer client.
+/// * `consumer_client` - The iggy consumer client.
 pub(crate) async fn shutdown_iggy(
     dbg_print: &dyn Fn(&str),
     producer_client: &IggyClient,
