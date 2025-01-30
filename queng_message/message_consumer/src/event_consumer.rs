@@ -7,12 +7,12 @@ use trait_event_consumer::EventConsumer;
 // https://discord.com/channels/1144142576266530928/1144142577369628684/1333360421842980866
 impl MessageConsumer {
     pub async fn consume_messages(
-        self,
+        mut self,
         data_event_processor: &'static (impl EventConsumer + Sync),
         shutdown_rx: oneshot::Receiver<()>, // or any `Future<Output=()>`
     ) {
         tokio::spawn(async move {
-            let consumer = &mut self.consumer.write().await;
+            let consumer = &mut self.consumer;
 
             select! {
                 _ = shutdown_rx => {

@@ -24,7 +24,7 @@ fn test_new_iggy_config() {
 #[test]
 fn test_from_client_id() {
     let user = create_test_user();
-    let config = IggyConfig::from_client_id(user.clone(), 100);
+    let config = IggyConfig::from_client_id(&user, 100);
 
     assert_eq!(config.stream_id(), Identifier::numeric(100).unwrap());
     assert_eq!(config.stream_name(), "stream_100");

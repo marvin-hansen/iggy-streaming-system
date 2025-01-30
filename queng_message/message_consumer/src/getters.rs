@@ -1,4 +1,4 @@
-use crate::{Guarded, MessageConsumer};
+use crate::MessageConsumer;
 use iggy::clients::consumer::IggyConsumer;
 use iggy::identifier::Identifier;
 
@@ -17,13 +17,13 @@ impl MessageConsumer {
 
     /// Returns a reference to the underlying consumer.
     #[inline]
-    pub const fn consumer(&self) -> &Guarded<IggyConsumer> {
+    pub const fn consumer(&self) -> &IggyConsumer {
         &self.consumer
     }
 
     /// Returns a mutable reference to the underlying consumer.
     #[inline]
-    pub fn consumer_mut(&mut self) -> &mut Guarded<IggyConsumer> {
+    pub fn consumer_mut(&mut self) -> &mut IggyConsumer {
         &mut self.consumer
     }
 }

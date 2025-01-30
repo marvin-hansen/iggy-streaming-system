@@ -1,3 +1,4 @@
+use futures_util::{Stream, StreamExt};
 use iggy::clients::client::IggyClient;
 use iggy::clients::consumer::{AutoCommit, AutoCommitWhen, IggyConsumer};
 use iggy::consumer::ConsumerKind;
@@ -17,7 +18,7 @@ type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 
 pub struct MessageConsumer {
     dbg: bool,
-    consumer: Guarded<IggyConsumer>,
+    consumer: IggyConsumer,
     stream_id: Identifier,
     topic_id: Identifier,
 }
@@ -91,7 +92,6 @@ impl MessageConsumer {
             .await
             .expect("[MessageConsumer]: Failed to initialize consumer");
 
-        let consumer = std::sync::Arc::new(tokio::sync::RwLock::new(consumer));
 
         Ok(Self {
             dbg,
