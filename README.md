@@ -122,6 +122,18 @@ async fn main() -> Result<(), Error> {
 }
 ```
 
+The service is then started via cargo:
+
+```bash
+  RUSTFLAGS='-C target-cpu=native' ENV=LOCAL cargo run --bin binance_spot
+```
+
+Or via Bazel:
+
+```bash
+  ENV=LOCAL bazel run  -c opt //alias/service:binance_spot
+```
+
 ## Licence
 This project is licensed under the [Apache License, Version 2.0](LICENSE).
 
