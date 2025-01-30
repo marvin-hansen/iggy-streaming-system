@@ -25,7 +25,7 @@ impl MessageConsumer {
                 received_message = consumer.next() => {
                     match received_message {
                         Some(Ok(message)) => data_event_processor
-                            .consume(message.message.payload.to_vec())
+                            .consume(message.message.payload.into_vec())
                             .await
                             .expect("[MessageConsumer]: Failed to process message"),
 
