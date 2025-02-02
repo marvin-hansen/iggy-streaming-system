@@ -1,11 +1,13 @@
-mod api;
+mod client_api;
+mod client_mock;
+mod client_trait;
 mod error;
 mod handler;
 mod shutdown;
-
-use crate::error::ImsClientError;
+use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
 use common_ims::IntegrationConfig;
+use enum_dispatch::enum_dispatch;
 use iggy::client::{Client, UserClient};
 use iggy::clients::client::IggyClient;
 use message_consumer::MessageConsumer;
@@ -15,9 +17,19 @@ use tokio::sync::oneshot;
 use tokio::task::JoinHandle;
 use trait_event_consumer::EventConsumer;
 
-// Re-export
+// Re-export the trait and error type
+pub use client_trait::ImsDataClientTrait;
+pub use error::ImsClientError;
 
-// type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
+/// The selector for the IMS data client allows
+/// to select between the real and mock client while keeping the same client interface.
+#[enum_dispatch]
+pub enum ImsDataClientSelector {
+    /// The real IMS data client
+    ImsDataClient,
+    /// The mock IMS data client
+    ImsDataMockClient,
+}
 
 pub struct ImsDataClient {
     dbg: bool,
@@ -157,5 +169,26 @@ impl ImsDataClient {
         if self.dbg {
             println!("[ImsDataClient]: {msg}");
         }
+    }
+}
+
+#[allow(dead_code)] // Ignore the unused field in the struct
+#[derive(Debug, Clone)]
+pub struct ImsDataMockClient {
+    // This field is not used; however,  without it, the auto code formatter would
+    // remove the TimeResolution import, which then causes the enum_dispatch macro to fail compilation.
+    time_resolution: TimeResolution,
+}
+
+impl ImsDataMockClient {
+    pub async fn new(
+        _client_id: u16,
+        _integration_config: IntegrationConfig,
+        _data_event_processor: &'static (impl EventConsumer + Sync),
+        _shutdown_rx: oneshot::Receiver<()>,
+    ) -> Result<Self, ImsClientError> {
+        Ok(Self {
+            time_resolution: TimeResolution::NoValue,
+        })
     }
 }

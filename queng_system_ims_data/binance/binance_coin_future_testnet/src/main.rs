@@ -11,7 +11,6 @@ const EXCHANGE_ID: ExchangeID = ExchangeID::BinanceCoinMarginFutureTestnet;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-
     ims_data_service::start(
         DBG,
         EXCHANGE_ID,

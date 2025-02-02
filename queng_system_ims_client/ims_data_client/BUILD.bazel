@@ -6,6 +6,10 @@ rust_library(
         "src/**",
     ]),
     crate_root = "src/lib.rs",
+    proc_macro_deps = [
+        "//thirdparty/crates:async-trait",
+        "//thirdparty/crates:enum_dispatch",
+    ],
     tags = ["client"],
     visibility = ["//visibility:public"],
     deps = [
@@ -22,8 +26,6 @@ rust_library(
         "//alias:trait_event_consumer",
         "//alias:trait_event_processor",
         # External crates
-        "//thirdparty/crates:bytes",
-        "//thirdparty/crates:futures-util",
         "//thirdparty/crates:iggy",
         "//thirdparty/crates:tokio",
     ],

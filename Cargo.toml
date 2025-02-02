@@ -107,6 +107,8 @@ iggy_test_utils = { path = "queng_utils_test/iggy_test_utils" }
 # External crates
 # ==============
 # Proc Macro Dependencies
+async-trait = { version = "0.1" }
+enum_dispatch = { version = "0.3" }
 trait-variant = { version = "0.1" }
 quote = "1.0"
 syn = { version = "2.0", features = ["full", "extra-traits"] }

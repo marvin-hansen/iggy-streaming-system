@@ -1,9 +1,11 @@
 use crate::error::ImsClientError;
-use crate::ImsDataClient;
+use async_trait::async_trait;
 use common_data_bar::TimeResolution;
-use sbe_types::DataType;
+use enum_dispatch::enum_dispatch;
 
-impl ImsDataClient {
+#[async_trait]
+#[enum_dispatch(ImsDataClientSelector)]
+pub trait ImsDataClientTrait {
     /// Login to the IMS Data client
     ///
     /// This function will perform a login to the ImsDataClient.
@@ -12,10 +14,7 @@ impl ImsDataClient {
     /// Errors:
     /// * `ImsClientError`: A generic error type for theImsDataClient
     ///
-    pub async fn login(&self) -> Result<(), ImsClientError> {
-        self.client_login().await
-    }
-
+    async fn login(&self) -> Result<(), ImsClientError>;
     /// Logout from the IMS Data client
     ///
     /// This function will perform a logout from the  IMS Data client
@@ -23,10 +22,7 @@ impl ImsDataClient {
     /// Errors:
     /// * `ImsClientError`: A generic error type for the  IMS Data client
     ///
-    pub async fn logout(&self) -> Result<(), ImsClientError> {
-        self.client_logout().await
-    }
-
+    async fn logout(&self) -> Result<(), ImsClientError>;
     /// Start receiving trade data for the given symbol
     ///
     /// Parameters:
@@ -35,10 +31,7 @@ impl ImsDataClient {
     /// Errors:
     /// * `ImsClientError`: A generic error type for the  IMS Data client
     ///
-    pub async fn start_trade_data(&self, symbol_id: String) -> Result<(), ImsClientError> {
-        self.client_start_trade_data(symbol_id).await
-    }
-
+    async fn start_trade_data(&self, symbol_id: String) -> Result<(), ImsClientError>;
     /// Start receiving OHLCV data for the given symbol
     ///
     /// Parameters:
@@ -48,15 +41,11 @@ impl ImsDataClient {
     /// Errors:
     /// * `ImsClientError`: A generic error type for the  IMS Data client
     ///
-    pub async fn start_ohlcv_data(
+    async fn start_ohlcv_data(
         &self,
         symbol_id: String,
         time_resolution: TimeResolution,
-    ) -> Result<(), ImsClientError> {
-        self.client_start_ohlcv_data(symbol_id, time_resolution)
-            .await
-    }
-
+    ) -> Result<(), ImsClientError>;
     /// Stop receiving trade data for the given symbol
     ///
     /// Parameters:
@@ -65,10 +54,7 @@ impl ImsDataClient {
     /// Errors:
     /// * `ImsClientError`: A generic error type for the  IMS Data client
     ///
-    pub async fn stop_trade_data(&self, symbol_id: String) -> Result<(), ImsClientError> {
-        self.client_stop_data(symbol_id, DataType::TradeData).await
-    }
-
+    async fn stop_trade_data(&self, symbol_id: String) -> Result<(), ImsClientError>;
     /// Stop receiving OHLCV data for the given symbol
     ///
     /// Parameters:
@@ -77,16 +63,11 @@ impl ImsDataClient {
     /// Errors:
     /// * `ImsClientError`: A generic error type for the  IMS Data client
     ///
-    pub async fn stop_ohlcv_data(&self, symbol_id: String) -> Result<(), ImsClientError> {
-        self.client_stop_data(symbol_id, DataType::OHLCVData).await
-    }
-
+    async fn stop_ohlcv_data(&self, symbol_id: String) -> Result<(), ImsClientError>;
     /// Stop all data streams
     ///
     /// Errors:
     /// * `ImsClientError`: A generic error type for the  IMS Data client
     ///
-    pub async fn stop_all_data(&self) -> Result<(), ImsClientError> {
-        self.client_stop_all_data().await
-    }
+    async fn stop_all_data(&self) -> Result<(), ImsClientError>;
 }
