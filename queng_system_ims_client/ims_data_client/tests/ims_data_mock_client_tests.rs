@@ -56,11 +56,14 @@ struct PrintEventConsumer {}
 
 impl EventConsumer for PrintEventConsumer {
     async fn consume(&self, data: Vec<u8>) -> Result<(), EventConsumerError> {
+        // convert message into raw bytes
         let raw_message = data.as_slice();
 
-        // convert into raw string and print
+        // convert into raw string
         let message = String::from_utf8_lossy(raw_message);
-        println!("{}", message);
+
+        // Print message to stdout
+        println!("[PrintEventConsumer]: {}", message);
 
         Ok(())
     }
