@@ -35,7 +35,7 @@ fn env_is_set(key: &str) -> bool {
 ///
 pub(crate) fn detect_env_type(dbg: bool) -> EnvironmentType {
     if dbg {
-        println!("[EnvironmentManager]: Debug mode enabled");
+        println!("[EnvironmentManager]: detect_env_type");
     }
 
     let key = "ENV";
@@ -88,13 +88,13 @@ pub(crate) fn detect_env_type(dbg: bool) -> EnvironmentType {
 ///
 pub(crate) fn detect_platform_type(dbg: bool) -> PlatformType {
     if dbg {
-        println!("[EnvironmentManager]: Debug mode enabled");
+        println!("[EnvironmentManager]: detect_platform_type");
     }
 
     let output = std::process::Command::new("uname")
-        .arg("-v")
+        .arg("-a")
         .output()
-        .expect("Failed to execute uname -v command");
+        .expect("Failed to execute uname -a command to detect host platform");
 
     let stdout = String::from_utf8_lossy(&output.stdout);
 
