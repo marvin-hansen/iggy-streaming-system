@@ -27,7 +27,9 @@ async fn test_mock_ims_data_client() {
     let res = client.stop_trade_data("BTC-USDT".into()).await;
     assert!(res.is_ok());
 
-    let res = client.start_ohlcv_data("BTC-USDT".into(), TimeResolution::OneMin).await;
+    let res = client
+        .start_ohlcv_data("BTC-USDT".into(), TimeResolution::OneMin)
+        .await;
     assert!(res.is_ok());
 
     let res = client.stop_ohlcv_data("BTC-USDT".into()).await;
