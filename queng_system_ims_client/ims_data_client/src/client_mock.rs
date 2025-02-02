@@ -36,4 +36,8 @@ impl ImsDataClientTrait for ImsDataMockClient {
     async fn stop_all_data(&self) -> Result<(), ImsClientError> {
         Ok(())
     }
+
+    async fn shutdown(&self) -> Result<(), ImsClientError> {
+        Ok(())
+    }
 }

@@ -70,4 +70,9 @@ pub trait ImsDataClientTrait {
     /// * `ImsClientError`: A generic error type for the  IMS Data client
     ///
     async fn stop_all_data(&self) -> Result<(), ImsClientError>;
+
+    /// Shutdown the IMS data client.
+    ///
+    /// This will shut down the control topic consume and the Iggy client.
+    async fn shutdown(&self) -> Result<(), ImsClientError>;
 }

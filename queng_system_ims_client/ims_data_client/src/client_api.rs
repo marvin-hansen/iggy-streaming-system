@@ -85,4 +85,15 @@ impl ImsDataClientTrait for ImsDataClient {
     async fn stop_all_data(&self) -> Result<(), ImsClientError> {
         self.client_stop_all_data().await
     }
+
+    /// Shutdown the IMS data client
+    ///
+    /// This will stop all data streams and shutdown the underlying Iggy client.
+    ///
+    /// Errors:
+    /// * `ImsClientError`: A generic error type for the  IMS Data client
+    ///
+    async fn shutdown(&self) -> Result<(), ImsClientError> {
+        self.client_shutdown().await
+    }
 }

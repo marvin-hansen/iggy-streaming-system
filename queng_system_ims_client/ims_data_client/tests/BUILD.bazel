@@ -1,0 +1,25 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "tests",
+    srcs = glob([
+        "*_tests.rs",
+    ]),
+    tags = [
+        "client",
+        "ims_data_client",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias/client:ims_data_client",
+        # Internal dependencies
+        "//alias:common_data_bar",
+        "//alias:common_exchange",
+        "//alias:common_ims",
+        "//alias:trait_event_consumer",
+        # External dependencies
+        "//thirdparty/crates:tokio",
+    ],
+)

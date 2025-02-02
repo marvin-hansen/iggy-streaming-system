@@ -28,7 +28,7 @@ impl IntegrationConfig {
     /// # Returns
     ///
     /// A new `IntegrationConfig` with the given parameters.
-    #[must_use]
+    #[inline]
     pub const fn new(
         integration_id: String,
         integration_version: u16,
@@ -60,7 +60,7 @@ impl IntegrationConfig {
     /// # Returns
     ///
     /// A new `IntegrationConfig` with the given parameters.
-    #[must_use]
+    #[inline]
     pub const fn from(
         integration_id: String,
         integration_version: u16,
@@ -96,7 +96,7 @@ impl IntegrationConfig {
     /// # Returns
     ///
     /// The unique identifier associated with this configuration.
-    #[must_use]
+    #[inline]
     pub fn integration_id(&self) -> &str {
         &self.integration_id
     }
@@ -106,7 +106,7 @@ impl IntegrationConfig {
     /// # Returns
     ///
     /// The version associated with this configuration.
-    #[must_use]
+    #[inline]
     pub const fn integration_version(&self) -> u16 {
         self.integration_version
     }
@@ -116,7 +116,7 @@ impl IntegrationConfig {
     /// # Returns
     ///
     /// The `ImsIntegrationType` associated with this configuration.
-    #[must_use]
+    #[inline]
     pub const fn ims_integration_type(&self) -> ImsIntegrationType {
         self.ims_integration_type
     }
@@ -126,19 +126,19 @@ impl IntegrationConfig {
     /// # Returns
     ///
     /// `true` if the integration is online, `false` otherwise.
-    #[must_use]
+    #[inline]
     pub const fn online(&self) -> bool {
         self.online
     }
 
     /// Returns the `ExchangeID` associated with this configuration.
-    #[must_use]
+    #[inline]
     pub const fn exchange_id(&self) -> ExchangeID {
         self.exchange_id
     }
 
     /// Returns a reference to the `IntegrationMessageConfig` associated with this configuration.
-    #[must_use]
+    #[inline]
     pub const fn integration_message_config(&self) -> &IntegrationMessageConfig {
         &self.integration_message_config
     }
