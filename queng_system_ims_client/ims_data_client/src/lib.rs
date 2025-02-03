@@ -58,6 +58,22 @@ impl ImsDataClient {
             .await
     }
 
+    pub async fn with_debug(
+        client_id: u16,
+        integration_config: IntegrationConfig,
+        control_event_processor: &'static (impl EventConsumer + Sync),
+        data_event_processor: &'static (impl EventConsumer + Sync),
+    ) -> Result<Self, ImsClientError> {
+        Self::build(
+            true,
+            client_id,
+            integration_config,
+            control_event_processor,
+            data_event_processor,
+        )
+            .await
+    }
+
     pub async fn build(
         dbg: bool,
         client_id: u16,
@@ -72,6 +88,11 @@ impl ImsDataClient {
         // ###############################################################################
         let control_stream_id = integration_config.control_channel();
         let control_topic_id = integration_config.control_channel();
+
+        if dbg {
+            println!("[ImsDataClient]: control_stream_id: {control_stream_id}");
+            println!("[ImsDataClient]: control_topic_id: {control_topic_id}");
+        }
 
         let iggy_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
         let iggy_client_control =
@@ -159,6 +180,11 @@ impl ImsDataClient {
         // ###############################################################################
         let data_stream_id = integration_config.data_channel();
         let data_topic_id = integration_config.data_channel();
+
+        if dbg {
+            println!("[ImsDataClient]: data_stream_id: {data_stream_id}");
+            println!("[ImsDataClient]: data_topic_id: {data_topic_id}");
+        }
 
         let iggy_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
         let iggy_client_data =

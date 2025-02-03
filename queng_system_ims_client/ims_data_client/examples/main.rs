@@ -7,7 +7,7 @@ use trait_event_consumer::{EventConsumer, EventConsumerError};
 #[tokio::main]
 async fn main() -> Result<(), Box<Error>> {
     println!("Create ImsDataClient client");
-    let client: ImsDataClient = ImsDataClient::new(
+    let client: ImsDataClient = ImsDataClient::with_debug(
         120,
         ims_data_integration_config(ExchangeID::BinanceSpot),
         &PrintEventConsumer {},

@@ -85,7 +85,6 @@ impl MessageConsumer {
             .expect("[MessageConsumer]: Failed to initialize consumer");
 
         Ok(Self {
-            // dbg,
             consumer,
             stream_id,
             topic_id,
