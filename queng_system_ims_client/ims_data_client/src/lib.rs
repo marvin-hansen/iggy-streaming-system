@@ -34,7 +34,8 @@ pub struct ImsDataClient {
     dbg: bool,
     client_id: u16,
     exchange_id: ExchangeID,
-    iggy_client: IggyClient,
+    iggy_client_control: IggyClient,
+    iggy_client_data: IggyClient,
     control_producer: MessageProducer,
     handler_control_consumer: JoinHandle<()>,
     handler_data_consumer: JoinHandle<()>,
@@ -66,16 +67,14 @@ impl ImsDataClient {
     ) -> Result<Self, ImsClientError> {
         let exchange_id = integration_config.exchange_id();
 
-        //
+        // ###############################################################################
+        // # Control stream: Build iggy client
+        // ###############################################################################
         let control_stream_id = integration_config.control_channel();
         let control_topic_id = integration_config.control_channel();
-        //
-        let data_stream_id = integration_config.data_channel();
-        let data_topic_id = integration_config.data_channel();
 
-        // Configure and build iggy client
         let iggy_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
-        let iggy_client =
+        let iggy_client_control =
             match message_shared::build_client(control_stream_id.clone(), control_topic_id.clone())
                 .await
             {
@@ -83,7 +82,7 @@ impl ImsDataClient {
                 Err(err) => return Err(ImsClientError::FailedToCreateIggyClient(err.to_string())),
             };
 
-        match iggy_client.connect().await {
+        match iggy_client_control.connect().await {
             Ok(_) => {}
             Err(err) => {
                 return Err(ImsClientError::FailedToConnectToIggyServer(format!(
@@ -94,7 +93,7 @@ impl ImsDataClient {
 
         let username = iggy_config.user().username();
         let password = iggy_config.user().password();
-        match iggy_client.login_user(username, password).await {
+        match iggy_client_control.login_user(username, password).await {
             Ok(_) => {}
             Err(err) => {
                 return Err(ImsClientError::FailedToLoginIggyUser(format!(
@@ -104,9 +103,12 @@ impl ImsDataClient {
             }
         };
 
+        // ###############################################################################
+        // # Control stream: Build producer
+        // ###############################################################################
         let control_producer = match MessageProducer::from_client(
             dbg,
-            &iggy_client,
+            &iggy_client_control,
             control_stream_id.clone(),
             control_topic_id.clone(),
         )
@@ -120,9 +122,12 @@ impl ImsDataClient {
             }
         };
 
+        // ###############################################################################
+        // # Control stream: Build consumer
+        // ###############################################################################
         let consumer_name = "control_producer";
         let control_consumer = match MessageConsumer::from_client(
-            &iggy_client,
+            &iggy_client_control,
             consumer_name,
             control_stream_id.clone(),
             control_topic_id.clone(),
@@ -149,9 +154,47 @@ impl ImsDataClient {
             }
         });
 
+        // ###############################################################################
+        // # Data stream: Build iggy client
+        // ###############################################################################
+        let data_stream_id = integration_config.data_channel();
+        let data_topic_id = integration_config.data_channel();
+
+        let iggy_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
+        let iggy_client_data =
+            match message_shared::build_client(data_stream_id.clone(), data_topic_id.clone()).await
+            {
+                Ok(client) => client,
+                Err(err) => return Err(ImsClientError::FailedToCreateIggyClient(err.to_string())),
+            };
+
+        match iggy_client_data.connect().await {
+            Ok(_) => {}
+            Err(err) => {
+                return Err(ImsClientError::FailedToConnectToIggyServer(format!(
+                    "[ImsDataClient]: Failed to connect to control topic: {err}"
+                )))
+            }
+        };
+
+        let username = iggy_config.user().username();
+        let password = iggy_config.user().password();
+        match iggy_client_data.login_user(username, password).await {
+            Ok(_) => {}
+            Err(err) => {
+                return Err(ImsClientError::FailedToLoginIggyUser(format!(
+                    "[ImsDataClient]: Failed to login user {} due to error: {}",
+                    username, err
+                )))
+            }
+        };
+
+        // ###############################################################################
+        // # Data stream: Build consumer
+        // ###############################################################################
         let consumer_name = "data_consumer";
         let data_consumer = match MessageConsumer::from_client(
-            &iggy_client,
+            &iggy_client_data,
             consumer_name,
             data_stream_id.clone(),
             data_topic_id.clone(),
@@ -179,7 +222,8 @@ impl ImsDataClient {
             dbg,
             client_id,
             exchange_id,
-            iggy_client,
+            iggy_client_control,
+            iggy_client_data,
             control_producer,
             handler_control_consumer,
             handler_data_consumer,

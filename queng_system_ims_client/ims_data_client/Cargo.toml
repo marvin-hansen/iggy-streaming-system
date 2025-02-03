@@ -8,8 +8,13 @@ repository.workspace = true
 authors.workspace = true
 license.workspace = true
 
-[dependencies]
 
+[[example]]
+name = "basic_ims_data_client"
+path = "examples/main.rs"
+
+
+[dependencies]
 # Internal crates
 common_data_bar = { workspace = true }
 common_exchange = { workspace = true }

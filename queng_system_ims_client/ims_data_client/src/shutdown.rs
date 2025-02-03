@@ -15,8 +15,14 @@ impl ImsDataClient {
         let data_handler = &self.handler_data_consumer;
         data_handler.abort();
 
-        // Shutdown iggy client
-        match &self.iggy_client.shutdown().await {
+        // Shutdown iggy client for control stream
+        match &self.iggy_client_control.shutdown().await {
+            Ok(_) => {}
+            Err(err) => return Err(ImsClientError::FailedToShutdownIggyClient(err.to_string())),
+        }
+
+        // Shutdown iggy client for data stream
+        match &self.iggy_client_data.shutdown().await {
             Ok(_) => {}
             Err(err) => return Err(ImsClientError::FailedToShutdownIggyClient(err.to_string())),
         }
