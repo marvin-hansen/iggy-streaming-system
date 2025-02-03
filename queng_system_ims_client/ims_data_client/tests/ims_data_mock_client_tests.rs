@@ -6,13 +6,11 @@ use trait_event_consumer::{EventConsumer, EventConsumerError};
 
 #[tokio::test]
 async fn test_mock_ims_data_client() {
-    let (_, shutdown_rx) = tokio::sync::oneshot::channel();
-
     let client: ImsDataClientSelector = ImsDataMockClient::new(
         0,
         ims_data_integration_config(ExchangeID::NullVal),
         &PrintEventConsumer {},
-        shutdown_rx,
+        &PrintEventConsumer {},
     )
         .await
         .expect("Failed to create mock client")

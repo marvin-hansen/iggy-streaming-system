@@ -7,14 +7,17 @@ impl ImsDataClient {
     ///
     /// This will shut down the control topic consume and the Iggy client.
     pub(crate) async fn client_shutdown(&self) -> Result<(), ImsClientError> {
+
         // shutdown iggy control consume
-        let control_handler = &self.control_handler;
+        let control_handler = &self.handler_control_consumer;
         control_handler.abort();
 
-        // Shutdown iggy client
-        let iggy_client = &self.control_client;
+        // shutdown iggy data consume
+        let data_handler = &self.handler_data_consumer;
+        data_handler.abort();
 
-        match iggy_client.shutdown().await {
+        // Shutdown iggy client
+        match &self.iggy_client.shutdown().await {
             Ok(_) => {}
             Err(err) => return Err(ImsClientError::FailedToShutdownIggyClient(err.to_string())),
         }

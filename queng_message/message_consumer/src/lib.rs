@@ -9,12 +9,9 @@ use message_shared::Args;
 use std::str::FromStr;
 
 mod event_consumer;
-mod event_error_handler;
 mod getters;
-mod shutdown;
 
 pub struct MessageConsumer {
-    dbg: bool,
     consumer: IggyConsumer,
     stream_id: Identifier,
     topic_id: Identifier,
@@ -36,20 +33,18 @@ impl MessageConsumer {
     /// A `Result` wrapping the `MessageConsumer` instance or an `IggyError`.
     ///
     pub async fn from_client(
-        dbg: bool,
         client: &IggyClient,
         consumer_name: &str,
         stream_id: String,
         topic_id: String,
     ) -> Result<Self, IggyError> {
         let args = Args::new(stream_id, topic_id);
-        Self::build(dbg, args, client, consumer_name).await
+        Self::build(args, client, consumer_name).await
     }
 }
 
 impl MessageConsumer {
     async fn build(
-        dbg: bool,
         args: Args,
         client: &IggyClient,
         consumer_name: &str,
@@ -90,18 +85,10 @@ impl MessageConsumer {
             .expect("[MessageConsumer]: Failed to initialize consumer");
 
         Ok(Self {
-            dbg,
+            // dbg,
             consumer,
             stream_id,
             topic_id,
         })
-    }
-}
-
-impl MessageConsumer {
-    pub(crate) fn dbg_print(&self, msg: &str) {
-        if self.dbg {
-            println!("[MessageConsumer]: {msg}");
-        }
     }
 }

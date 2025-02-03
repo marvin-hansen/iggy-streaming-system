@@ -15,12 +15,6 @@ impl MessageConsumer {
         &self.topic_id
     }
 
-    /// Returns a reference to the underlying consumer.
-    #[inline]
-    pub const fn consumer(&self) -> &IggyConsumer {
-        &self.consumer
-    }
-
     /// Returns a mutable reference to the underlying consumer.
     #[inline]
     pub fn consumer_mut(&mut self) -> &mut IggyConsumer {

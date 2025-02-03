@@ -1,45 +1,63 @@
 use crate::MessageConsumer;
 use futures_util::stream::StreamExt;
-use tokio::select;
-use tokio::sync::oneshot;
+use iggy::error::IggyError;
 use trait_event_consumer::EventConsumer;
 
 // https://discord.com/channels/1144142576266530928/1144142577369628684/1333360421842980866
 impl MessageConsumer {
     pub async fn consume_messages(
         mut self,
-        data_event_processor: &'static (impl EventConsumer + Sync),
-        shutdown_rx: oneshot::Receiver<()>, // or any `Future<Output=()>`
-    ) {
+        event_processor: &'static (impl EventConsumer + Sync),
+    ) -> Result<(), IggyError> {
         tokio::spawn(async move {
             let consumer = &mut self.consumer;
 
-            select! {
-                _ = shutdown_rx => {
-                    self.dbg_print("Received shutdown signal");
-                    self.shutdown()
+            while let Some(received_message) = consumer.next().await {
+                match received_message {
+                    // Process received message
+                    Ok(message) => event_processor
+                        .consume(message.message.payload.into())
                         .await
-                    .expect("[MessageConsumer]: Failed to shutdown");
+                        .expect("[MessageConsumer]: Failed to process message"),
+
+                    // Handle errors
+                    Err(err) => match err {
+                        IggyError::Disconnected => {
+                            eprintln!("Disconnected:  shutdown client");
+                            break;
+                        }
+                        IggyError::CannotEstablishConnection => {
+                            eprintln!("CannotEstablishConnection:  shutdown client");
+                            break;
+                        }
+                        IggyError::StaleClient => {
+                            eprintln!("StaleClient:  shutdown client");
+                            break;
+                        }
+                        IggyError::InvalidServerAddress => {
+                            eprintln!("InvalidServerAddress:  shutdown client");
+                            break;
+                        }
+                        IggyError::InvalidClientAddress => {
+                            eprintln!("InvalidClientAddress:  shutdown client");
+                            break;
+                        }
+                        IggyError::NotConnected => {
+                            eprintln!("NotConnected:  shutdown client");
+                            break;
+                        }
+                        IggyError::ClientShutdown => {
+                            eprintln!("ClientShutdown:  shutdown client");
+                            break;
+                        }
+                        _ => {
+                            eprintln!("[MessageConsumer]: Error while handling message: {err}", );
+                        }
+                    },
                 }
-
-                received_message = consumer.next() => {
-                    match received_message {
-                        Some(Ok(message)) => data_event_processor
-                            .consume(message.message.payload.into())
-                            .await
-                            .expect("[MessageConsumer]: Failed to process message"),
-
-                        Some(Err(err)) =>   {
-                            self.handle_iggy_error(err)
-                            .await
-                            .expect("[MessageConsumer]: Failed to handle error");
-                        },
-
-                        None => {},
-                    }
-                }
-
             }
         });
+
+        Ok(())
     }
 }
