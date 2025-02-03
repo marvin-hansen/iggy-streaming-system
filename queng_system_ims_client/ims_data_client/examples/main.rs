@@ -4,6 +4,10 @@ use ims_data_client::{ImsDataClient, ImsDataClientTrait};
 use std::fmt::Error;
 use trait_event_consumer::{EventConsumer, EventConsumerError};
 
+// Ensure iggy is running before running this example
+// i.e. run cargo r --bin iggy-server
+
+
 #[tokio::main]
 async fn main() -> Result<(), Box<Error>> {
     println!("Create ImsDataClient client");
@@ -19,24 +23,29 @@ async fn main() -> Result<(), Box<Error>> {
 
     println!("✅ ImsDataClient started");
 
-    // wait 10 seconds
-    tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
+    // wait 5 seconds
+    tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
 
     println!("Login ImsDataClient ");
     let res = client.login().await;
     assert!(res.is_ok());
     println!("✅ Login ImsDataClient completed");
 
-    // wait 10 seconds
-    tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
+    // wait 5 seconds
+    tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
 
     println!("Logout ImsDataClient ");
     let res = client.logout().await;
     assert!(res.is_ok());
     println!("✅ Logout ImsDataClient completed");
 
-    // wait 10 seconds
-    tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
+    // wait 5 seconds
+    tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
+
+    println!("Shutdown ImsDataClient ");
+    let res = client.shutdown().await;
+    assert!(res.is_ok());
+    println!("✅ Shutdown ImsDataClient completed");
 
     Ok(())
 }

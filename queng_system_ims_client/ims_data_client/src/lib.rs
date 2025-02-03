@@ -34,9 +34,11 @@ pub struct ImsDataClient {
     dbg: bool,
     client_id: u16,
     exchange_id: ExchangeID,
+    integration_config: IntegrationConfig,
     iggy_client_control: IggyClient,
     iggy_client_data: IggyClient,
     control_producer: MessageProducer,
+    data_producer: MessageProducer,
     handler_control_consumer: JoinHandle<()>,
     handler_data_consumer: JoinHandle<()>,
 }
@@ -216,6 +218,25 @@ impl ImsDataClient {
         };
 
         // ###############################################################################
+        // # Data stream: Build Producer
+        // ###############################################################################
+        let data_producer = match MessageProducer::from_client(
+            dbg,
+            &iggy_client_control,
+            data_stream_id.clone(),
+            data_topic_id.clone(),
+        )
+            .await
+        {
+            Ok(producer) => producer,
+            Err(err) => {
+                return Err(ImsClientError::FailedToCreateIggyProducer(format!(
+                    "[ImsDataClient]: Failed to create data channel producer: {err}"
+                )))
+            }
+        };
+
+        // ###############################################################################
         // # Data stream: Build consumer
         // ###############################################################################
         let consumer_name = "data_consumer";
@@ -248,9 +269,11 @@ impl ImsDataClient {
             dbg,
             client_id,
             exchange_id,
+            integration_config,
             iggy_client_control,
             iggy_client_data,
             control_producer,
+            data_producer,
             handler_control_consumer,
             handler_data_consumer,
         })
@@ -264,6 +287,18 @@ impl ImsDataClient {
 
     pub fn exchange_id(&self) -> ExchangeID {
         self.exchange_id
+    }
+
+    pub fn integration_config(&self) -> &IntegrationConfig {
+        &self.integration_config
+    }
+
+    pub fn control_producer(&self) -> &MessageProducer {
+        &self.control_producer
+    }
+
+    pub fn data_producer(&self) -> &MessageProducer {
+        &self.data_producer
     }
 }
 
