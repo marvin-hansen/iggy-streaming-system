@@ -62,7 +62,8 @@ impl ImsDataClient {
         client_id: u16,
         integration_config: IntegrationConfig,
         control_event_processor: &'static (impl EventConsumer + Sync),
-        data_event_processor: &'static (impl EventConsumer + Sync), ) -> Result<Self, ImsClientError> {
+        data_event_processor: &'static (impl EventConsumer + Sync),
+    ) -> Result<Self, ImsClientError> {
         let exchange_id = integration_config.exchange_id();
 
         //
@@ -139,7 +140,8 @@ impl ImsDataClient {
         let handler_control_consumer = tokio::spawn(async move {
             match control_consumer
                 .consume_messages(control_event_processor)
-                .await {
+                .await
+            {
                 Ok(_) => {}
                 Err(err) => {
                     eprintln!("[ImsDataClient]: Failed to consume control messages: {err}");
@@ -165,9 +167,7 @@ impl ImsDataClient {
         };
 
         let handler_data_consumer = tokio::spawn(async move {
-            match data_consumer
-                .consume_messages(data_event_processor)
-                .await {
+            match data_consumer.consume_messages(data_event_processor).await {
                 Ok(_) => {}
                 Err(err) => {
                     eprintln!("[ImsDataClient]: Failed to consume data messages: {err}");
