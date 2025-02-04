@@ -17,8 +17,7 @@ async fn main() -> Result<(), Box<Error>> {
         &PrintEventConsumer {},
     )
         .await
-        .expect("Failed to create ImsDataClient")
-        .into();
+        .expect("Failed to create ImsDataClient");
 
     println!("✅ ImsDataClient started");
 
@@ -27,6 +26,7 @@ async fn main() -> Result<(), Box<Error>> {
 
     println!("Login ImsDataClient ");
     let res = client.login().await;
+    // dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Login ImsDataClient completed");
 
@@ -35,6 +35,7 @@ async fn main() -> Result<(), Box<Error>> {
 
     println!("Logout ImsDataClient ");
     let res = client.logout().await;
+    // dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Logout ImsDataClient completed");
 
@@ -43,7 +44,7 @@ async fn main() -> Result<(), Box<Error>> {
 
     println!("Shutdown ImsDataClient ");
     let res = client.shutdown().await;
-    dbg!(&res);
+    // dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Shutdown ImsDataClient completed");
 
