@@ -5,7 +5,6 @@ mod error;
 mod handler;
 mod shutdown;
 
-// Re-export the trait and error type
 pub use client_trait::ImsDataClientTrait;
 use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
@@ -17,7 +16,8 @@ use iggy::clients::client::IggyClient;
 use message_consumer::MessageConsumer;
 use message_producer::MessageProducer;
 use message_shared::{IggyConfig, IggyUser};
-use tokio::task::JoinHandle;
+use std::sync::Mutex;
+use tokio::sync::oneshot::Sender;
 use trait_event_consumer::EventConsumer;
 
 /// The selector for the IMS data client allows
@@ -39,8 +39,8 @@ pub struct ImsDataClient {
     iggy_client_data: IggyClient,
     control_producer: MessageProducer,
     data_producer: MessageProducer,
-    handler_control_consumer: JoinHandle<()>,
-    handler_data_consumer: JoinHandle<()>,
+    tx_control_consumer: Mutex<Option<Sender<()>>>,
+    tx_data_consumer: Mutex<Option<Sender<()>>>,
 }
 
 impl ImsDataClient {
@@ -169,9 +169,10 @@ impl ImsDataClient {
             }
         };
 
-        let handler_control_consumer = tokio::spawn(async move {
+        let (tx_control_consumer, rx) = tokio::sync::oneshot::channel();
+        tokio::spawn(async move {
             match control_consumer
-                .consume_messages(control_event_processor)
+                .consume_messages(control_event_processor, rx)
                 .await
             {
                 Ok(_) => {}
@@ -262,14 +263,21 @@ impl ImsDataClient {
             }
         };
 
-        let handler_data_consumer = tokio::spawn(async move {
-            match data_consumer.consume_messages(data_event_processor).await {
+        let (tx_data_consumer, rx) = tokio::sync::oneshot::channel();
+        tokio::spawn(async move {
+            match data_consumer
+                .consume_messages(data_event_processor, rx)
+                .await
+            {
                 Ok(_) => {}
                 Err(err) => {
                     eprintln!("[ImsDataClient]: Failed to start data consumer: {err}");
                 }
             }
         });
+
+        let tx_control_consumer = Mutex::new(Some(tx_control_consumer));
+        let tx_data_consumer = Mutex::new(Some(tx_data_consumer));
 
         Ok(Self {
             dbg,
@@ -280,8 +288,8 @@ impl ImsDataClient {
             iggy_client_data,
             control_producer,
             data_producer,
-            handler_control_consumer,
-            handler_data_consumer,
+            tx_data_consumer,
+            tx_control_consumer,
         })
     }
 }

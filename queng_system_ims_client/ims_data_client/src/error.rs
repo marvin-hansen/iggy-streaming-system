@@ -15,7 +15,8 @@ pub enum ImsClientError {
     FailedToStartIggyConsumer(String) = 8,
     FailedToEncodeControlMessage(String) = 9,
     FailedToSendControlMessageToIggyServer(String) = 10,
-    FailedToShutdownIggyClient(String) = 11,
+    FailedToShutdownIggyConsumer(String) = 11,
+    FailedToShutdownIggyClient(String) = 12,
 }
 
 impl Error for ImsClientError {}
@@ -50,6 +51,9 @@ impl Display for ImsClientError {
             }
             ImsClientError::FailedToSendControlMessageToIggyServer(msg) => {
                 write!(f, "FailedToSendControlMessageToIggyServer: {}", msg)
+            }
+            ImsClientError::FailedToShutdownIggyConsumer(msg) => {
+                write!(f, "FailedToShutdownIggyConsumer: {}", msg)
             }
             ImsClientError::FailedToShutdownIggyClient(msg) => {
                 write!(f, "FailedToShutdownIggyClient: {}", msg)

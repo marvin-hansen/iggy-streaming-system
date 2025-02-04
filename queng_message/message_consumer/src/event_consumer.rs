@@ -1,6 +1,8 @@
 use crate::MessageConsumer;
 use futures_util::stream::StreamExt;
 use iggy::error::IggyError;
+use tokio::select;
+use tokio::sync::oneshot::Receiver;
 use trait_event_consumer::EventConsumer;
 
 // https://discord.com/channels/1144142576266530928/1144142577369628684/1333360421842980866
@@ -8,55 +10,71 @@ impl MessageConsumer {
     pub async fn consume_messages(
         mut self,
         event_processor: &'static (impl EventConsumer + Sync),
+        rx: Receiver<()>,
     ) -> Result<(), IggyError> {
-        tokio::spawn(async move {
-            let consumer = &mut self.consumer;
+        let consumer = &mut self.consumer;
 
-            while let Some(received_message) = consumer.next().await {
-                match received_message {
-                    // Process received message
-                    Ok(message) => event_processor
-                        .consume(message.message.payload.into())
-                        .await
-                        .expect("[MessageConsumer]: Failed to process message"),
-
-                    // Handle errors
-                    Err(err) => match err {
-                        IggyError::Disconnected => {
-                            eprintln!("Disconnected:  shutdown client");
-                            break;
-                        }
-                        IggyError::CannotEstablishConnection => {
-                            eprintln!("CannotEstablishConnection:  shutdown client");
-                            break;
-                        }
-                        IggyError::StaleClient => {
-                            eprintln!("StaleClient:  shutdown client");
-                            break;
-                        }
-                        IggyError::InvalidServerAddress => {
-                            eprintln!("InvalidServerAddress:  shutdown client");
-                            break;
-                        }
-                        IggyError::InvalidClientAddress => {
-                            eprintln!("InvalidClientAddress:  shutdown client");
-                            break;
-                        }
-                        IggyError::NotConnected => {
-                            eprintln!("NotConnected:  shutdown client");
-                            break;
-                        }
-                        IggyError::ClientShutdown => {
-                            eprintln!("ClientShutdown:  shutdown client");
-                            break;
-                        }
-                        _ => {
-                            eprintln!("[MessageConsumer]: Error while handling message: {err}", );
-                        }
-                    },
+        select! {
+             _ = rx => {
+                    return Ok(())
                 }
-            }
-        });
+
+            received_message = consumer.next() => {
+                match received_message {
+
+                    // Message received, process it
+                    Some(Ok(message)) => {
+                        event_processor
+                            .consume(message.message.payload.into())
+                            .await
+                            .expect("[MessageConsumer]: Failed to process message");
+                    }
+
+                    Some(Err(err)) => {
+                        match err {
+                            IggyError::Disconnected => {
+                                eprintln!("Disconnected:  shutdown client");
+                                return Err(err);
+                            }
+                            IggyError::CannotEstablishConnection => {
+                                eprintln!("CannotEstablishConnection:  shutdown client");
+                                return Err(err);
+                            }
+                            IggyError::StaleClient => {
+                                eprintln!("StaleClient:  shutdown client");
+                               return Err(err);
+                            }
+                            IggyError::InvalidServerAddress => {
+                                eprintln!("InvalidServerAddress:  shutdown client");
+                              return Err(err);
+                            }
+                            IggyError::InvalidClientAddress => {
+                                eprintln!("InvalidClientAddress:  shutdown client");
+                               return Err(err);
+                            }
+                            IggyError::NotConnected => {
+                                eprintln!("NotConnected:  shutdown client");
+                                return Err(err);
+                            }
+                            IggyError::ClientShutdown => {
+                                eprintln!("ClientShutdown:  shutdown client");
+                                return Err(err);
+                            }
+                            _ => {
+                                eprintln!("[MessageConsumer]: Error while handling message: {err}", );
+                            }
+                        } // end match error
+
+                    } // end Some(error)
+
+                    // No message  received, continue
+                    None => {}
+
+                } // end received_message
+
+            }  // end polled messages
+
+        } // end tokio select
 
         Ok(())
     }
