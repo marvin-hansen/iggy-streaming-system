@@ -161,7 +161,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
     pub(crate) async fn shutdown(&self) -> Result<(), std::fmt::Error> {
-
         let client_db = self.client_producers().read().await;
         if !client_db.is_empty() {
             self.dbg_print("Logging out all remaining clients");

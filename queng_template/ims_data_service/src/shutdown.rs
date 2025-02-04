@@ -18,14 +18,18 @@ pub(crate) async fn shutdown_iggy(
 ) {
     dbg_print("Delete control topic");
     consumer_client
-        .client().read().await
+        .client()
+        .read()
+        .await
         .delete_topic(control_stream_id, control_topic_id)
         .await
         .expect("Failed to delete control topic");
 
     dbg_print("Delete control stream");
     consumer_client
-        .client().read().await
+        .client()
+        .read()
+        .await
         .delete_stream(control_stream_id)
         .await
         .expect("Failed to control data topic");
