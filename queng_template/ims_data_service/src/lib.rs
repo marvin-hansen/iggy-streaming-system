@@ -147,7 +147,7 @@ where
         &producer_client,
         &consumer_client,
     )
-    .await;
+        .await;
 
     print_utils::print_stop_header(&ServiceID::Default);
 

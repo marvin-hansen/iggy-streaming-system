@@ -16,8 +16,8 @@ async fn main() -> Result<(), Box<Error>> {
         &PrintEventConsumer {},
         &PrintEventConsumer {},
     )
-    .await
-    .expect("Failed to create ImsDataClient");
+        .await
+        .expect("Failed to create ImsDataClient");
 
     println!("✅ ImsDataClient started");
 
