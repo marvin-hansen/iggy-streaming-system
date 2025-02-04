@@ -79,6 +79,7 @@ binance_usd_futures_testnet_data_integration = { path = "queng_integration/data/
 data_integration_macro = { path = "queng_macros/data_integration_macro" }
 
 # Mesasge bus
+message_client_builder = { path = "queng_message/message_client_builder" }
 message_consumer = { path = "queng_message/message_consumer" }
 message_producer = { path = "queng_message/message_producer" }
 message_shared = { path = "queng_message/message_shared" }

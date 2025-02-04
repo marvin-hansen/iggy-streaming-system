@@ -129,6 +129,11 @@ alias(
 ###############################################################################
 
 alias(
+    name = "message_client_builder",
+    actual = "//queng_message/message_client_builder",
+)
+
+alias(
     name = "message_consumer",
     actual = "//queng_message/message_consumer",
 )
