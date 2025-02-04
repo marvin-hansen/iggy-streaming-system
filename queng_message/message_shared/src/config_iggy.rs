@@ -17,6 +17,7 @@ pub struct IggyConfig {
     tcp_server_addr: Option<String>,
     tcp_tls_config: Option<IggyTcpTLSConfig>,
     partition_id: u32,
+    message_consumer_name: String,
     messages_per_batch: u32,
     auto_commit: bool,
 }
@@ -44,6 +45,7 @@ impl IggyConfig {
         tcp_server_addr: Option<String>,
         tcp_tls_config: Option<IggyTcpTLSConfig>,
         partition_id: u32,
+        message_consumer_name: String,
         messages_per_batch: u32,
         auto_commit: bool,
     ) -> Self {
@@ -57,6 +59,7 @@ impl IggyConfig {
             tcp_server_addr,
             tcp_tls_config,
             partition_id,
+            message_consumer_name,
             messages_per_batch,
             auto_commit,
         }
@@ -78,19 +81,19 @@ impl IggyConfig {
         assert!(client_id >= 100, "id must be greater than 100");
 
         let client_id = client_id as u32;
-        let stream_partition_count = 3;
 
         Self {
             user: user.to_owned(),
             stream_id: Identifier::numeric(client_id).unwrap(),
             stream_name: format!("stream_{}", client_id),
-            stream_partition_count,
+            stream_partition_count: 1,
             topic_id: Identifier::numeric(client_id).unwrap(),
             topic_name: format!("topic_{}", client_id),
             tcp_server_addr: Some("127.0.0.1:8090".to_string()),
             tcp_tls_config: None,
             partition_id: client_id,
-            messages_per_batch: 10,
+            message_consumer_name: format!("consumer_{}", client_id),
+            messages_per_batch: 1,
             auto_commit: true,
         }
     }
@@ -148,6 +151,10 @@ impl IggyConfig {
     /// Returns a reference to the `user`
     pub fn user(&self) -> &IggyUser {
         &self.user
+    }
+
+    pub fn message_consumer_name(&self) -> &str {
+        &self.message_consumer_name
     }
 }
 

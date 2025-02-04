@@ -15,6 +15,7 @@ fn create_test_iggy_config() -> IggyConfig {
         Some("localhost:8090".to_string()),
         None,
         3,
+        "consumer_1".to_string(),
         100,
         true,
     )

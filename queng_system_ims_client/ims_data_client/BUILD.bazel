@@ -17,7 +17,7 @@ rust_library(
         "//alias:common_data_bar",
         "//alias:common_exchange",
         "//alias:common_ims",
-        "//alias:message_consumer",
+        "//alias:message_client_builder",
         "//alias:message_producer",
         "//alias:message_shared",
         "//alias:sbe_messages_client",

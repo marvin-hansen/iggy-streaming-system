@@ -1,23 +1,25 @@
 mod client_api;
 mod client_mock;
 mod client_trait;
+mod config;
 mod error;
 mod handler;
 mod shutdown;
 
-pub use client_trait::ImsDataClientTrait;
 use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
 use common_ims::IntegrationConfig;
 use enum_dispatch::enum_dispatch;
 pub use error::ImsClientError;
-use iggy::client::{Client, UserClient};
 use iggy::clients::client::IggyClient;
-use message_consumer::MessageConsumer;
+use message_client_builder::MessageClientBuilder;
 use message_producer::MessageProducer;
 use message_shared::{IggyConfig, IggyUser};
 use tokio_util::sync::CancellationToken;
 use trait_event_consumer::EventConsumer;
+
+// Re-export pub use client_trait::ImsDataClientTrait;
+pub use client_trait::ImsDataClientTrait;
 
 /// The selector for the IMS data client allows
 /// to select between the real and mock client while keeping the same client interface.
@@ -74,7 +76,9 @@ impl ImsDataClient {
         )
             .await
     }
+}
 
+impl ImsDataClient {
     pub async fn build(
         dbg: bool,
         client_id: u16,
@@ -85,86 +89,16 @@ impl ImsDataClient {
         let exchange_id = integration_config.exchange_id();
 
         // ###############################################################################
-        // # Control stream: Build iggy client
+        // # Control stream
         // ###############################################################################
-        let control_stream_id = integration_config.control_channel();
-        let control_topic_id = integration_config.control_channel();
+        let iggy_control_stream_config = config::control_stream_config(exchange_id);
+        let (iggy_client_control, control_builder) =
+            MessageClientBuilder::build(dbg, &iggy_control_stream_config)
+                .await
+                .expect("Failed to build control stream");
 
-        if dbg {
-            println!("[ImsDataClient]: control_stream_id: {control_stream_id}");
-            println!("[ImsDataClient]: control_topic_id: {control_topic_id}");
-        }
-
-        let iggy_control_stream_config =
-            IggyConfig::from_client_id(&IggyUser::default(), client_id);
-        let iggy_client_control =
-            match message_shared::build_client(&iggy_control_stream_config).await {
-                Ok(client) => client,
-                Err(err) => return Err(ImsClientError::FailedToCreateIggyClient(err.to_string())),
-            };
-
-        match iggy_client_control.connect().await {
-            Ok(_) => {}
-            Err(err) => {
-                return Err(ImsClientError::FailedToConnectToIggyServer(format!(
-                    "[ImsDataClient]: Failed to connect to control stream {} due to error : {}",
-                    control_stream_id, err
-                )))
-            }
-        };
-
-        let username = iggy_control_stream_config.user().username();
-        let password = iggy_control_stream_config.user().password();
-        match iggy_client_control.login_user(username, password).await {
-            Ok(_) => {}
-            Err(err) => {
-                return Err(ImsClientError::FailedToLoginIggyUser(format!(
-                    "[ImsDataClient]: Failed to login user {} due to error: {}",
-                    username, err
-                )))
-            }
-        };
-
-        // ###############################################################################
-        // # Control stream: Build producer
-        // ###############################################################################
-        let control_producer = match MessageProducer::from_client(
-            dbg,
-            &iggy_client_control,
-            control_stream_id.clone(),
-            control_topic_id.clone(),
-        )
-            .await
-        {
-            Ok(producer) => producer,
-            Err(err) => {
-                return Err(ImsClientError::FailedToCreateIggyProducer(format!(
-                    "[ImsDataClient]: Failed to create control channel producer for stream: {} due to error {}",
-                    control_stream_id, err
-                )))
-            }
-        };
-
-        // ###############################################################################
-        // # Control stream: Build consumer
-        // ###############################################################################
-        let consumer_name = "control_producer";
-        let control_consumer = match MessageConsumer::from_client(
-            &iggy_client_control,
-            consumer_name,
-            control_stream_id.clone(),
-            control_topic_id.clone(),
-        )
-            .await
-        {
-            Ok(consumer) => consumer,
-            Err(err) => {
-                return Err(ImsClientError::FailedToCreateIggyConsumer(format!(
-                    "[ImsDataClient]: Failed to create control channel consumer for stream: {} due to error {}",
-                    control_stream_id, err
-                )))
-            }
-        };
+        let control_producer = control_builder.iggy_producer().to_owned();
+        let control_consumer = control_builder.iggy_consumer();
 
         // https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html#examples
         let token = CancellationToken::new();
@@ -182,83 +116,16 @@ impl ImsDataClient {
         });
 
         // ###############################################################################
-        // # Data stream: Build iggy client
+        // # Data stream
         // ###############################################################################
-        let data_stream_id = integration_config.data_channel();
-        let data_topic_id = integration_config.data_channel();
-
-        if dbg {
-            println!("[ImsDataClient]: data_stream_id: {data_stream_id}");
-            println!("[ImsDataClient]: data_topic_id: {data_topic_id}");
-        }
-
         let iggy_data_stream_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
-        let iggy_client_data = match message_shared::build_client(&iggy_data_stream_config).await {
-            Ok(client) => client,
-            Err(err) => return Err(ImsClientError::FailedToCreateIggyClient(err.to_string())),
-        };
+        let (iggy_client_data, data_builder) =
+            MessageClientBuilder::build(dbg, &iggy_data_stream_config)
+                .await
+                .expect("Failed to build control stream");
 
-        match iggy_client_data.connect().await {
-            Ok(_) => {}
-            Err(err) => {
-                return Err(ImsClientError::FailedToConnectToIggyServer(format!(
-                    "[ImsDataClient]: Failed to connect to data stream {data_stream_id} due to error: {err}"
-                )))
-            }
-        };
-
-        let username = iggy_data_stream_config.user().username();
-        let password = iggy_data_stream_config.user().password();
-        match iggy_client_data.login_user(username, password).await {
-            Ok(_) => {}
-            Err(err) => {
-                return Err(ImsClientError::FailedToLoginIggyUser(format!(
-                    "[ImsDataClient]: Failed to login user {} due to error: {}",
-                    username, err
-                )))
-            }
-        };
-
-        // ###############################################################################
-        // # Data stream: Build Producer
-        // ###############################################################################
-        let data_producer = match MessageProducer::from_client(
-            dbg,
-            &iggy_client_control,
-            data_stream_id.clone(),
-            data_topic_id.clone(),
-        )
-            .await
-        {
-            Ok(producer) => producer,
-            Err(err) => {
-                return Err(ImsClientError::FailedToCreateIggyProducer(format!(
-                    "[ImsDataClient]: Failed to create data channel producer for data stream {} due to error: {}",
-                    data_stream_id, err
-                )))
-            }
-        };
-
-        // ###############################################################################
-        // # Data stream: Build consumer
-        // ###############################################################################
-        let consumer_name = "data_consumer";
-        let data_consumer = match MessageConsumer::from_client(
-            &iggy_client_data,
-            consumer_name,
-            data_stream_id.clone(),
-            data_topic_id.clone(),
-        )
-            .await
-        {
-            Ok(consumer) => consumer,
-            Err(err) => {
-                return Err(ImsClientError::FailedToCreateIggyConsumer(format!(
-                    "[ImsDataClient]: Failed to create data channel consumer for data stream {} due to error: {}",
-                    data_stream_id, err
-                )))
-            }
-        };
+        let data_producer = data_builder.iggy_producer().to_owned();
+        let data_consumer = data_builder.iggy_consumer();
 
         // https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html#examples
         let token = CancellationToken::new();

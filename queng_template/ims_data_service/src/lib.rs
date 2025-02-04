@@ -76,7 +76,7 @@ where
         .expect("Failed to login user");
 
     dbg_print("Construct iggy consumer client");
-    let iggy_config = &config::ims_data_iggy_config(exchange_id);
+    let iggy_config = &config::ims_control_iggy_config(exchange_id);
     let consumer_client = message_shared::build_client(&iggy_config)
         .await
         .expect("Failed to build client");

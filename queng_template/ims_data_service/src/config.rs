@@ -23,6 +23,7 @@ pub(crate) fn ims_data_iggy_config(exchange_id: ExchangeID) -> IggyConfig {
         Some("localhost:8090".to_string()),
         None,
         1,
+        "consumer_data".to_string(),
         1,
         true,
     )
@@ -39,6 +40,7 @@ pub(crate) fn ims_control_iggy_config(exchange_id: ExchangeID) -> IggyConfig {
         Some("localhost:8090".to_string()),
         None,
         1,
+        "consumer_control".to_string(),
         1,
         true,
     )
