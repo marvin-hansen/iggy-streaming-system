@@ -1,14 +1,21 @@
 use std::error::Error;
 use std::fmt::{Display, Formatter};
 
+/// Errors that can occur when building a `MessageClient`
 #[repr(u8)]
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum MessageClientBuilderError {
+    /// Failed to create an iggy client
     FailedToCreateIggyClient(String),
+    /// Failed to connect to the iggy server
     FailedToConnectToIggyServer(String),
+    /// Failed to login an iggy user
     FailedToLoginIggyUser(String),
+    /// Failed to create an iggy stream
     FailedToCreateIggyStream(String),
+    /// Failed to create an iggy producer
     FailedToCreateIggyProducer(String),
+    /// Failed to create an iggy consumer
     FailedToCreateIggyConsumer(String),
 }
 

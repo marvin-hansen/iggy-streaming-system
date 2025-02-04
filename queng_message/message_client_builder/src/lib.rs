@@ -16,12 +16,38 @@ pub struct MessageClientBuilder {
 }
 
 impl MessageClientBuilder {
+    /// Build a new `MessageClientBuilder` with the given iggy configuration.
+    ///
+    /// Args:
+    /// * `iggy_config`: The configuration for the iggy client.
+    ///
+    /// Returns:
+    /// A `Result` containing a tuple of:
+    /// * A reference to the `IggyClient` created.
+    /// * A reference to the `MessageClientBuilder` created.
+    ///
+    /// Errors:
+    /// If the iggy client fails to build, a `MessageClientBuilderError` is returned.
+    ///
     pub async fn new(
         iggy_config: &IggyConfig,
     ) -> Result<(IggyClient, Self), MessageClientBuilderError> {
         Self::build(false, iggy_config).await
     }
 
+    /// Build a new `MessageClientBuilder` with the given iggy configuration and debug mode.
+    ///
+    /// Args:
+    /// * `iggy_config`: The configuration for the iggy client.
+    ///
+    /// Returns:
+    /// A `Result` containing a tuple of:
+    /// * A reference to the `IggyClient` created.
+    /// * A reference to the `MessageClientBuilder` created.
+    ///
+    /// Errors:
+    /// If the iggy client fails to build, a `MessageClientBuilderError` is returned.
+    ///
     pub async fn with_debug(
         iggy_config: &IggyConfig,
     ) -> Result<(IggyClient, Self), MessageClientBuilderError> {
@@ -30,6 +56,20 @@ impl MessageClientBuilder {
 }
 
 impl MessageClientBuilder {
+    /// Builds a new `MessageClientBuilder` with the given iggy configuration and debug mode.
+    ///
+    /// Args:
+    /// * `dbg`: A boolean flag to enable debug printing.
+    /// * `iggy_config`: The configuration for the iggy client.
+    ///
+    /// Returns:
+    /// A `Result` containing a tuple of:
+    /// * A reference to the `IggyClient` created.
+    /// * A reference to the `MessageClientBuilder` created.
+    ///
+    /// Errors:
+    /// If the iggy client fails to build, a `MessageClientBuilderError` is returned.
+    ///
     pub async fn build(
         dbg: bool,
         iggy_config: &IggyConfig,
@@ -132,14 +172,20 @@ impl MessageClientBuilder {
 }
 
 impl MessageClientBuilder {
+    /// Returns a reference to the `IggyConfig` used to create the client.
+    ///
+    /// The `IggyConfig` contains the configuration for the iggy client,
+    /// including the server address, username, password, and so on.
     pub fn iggy_config(&self) -> &IggyConfig {
         &self.iggy_config
     }
-
+    /// Returns a reference to the `MessageProducer` created for this client.
     pub fn iggy_producer(&self) -> &MessageProducer {
         &self.iggy_producer
     }
-
+    /// Returns the `MessageConsumer` created for this client.
+    ///
+    /// Note that this method consumes `self`.
     pub fn iggy_consumer(self) -> MessageConsumer {
         self.iggy_consumer
     }
