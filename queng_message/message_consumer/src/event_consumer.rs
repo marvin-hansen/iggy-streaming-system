@@ -5,7 +5,6 @@ use tokio::select;
 use tokio_util::sync::CancellationToken;
 use trait_event_consumer::EventConsumer;
 
-
 // https://discord.com/channels/1144142576266530928/1144142577369628684/1333360421842980866
 impl MessageConsumer {
     pub async fn consume_messages(
