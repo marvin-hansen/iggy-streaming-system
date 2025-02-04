@@ -58,7 +58,7 @@ impl ImsDataClient {
             control_event_processor,
             data_event_processor,
         )
-            .await
+        .await
     }
 
     pub async fn with_debug(
@@ -74,7 +74,7 @@ impl ImsDataClient {
             control_event_processor,
             data_event_processor,
         )
-            .await
+        .await
     }
 }
 

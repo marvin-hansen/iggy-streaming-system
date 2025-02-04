@@ -128,7 +128,7 @@ impl MessageClientBuilder {
             stream_id.clone(),
             topic_id.clone(),
         )
-            .await
+        .await
         {
             Ok(producer) => producer,
             Err(err) => {
@@ -147,7 +147,7 @@ impl MessageClientBuilder {
             stream_id.clone(),
             topic_id.clone(),
         )
-            .await
+        .await
         {
             Ok(consumer) => consumer,
             Err(err) => {
