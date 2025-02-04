@@ -136,6 +136,11 @@ crates_vendor(
             package = "tokio",
             version = "1.42",
         ),
+        "tokio-util": crate.spec(
+            default_features = False,
+            package = "tokio-util",
+            version = "0.7",
+        ),
         "tokio-tungstenite": crate.spec(
             features = ["rustls-tls-webpki-roots"],
             package = "tokio-tungstenite",

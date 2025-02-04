@@ -86,7 +86,7 @@ rust_library(
     }),
     version = "0.7.13",
     deps = [
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/futures-core-0.3.31:futures_core",
         "//thirdparty/crates/futures-sink-0.3.31:futures_sink",
         "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",

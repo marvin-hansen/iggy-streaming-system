@@ -29,24 +29,23 @@ rust_library(
         ],
     ),
     crate_features = [
-        "default",
-        "perf",
-        "perf-backtrack",
-        "perf-cache",
-        "perf-dfa",
-        "perf-inline",
-        "perf-literal",
-        "perf-onepass",
         "std",
-        "unicode",
-        "unicode-age",
         "unicode-bool",
-        "unicode-case",
-        "unicode-gencat",
-        "unicode-perl",
-        "unicode-script",
-        "unicode-segment",
-    ],
+    ] + select({
+        "@rules_rust//rust/platform:arm-unknown-linux-gnueabi": [
+            "unicode-perl",  # arm-unknown-linux-gnueabi
+        ],
+        "@rules_rust//rust/platform:powerpc-unknown-linux-gnu": [
+            "unicode-perl",  # powerpc-unknown-linux-gnu
+        ],
+        "@rules_rust//rust/platform:s390x-unknown-linux-gnu": [
+            "unicode-perl",  # s390x-unknown-linux-gnu
+        ],
+        "@rules_rust//rust/platform:x86_64-unknown-freebsd": [
+            "unicode-perl",  # x86_64-unknown-freebsd
+        ],
+        "//conditions:default": [],
+    }),
     crate_root = "src/lib.rs",
     edition = "2021",
     rustc_flags = [
@@ -100,8 +99,6 @@ rust_library(
     }),
     version = "1.11.1",
     deps = [
-        "//thirdparty/crates/aho-corasick-1.1.3:aho_corasick",
-        "//thirdparty/crates/memchr-2.7.4:memchr",
         "//thirdparty/crates/regex-automata-0.4.9:regex_automata",
         "//thirdparty/crates/regex-syntax-0.8.5:regex_syntax",
     ],

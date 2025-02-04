@@ -32,6 +32,7 @@ async-trait = { workspace = true }
 enum_dispatch = { workspace = true }
 iggy = { workspace = true }
 tokio = { workspace = true }
+tokio-util = { workspace = true }
 
 [lints]
 workspace = true

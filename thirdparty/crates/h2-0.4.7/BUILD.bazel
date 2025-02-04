@@ -82,7 +82,7 @@ rust_library(
     version = "0.4.7",
     deps = [
         "//thirdparty/crates/atomic-waker-1.1.2:atomic_waker",
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/fnv-1.0.7:fnv",
         "//thirdparty/crates/futures-core-0.3.31:futures_core",
         "//thirdparty/crates/futures-sink-0.3.31:futures_sink",

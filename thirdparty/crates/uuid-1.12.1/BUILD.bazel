@@ -91,6 +91,6 @@ rust_library(
     deps = [
         "//thirdparty/crates/getrandom-0.2.15:getrandom",
         "//thirdparty/crates/rand-0.8.5:rand",
-        "//thirdparty/crates/zerocopy-0.8.14:zerocopy",
+        "//thirdparty/crates/zerocopy-0.8.15:zerocopy",
     ],
 )

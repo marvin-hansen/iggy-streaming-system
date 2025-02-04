@@ -16,8 +16,7 @@ use iggy::clients::client::IggyClient;
 use message_consumer::MessageConsumer;
 use message_producer::MessageProducer;
 use message_shared::{IggyConfig, IggyUser};
-use std::sync::Mutex;
-use tokio::sync::oneshot::Sender;
+use tokio_util::sync::CancellationToken;
 use trait_event_consumer::EventConsumer;
 
 /// The selector for the IMS data client allows
@@ -39,8 +38,8 @@ pub struct ImsDataClient {
     iggy_client_data: IggyClient,
     control_producer: MessageProducer,
     data_producer: MessageProducer,
-    tx_control_consumer: Mutex<Option<Sender<()>>>,
-    tx_data_consumer: Mutex<Option<Sender<()>>>,
+    tx_control_consumer: CancellationToken,
+    tx_data_consumer: CancellationToken,
 }
 
 impl ImsDataClient {
@@ -169,10 +168,12 @@ impl ImsDataClient {
             }
         };
 
-        let (tx_control_consumer, rx) = tokio::sync::oneshot::channel();
+        // https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html#examples
+        let token = CancellationToken::new();
+        let tx_control_consumer = token.clone();
         tokio::spawn(async move {
             match control_consumer
-                .consume_messages(control_event_processor, rx)
+                .consume_messages(control_event_processor, token)
                 .await
             {
                 Ok(_) => {}
@@ -263,10 +264,12 @@ impl ImsDataClient {
             }
         };
 
-        let (tx_data_consumer, rx) = tokio::sync::oneshot::channel();
+        // https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html#examples
+        let token = CancellationToken::new();
+        let tx_data_consumer = token.clone();
         tokio::spawn(async move {
             match data_consumer
-                .consume_messages(data_event_processor, rx)
+                .consume_messages(data_event_processor, token)
                 .await
             {
                 Ok(_) => {}
@@ -275,9 +278,6 @@ impl ImsDataClient {
                 }
             }
         });
-
-        let tx_control_consumer = Mutex::new(Some(tx_control_consumer));
-        let tx_data_consumer = Mutex::new(Some(tx_data_consumer));
 
         Ok(Self {
             dbg,

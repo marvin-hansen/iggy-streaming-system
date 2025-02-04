@@ -85,6 +85,6 @@ rust_proc_macro(
         "//thirdparty/crates/itertools-0.13.0:itertools",
         "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
-        "//thirdparty/crates/syn-2.0.96:syn",
+        "//thirdparty/crates/syn-2.0.98:syn",
     ],
 )

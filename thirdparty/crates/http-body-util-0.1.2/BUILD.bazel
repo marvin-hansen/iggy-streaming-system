@@ -81,7 +81,7 @@ rust_library(
     }),
     version = "0.1.2",
     deps = [
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/futures-util-0.3.31:futures_util",
         "//thirdparty/crates/http-1.2.0:http",
         "//thirdparty/crates/http-body-1.0.1:http_body",

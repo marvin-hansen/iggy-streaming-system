@@ -2,20 +2,21 @@ use crate::MessageConsumer;
 use futures_util::stream::StreamExt;
 use iggy::error::IggyError;
 use tokio::select;
-use tokio::sync::oneshot::Receiver;
+use tokio_util::sync::CancellationToken;
 use trait_event_consumer::EventConsumer;
+
 
 // https://discord.com/channels/1144142576266530928/1144142577369628684/1333360421842980866
 impl MessageConsumer {
     pub async fn consume_messages(
         mut self,
         event_processor: &'static (impl EventConsumer + Sync),
-        rx: Receiver<()>,
+        cancellation_token: CancellationToken,
     ) -> Result<(), IggyError> {
         let consumer = &mut self.consumer;
 
         select! {
-             _ = rx => {
+             _ = cancellation_token.cancelled() => {
                     return Ok(())
                 }
 

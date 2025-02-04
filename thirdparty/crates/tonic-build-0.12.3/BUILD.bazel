@@ -92,6 +92,6 @@ rust_library(
         "//thirdparty/crates/prost-build-0.13.4:prost_build",
         "//thirdparty/crates/prost-types-0.13.4:prost_types",
         "//thirdparty/crates/quote-1.0.38:quote",
-        "//thirdparty/crates/syn-2.0.96:syn",
+        "//thirdparty/crates/syn-2.0.98:syn",
     ],
 )

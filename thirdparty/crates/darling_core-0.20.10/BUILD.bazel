@@ -90,6 +90,6 @@ rust_library(
         "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
         "//thirdparty/crates/strsim-0.11.1:strsim",
-        "//thirdparty/crates/syn-2.0.96:syn",
+        "//thirdparty/crates/syn-2.0.98:syn",
     ],
 )

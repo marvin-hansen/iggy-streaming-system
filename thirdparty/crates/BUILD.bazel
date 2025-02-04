@@ -43,26 +43,26 @@ alias(
 )
 
 alias(
-    name = "async-trait-0.1.85",
-    actual = "//thirdparty/crates/async-trait-0.1.85:async_trait",
+    name = "async-trait-0.1.86",
+    actual = "//thirdparty/crates/async-trait-0.1.86:async_trait",
     tags = ["manual"],
 )
 
 alias(
     name = "async-trait",
-    actual = "//thirdparty/crates/async-trait-0.1.85:async_trait",
+    actual = "//thirdparty/crates/async-trait-0.1.86:async_trait",
     tags = ["manual"],
 )
 
 alias(
-    name = "bytes-1.9.0",
-    actual = "//thirdparty/crates/bytes-1.9.0:bytes",
+    name = "bytes-1.10.0",
+    actual = "//thirdparty/crates/bytes-1.10.0:bytes",
     tags = ["manual"],
 )
 
 alias(
     name = "bytes",
-    actual = "//thirdparty/crates/bytes-1.9.0:bytes",
+    actual = "//thirdparty/crates/bytes-1.10.0:bytes",
     tags = ["manual"],
 )
 
@@ -151,14 +151,14 @@ alias(
 )
 
 alias(
-    name = "iggy-0.6.91",
-    actual = "//thirdparty/crates/iggy-0.6.91:iggy",
+    name = "iggy-0.6.101",
+    actual = "//thirdparty/crates/iggy-0.6.101:iggy",
     tags = ["manual"],
 )
 
 alias(
     name = "iggy",
-    actual = "//thirdparty/crates/iggy-0.6.91:iggy",
+    actual = "//thirdparty/crates/iggy-0.6.101:iggy",
     tags = ["manual"],
 )
 
@@ -223,14 +223,14 @@ alias(
 )
 
 alias(
-    name = "rustls-0.23.21",
-    actual = "//thirdparty/crates/rustls-0.23.21:rustls",
+    name = "rustls-0.23.22",
+    actual = "//thirdparty/crates/rustls-0.23.22:rustls",
     tags = ["manual"],
 )
 
 alias(
     name = "rustls",
-    actual = "//thirdparty/crates/rustls-0.23.21:rustls",
+    actual = "//thirdparty/crates/rustls-0.23.22:rustls",
     tags = ["manual"],
 )
 
@@ -283,14 +283,14 @@ alias(
 )
 
 alias(
-    name = "syn-2.0.96",
-    actual = "//thirdparty/crates/syn-2.0.96:syn",
+    name = "syn-2.0.98",
+    actual = "//thirdparty/crates/syn-2.0.98:syn",
     tags = ["manual"],
 )
 
 alias(
     name = "syn",
-    actual = "//thirdparty/crates/syn-2.0.96:syn",
+    actual = "//thirdparty/crates/syn-2.0.98:syn",
     tags = ["manual"],
 )
 
@@ -315,6 +315,18 @@ alias(
 alias(
     name = "tokio-tungstenite",
     actual = "//thirdparty/crates/tokio-tungstenite-0.26.1:tokio_tungstenite",
+    tags = ["manual"],
+)
+
+alias(
+    name = "tokio-util-0.7.13",
+    actual = "//thirdparty/crates/tokio-util-0.7.13:tokio_util",
+    tags = ["manual"],
+)
+
+alias(
+    name = "tokio-util",
+    actual = "//thirdparty/crates/tokio-util-0.7.13:tokio_util",
     tags = ["manual"],
 )
 

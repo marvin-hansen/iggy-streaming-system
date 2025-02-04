@@ -103,7 +103,7 @@ rust_library(
         "//thirdparty/crates/regex-1.11.1:regex",
         "//thirdparty/crates/rustc-hash-1.1.0:rustc_hash",
         "//thirdparty/crates/shlex-1.3.0:shlex",
-        "//thirdparty/crates/syn-2.0.96:syn",
+        "//thirdparty/crates/syn-2.0.98:syn",
         "//thirdparty/crates/which-4.4.2:which",
     ],
 )

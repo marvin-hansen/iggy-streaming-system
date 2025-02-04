@@ -81,7 +81,7 @@ rust_library(
     }),
     version = "0.2.12",
     deps = [
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/fnv-1.0.7:fnv",
         "//thirdparty/crates/itoa-1.0.14:itoa",
     ],

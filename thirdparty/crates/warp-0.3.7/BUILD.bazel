@@ -88,7 +88,7 @@ rust_library(
     }),
     version = "0.3.7",
     deps = [
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/futures-channel-0.3.31:futures_channel",
         "//thirdparty/crates/futures-util-0.3.31:futures_util",
         "//thirdparty/crates/headers-0.3.9:headers",
@@ -99,7 +99,7 @@ rust_library(
         "//thirdparty/crates/mime_guess-2.0.5:mime_guess",
         "//thirdparty/crates/multer-2.1.0:multer",
         "//thirdparty/crates/percent-encoding-2.3.1:percent_encoding",
-        "//thirdparty/crates/pin-project-1.1.8:pin_project",
+        "//thirdparty/crates/pin-project-1.1.9:pin_project",
         "//thirdparty/crates/scoped-tls-1.0.1:scoped_tls",
         "//thirdparty/crates/serde-1.0.217:serde",
         "//thirdparty/crates/serde_json-1.0.138:serde_json",

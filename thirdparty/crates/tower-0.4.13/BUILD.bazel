@@ -105,7 +105,7 @@ rust_library(
         "//thirdparty/crates/futures-core-0.3.31:futures_core",
         "//thirdparty/crates/futures-util-0.3.31:futures_util",
         "//thirdparty/crates/indexmap-1.9.3:indexmap",
-        "//thirdparty/crates/pin-project-1.1.8:pin_project",
+        "//thirdparty/crates/pin-project-1.1.9:pin_project",
         "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
         "//thirdparty/crates/rand-0.8.5:rand",
         "//thirdparty/crates/slab-0.4.9:slab",

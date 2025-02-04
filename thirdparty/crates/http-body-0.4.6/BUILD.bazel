@@ -81,7 +81,7 @@ rust_library(
     }),
     version = "0.4.6",
     deps = [
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/http-0.2.12:http",
         "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
     ],

@@ -82,7 +82,7 @@ rust_library(
     version = "0.3.9",
     deps = [
         "//thirdparty/crates/base64-0.21.7:base64",
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/headers-core-0.2.0:headers_core",
         "//thirdparty/crates/http-0.2.12:http",
         "//thirdparty/crates/httpdate-1.0.3:httpdate",

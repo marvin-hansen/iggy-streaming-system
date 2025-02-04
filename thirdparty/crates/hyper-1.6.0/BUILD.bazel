@@ -88,7 +88,7 @@ rust_library(
     }),
     version = "1.6.0",
     deps = [
-        "//thirdparty/crates/bytes-1.9.0:bytes",
+        "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/futures-channel-0.3.31:futures_channel",
         "//thirdparty/crates/futures-util-0.3.31:futures_util",
         "//thirdparty/crates/h2-0.4.7:h2",

@@ -85,7 +85,7 @@ rust_library(
         "//thirdparty/crates/log-0.4.25:log",
         "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
         "//thirdparty/crates/quote-1.0.38:quote",
-        "//thirdparty/crates/syn-2.0.96:syn",
+        "//thirdparty/crates/syn-2.0.98:syn",
         "//thirdparty/crates/wasm-bindgen-shared-0.2.100:wasm_bindgen_shared",
     ],
 )
