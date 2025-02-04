@@ -43,6 +43,7 @@ async fn main() -> Result<(), Box<Error>> {
 
     println!("Shutdown ImsDataClient ");
     let res = client.shutdown().await;
+    dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Shutdown ImsDataClient completed");
 
