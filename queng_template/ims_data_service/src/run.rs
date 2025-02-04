@@ -51,7 +51,6 @@ where
             } // end select
         } // end loop
 
-        self.dbg_print("Shutting down integration service");
         self.shutdown().await.expect("Failed to shutdown service");
 
         Ok(())

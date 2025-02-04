@@ -22,8 +22,8 @@ async fn main() -> Result<(), Box<Error>> {
 
     println!("✅ ImsDataClient started");
 
-    // wait 5 seconds
-    tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
+    // wait 1 second
+    tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
     println!("Login ImsDataClient ");
     let res = client.login().await;

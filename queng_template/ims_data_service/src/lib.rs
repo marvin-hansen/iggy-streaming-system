@@ -4,7 +4,7 @@ use common_config::ServiceID;
 use common_exchange::ExchangeID;
 use common_service::{print_utils, shutdown_utils};
 use iggy::client::{Client, UserClient};
-
+use iggy::identifier::Identifier;
 use tokio::time::Instant;
 use trait_data_integration::ImsDataIntegration;
 use warp::Filter;
@@ -54,6 +54,13 @@ where
     let stream_id = integration_config.control_channel();
     let topic_id = integration_config.control_channel();
 
+    dbg_print("Create Identifiers for control stream and topic");
+    let control_stream_id =
+        Identifier::from_str_value(&stream_id).expect("[MessageProducer]: Invalid stream id");
+
+    let control_topic_id =
+        Identifier::from_str_value(&topic_id).expect("[MessageProducer]: Invalid topic id");
+
     dbg_print("Construct iggy producer client");
     let producer_client = message_shared::build_client(stream_id.clone(), topic_id.clone())
         .await
@@ -68,7 +75,7 @@ where
         .await
         .expect("Failed to login user");
 
-    dbg_print("Construct iggy consumer");
+    dbg_print("Construct iggy consumer client");
     let consumer_client = message_shared::build_client(stream_id.clone(), topic_id.clone())
         .await
         .expect("Failed to build client");
@@ -131,7 +138,14 @@ where
     }
 
     dbg_print("Shutting down messaging clients");
-    shutdown::shutdown_iggy(&dbg_print, &producer_client, &consumer_client).await;
+    shutdown::shutdown_iggy(
+        &dbg_print,
+        &control_stream_id,
+        &control_topic_id,
+        &producer_client,
+        &consumer_client,
+    )
+        .await;
 
     print_utils::print_stop_header(&ServiceID::Default);
 

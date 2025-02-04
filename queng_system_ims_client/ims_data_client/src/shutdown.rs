@@ -11,36 +11,6 @@ impl ImsDataClient {
         self.dbg_print("Shutdown iggy data consumer");
         self.tx_data_consumer.cancel();
 
-        self.dbg_print("Delete control stream and topic");
-        let control_stream_id = &self.control_producer().stream_id();
-        let control_topic_id = &self.control_producer().topic_id();
-
-        self.dbg_print("Delete control topic");
-        match &self
-            .iggy_client_control
-            .client()
-            .read()
-            .await
-            .delete_topic(control_stream_id, control_topic_id)
-            .await
-        {
-            Ok(_) => (),
-            Err(err) => return Err(ImsClientError::FailedToDeleteIggyTopic(err.to_string())),
-        }
-
-        self.dbg_print("Delete control stream");
-        match &self
-            .iggy_client_control
-            .client()
-            .read()
-            .await
-            .delete_stream(control_stream_id)
-            .await
-        {
-            Ok(_) => (),
-            Err(err) => return Err(ImsClientError::FailedToDeleteIggyStream(err.to_string())),
-        }
-
         self.dbg_print("Delete data topic");
         let data_stream_id = &self.data_producer().stream_id();
         let data_topic_id = &self.data_producer.topic_id();
