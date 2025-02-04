@@ -9,12 +9,13 @@ pub enum ImsClientError {
     FailedToCreateIggyClient(String) = 2,
     FailedToConnectToIggyServer(String) = 3,
     FailedToLoginIggyUser(String) = 4,
-    FailedToCreateIggyProducer(String) = 5,
-    FailedToCreateIggyConsumer(String) = 6,
-    FailedToStartIggyConsumer(String) = 7,
-    FailedToEncodeControlMessage(String) = 8,
-    FailedToSendControlMessageToIggyServer(String) = 9,
-    FailedToShutdownIggyClient(String) = 10,
+    FailedToCreateIggyStream(String) = 5,
+    FailedToCreateIggyProducer(String) = 6,
+    FailedToCreateIggyConsumer(String) = 7,
+    FailedToStartIggyConsumer(String) = 8,
+    FailedToEncodeControlMessage(String) = 9,
+    FailedToSendControlMessageToIggyServer(String) = 10,
+    FailedToShutdownIggyClient(String) = 11,
 }
 
 impl Error for ImsClientError {}
@@ -31,6 +32,9 @@ impl Display for ImsClientError {
             }
             ImsClientError::FailedToLoginIggyUser(msg) => {
                 write!(f, "FailedToLoginIggyUser: {}", msg)
+            }
+            ImsClientError::FailedToCreateIggyStream(msg) => {
+                write!(f, "FailedToCreateIggyStream: {}", msg)
             }
             ImsClientError::FailedToCreateIggyProducer(msg) => {
                 write!(f, "FailedToCreateIggyProducer: {}", msg)

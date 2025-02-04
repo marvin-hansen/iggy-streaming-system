@@ -10,6 +10,7 @@ pub struct IggyConfig {
     user: IggyUser,
     stream_id: Identifier,
     stream_name: String,
+    stream_partition_count: u32,
     topic_id: Identifier,
     topic_name: String,
     tcp_server_addr: String,
@@ -35,6 +36,7 @@ impl IggyConfig {
         user: IggyUser,
         tcp_server_addr: &str,
         stream_id: u32,
+        stream_partition_count: u32,
         topic_id: u32,
         partition_id: u32,
         messages_per_batch: u32,
@@ -44,6 +46,7 @@ impl IggyConfig {
             user,
             stream_id: Identifier::numeric(stream_id).unwrap(),
             stream_name: format!("stream_{}", stream_id),
+            stream_partition_count,
             topic_id: Identifier::numeric(topic_id).unwrap(),
             topic_name: format!("topic_{}", topic_id),
             tcp_server_addr: tcp_server_addr.to_owned(),
@@ -69,11 +72,13 @@ impl IggyConfig {
         assert!(client_id >= 100, "id must be greater than 100");
 
         let client_id = client_id as u32;
+        let stream_partition_count = 3;
 
         Self {
             user: user.to_owned(),
             stream_id: Identifier::numeric(client_id).unwrap(),
             stream_name: format!("stream_{}", client_id),
+            stream_partition_count,
             topic_id: Identifier::numeric(client_id).unwrap(),
             topic_name: format!("topic_{}", client_id),
             tcp_server_addr: "127.0.0.1:8090".to_owned(),
@@ -94,7 +99,10 @@ impl IggyConfig {
     pub fn stream_name(&self) -> &str {
         &self.stream_name
     }
-
+    /// Returns the `stream_partition_count`
+    pub fn stream_partition_count(&self) -> u32 {
+        self.stream_partition_count
+    }
     /// Returns a copy of the `topic_id`
     pub fn topic_id(&self) -> Identifier {
         self.topic_id.to_owned()
@@ -136,12 +144,13 @@ impl Display for IggyConfig {
         write!(
             f,
             "IggyConfig: \
-            iggy_user: {} tcp_server_addr: {}, stream_id: {}, stream_name: {}, topic_id: {}, topic_name: {}, \
+            iggy_user: {} tcp_server_addr: {}, stream_id: {}, stream_name: {}, stream_partition_count: {}, topic_id: {}, topic_name: {}, \
              partition_id: {}, messages_per_batch: {}, auto_commit: {}",
             self.user.username(),
             self.tcp_server_addr,
             self.stream_id,
             self.stream_name,
+            self.stream_partition_count,
             self.topic_id,
             self.topic_name,
             self.partition_id,

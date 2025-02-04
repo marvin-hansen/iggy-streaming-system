@@ -7,7 +7,6 @@ use trait_event_consumer::{EventConsumer, EventConsumerError};
 // Ensure iggy is running before running this example
 // i.e. run cargo r --bin iggy-server
 
-
 #[tokio::main]
 async fn main() -> Result<(), Box<Error>> {
     println!("Create ImsDataClient client");
@@ -18,7 +17,7 @@ async fn main() -> Result<(), Box<Error>> {
         &PrintEventConsumer {},
     )
         .await
-        .expect("Failed to create mock client")
+        .expect("Failed to create ImsDataClient")
         .into();
 
     println!("✅ ImsDataClient started");
@@ -49,7 +48,6 @@ async fn main() -> Result<(), Box<Error>> {
 
     Ok(())
 }
-
 
 pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig {
     IntegrationConfig::new(

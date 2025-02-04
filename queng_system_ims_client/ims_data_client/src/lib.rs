@@ -96,7 +96,8 @@ impl ImsDataClient {
             println!("[ImsDataClient]: control_topic_id: {control_topic_id}");
         }
 
-        let iggy_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
+        let iggy_control_stream_config =
+            IggyConfig::from_client_id(&IggyUser::default(), client_id);
         let iggy_client_control =
             match message_shared::build_client(control_stream_id.clone(), control_topic_id.clone())
                 .await
@@ -109,13 +110,14 @@ impl ImsDataClient {
             Ok(_) => {}
             Err(err) => {
                 return Err(ImsClientError::FailedToConnectToIggyServer(format!(
-                    "[ImsDataClient]: Failed to connect to control topic: {err}"
+                    "[ImsDataClient]: Failed to connect to control stream {} due to error : {}",
+                    control_stream_id, err
                 )))
             }
         };
 
-        let username = iggy_config.user().username();
-        let password = iggy_config.user().password();
+        let username = iggy_control_stream_config.user().username();
+        let password = iggy_control_stream_config.user().password();
         match iggy_client_control.login_user(username, password).await {
             Ok(_) => {}
             Err(err) => {
@@ -140,7 +142,8 @@ impl ImsDataClient {
             Ok(producer) => producer,
             Err(err) => {
                 return Err(ImsClientError::FailedToCreateIggyProducer(format!(
-                    "[ImsDataClient]: Failed to create control channel producer: {err}"
+                    "[ImsDataClient]: Failed to create control channel producer for stream: {} due to error {}",
+                    control_stream_id, err
                 )))
             }
         };
@@ -160,7 +163,8 @@ impl ImsDataClient {
             Ok(consumer) => consumer,
             Err(err) => {
                 return Err(ImsClientError::FailedToCreateIggyConsumer(format!(
-                    "[ImsDataClient]: Failed to create control channel consumer: {err}"
+                    "[ImsDataClient]: Failed to create control channel consumer for stream: {} due to error {}",
+                    control_stream_id, err
                 )))
             }
         };
@@ -188,7 +192,7 @@ impl ImsDataClient {
             println!("[ImsDataClient]: data_topic_id: {data_topic_id}");
         }
 
-        let iggy_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
+        let iggy_data_stream_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
         let iggy_client_data =
             match message_shared::build_client(data_stream_id.clone(), data_topic_id.clone()).await
             {
@@ -200,13 +204,13 @@ impl ImsDataClient {
             Ok(_) => {}
             Err(err) => {
                 return Err(ImsClientError::FailedToConnectToIggyServer(format!(
-                    "[ImsDataClient]: Failed to connect to control topic: {err}"
+                    "[ImsDataClient]: Failed to connect to data stream {data_stream_id} due to error: {err}"
                 )))
             }
         };
 
-        let username = iggy_config.user().username();
-        let password = iggy_config.user().password();
+        let username = iggy_data_stream_config.user().username();
+        let password = iggy_data_stream_config.user().password();
         match iggy_client_data.login_user(username, password).await {
             Ok(_) => {}
             Err(err) => {
@@ -231,7 +235,8 @@ impl ImsDataClient {
             Ok(producer) => producer,
             Err(err) => {
                 return Err(ImsClientError::FailedToCreateIggyProducer(format!(
-                    "[ImsDataClient]: Failed to create data channel producer: {err}"
+                    "[ImsDataClient]: Failed to create data channel producer for data stream {} due to error: {}",
+                    data_stream_id, err
                 )))
             }
         };
@@ -251,7 +256,8 @@ impl ImsDataClient {
             Ok(consumer) => consumer,
             Err(err) => {
                 return Err(ImsClientError::FailedToCreateIggyConsumer(format!(
-                    "[ImsDataClient]: Failed to create data channel consumer: {err}"
+                    "[ImsDataClient]: Failed to create data channel consumer for data stream {} due to error: {}",
+                    data_stream_id, err
                 )))
             }
         };
@@ -260,7 +266,7 @@ impl ImsDataClient {
             match data_consumer.consume_messages(data_event_processor).await {
                 Ok(_) => {}
                 Err(err) => {
-                    eprintln!("[ImsDataClient]: Failed to consume data messages: {err}");
+                    eprintln!("[ImsDataClient]: Failed to start data consumer: {err}");
                 }
             }
         });

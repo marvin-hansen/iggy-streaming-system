@@ -29,11 +29,7 @@ impl ImsDataClient {
         // Delete data topic
         let data_stream_id = &self.data_producer().stream_id();
         let data_topic_id = &self.data_producer.topic_id();
-        message_shared::cleanup(
-            &self.iggy_client_control,
-            data_stream_id,
-            data_topic_id,
-        )
+        message_shared::cleanup(&self.iggy_client_control, data_stream_id, data_topic_id)
             .await
             .expect("Failed to delete data stream");
 

@@ -17,6 +17,7 @@ pub(crate) fn ims_data_iggy_config(exchange_id: ExchangeID) -> IggyConfig {
         IggyUser::default(),
         "127.0.0.1:8090",
         exchange_id as u32,
+        3,
         1,
         1,
         1,

@@ -8,7 +8,7 @@ fn create_test_user() -> IggyUser {
 #[test]
 fn test_new_iggy_config() {
     let user = create_test_user();
-    let config = IggyConfig::new(user.clone(), "localhost:8090", 1, 2, 3, 100, true);
+    let config = IggyConfig::new(user.clone(), "localhost:8090", 1, 1, 2, 3, 100, true);
 
     assert_eq!(config.stream_id(), Identifier::numeric(1).unwrap());
     assert_eq!(config.stream_name(), "stream_1");
@@ -40,7 +40,7 @@ fn test_from_client_id() {
 #[test]
 fn test_clone_iggy_config() {
     let user = create_test_user();
-    let config = IggyConfig::new(user, "localhost:8090", 1, 2, 3, 100, true);
+    let config = IggyConfig::new(user.clone(), "localhost:8090", 1, 1, 2, 3, 100, true);
     let cloned_config = config.clone();
     assert_eq!(config, cloned_config);
 }
@@ -48,7 +48,7 @@ fn test_clone_iggy_config() {
 #[test]
 fn test_display_iggy_config() {
     let user = create_test_user();
-    let config = IggyConfig::new(user, "localhost:8090", 1, 2, 3, 100, true);
+    let config = IggyConfig::new(user.clone(), "localhost:8090", 1, 1, 2, 3, 100, true);
     let display_str = format!("{}", config);
     assert!(display_str.contains("test_user"));
     assert!(display_str.contains("localhost:8090"));
