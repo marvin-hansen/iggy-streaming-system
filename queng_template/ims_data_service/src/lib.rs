@@ -92,6 +92,7 @@ where
     dbg_print("Configuring health endpoint");
 
     dbg_print("Configure health check route");
+    // curl http://localhost:PORT/health
     let health_check = warp::get()
         .and(warp::path("health"))
         .and(warp::path::end())
