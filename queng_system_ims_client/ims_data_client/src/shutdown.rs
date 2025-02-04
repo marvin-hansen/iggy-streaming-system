@@ -1,11 +1,11 @@
 use crate::error::ImsClientError;
 use crate::ImsDataClient;
 use iggy::client::Client;
+use iggy::locking::IggySharedMutFn;
 
 impl ImsDataClient {
     /// Shutdown the IMS data client.
     pub(crate) async fn client_shutdown(&self) -> Result<(), ImsClientError> {
-
         self.dbg_print("Shutdown iggy control consumer");
         self.tx_control_consumer.cancel();
         self.dbg_print("Shutdown iggy data consumer");
@@ -14,20 +14,60 @@ impl ImsDataClient {
         self.dbg_print("Delete control stream and topic");
         let control_stream_id = &self.control_producer().stream_id();
         let control_topic_id = &self.control_producer().topic_id();
-        message_shared::cleanup(
-            &self.iggy_client_control,
-            control_stream_id,
-            control_topic_id,
-        )
-            .await
-            .expect("Failed to delete control stream");
 
-        self.dbg_print("Delete data stream and topic");
+        self.dbg_print("Delete control topic");
+        match &self
+            .iggy_client_control
+            .client()
+            .read()
+            .await
+            .delete_topic(control_stream_id, control_topic_id)
+            .await
+        {
+            Ok(_) => (),
+            Err(err) => return Err(ImsClientError::FailedToDeleteIggyTopic(err.to_string())),
+        }
+
+        self.dbg_print("Delete control stream");
+        match &self
+            .iggy_client_control
+            .client()
+            .read()
+            .await
+            .delete_stream(control_stream_id)
+            .await
+        {
+            Ok(_) => (),
+            Err(err) => return Err(ImsClientError::FailedToDeleteIggyStream(err.to_string())),
+        }
+
+        self.dbg_print("Delete data topic");
         let data_stream_id = &self.data_producer().stream_id();
         let data_topic_id = &self.data_producer.topic_id();
-        message_shared::cleanup(&self.iggy_client_control, data_stream_id, data_topic_id)
+        match &self
+            .iggy_client_data
+            .client()
+            .read()
             .await
-            .expect("Failed to delete data stream");
+            .delete_topic(data_stream_id, data_topic_id)
+            .await
+        {
+            Ok(_) => (),
+            Err(err) => return Err(ImsClientError::FailedToDeleteIggyTopic(err.to_string())),
+        }
+
+        self.dbg_print("Delete data stream");
+        match &self
+            .iggy_client_data
+            .client()
+            .read()
+            .await
+            .delete_stream(data_stream_id)
+            .await
+        {
+            Ok(_) => (),
+            Err(err) => return Err(ImsClientError::FailedToDeleteIggyStream(err.to_string())),
+        }
 
         self.dbg_print("Shutdown iggy client for control stream");
         match &self.iggy_client_control.shutdown().await {
