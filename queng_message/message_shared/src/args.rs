@@ -1,4 +1,4 @@
-use crate::IggyTcpTLSConfig;
+use crate::{IggyConfig, IggyTcpTLSConfig};
 use iggy::users::defaults::{DEFAULT_ROOT_PASSWORD, DEFAULT_ROOT_USERNAME};
 use iggy::utils::duration::IggyDuration;
 use std::str::FromStr;
@@ -62,11 +62,56 @@ impl Args {
     }
 
     #[inline]
+    pub fn from_iggy_config(iggy_config: &IggyConfig) -> Self {
+        // Extract required arguments
+        let stream_id = iggy_config.stream_name().to_string();
+        let topic_id = iggy_config.topic_name().to_string();
+
+        // Extract optional arguments
+        let server_address = iggy_config.tcp_server_addr();
+        let tcp_tls_config = iggy_config.tcp_tls_config();
+
+        // Build config
+        let args = match (server_address, tcp_tls_config) {
+            (Some(server_address), Some(tcp_tls_config)) => Self::with_server_and_tls_config(
+                stream_id,
+                topic_id,
+                server_address,
+                &tcp_tls_config,
+            ),
+            (Some(server_address), None) => Self::with_server(stream_id, topic_id, server_address),
+            (None, Some(tcp_tls_config)) => {
+                Self::with_tls_config(stream_id, topic_id, &tcp_tls_config)
+            }
+            (None, None) => Self::new(stream_id, topic_id),
+        };
+
+        args
+    }
+
+    #[inline]
     pub fn with_server(stream_id: String, topic_id: String, tcp_server_address: String) -> Self {
         Self {
             stream_id,
             topic_id,
             tcp_server_address,
+            ..Default::default()
+        }
+    }
+
+    #[inline]
+    pub fn with_tls_config(
+        stream_id: String,
+        topic_id: String,
+        tcp_tls_config: &IggyTcpTLSConfig,
+    ) -> Self {
+        Self {
+            stream_id,
+            topic_id,
+            // Tls config
+            tcp_tls_enabled: tcp_tls_config.tcp_tls_enabled(),
+            tcp_tls_domain: tcp_tls_config.tcp_tls_domain().to_string(),
+            tcp_tls_ca_file: tcp_tls_config.tcp_tls_ca_file().to_owned(),
             ..Default::default()
         }
     }

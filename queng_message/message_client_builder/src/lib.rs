@@ -1,4 +1,3 @@
-use crate::error::MessageClientBuilderError;
 use iggy::client::Client;
 use iggy::clients::client::IggyClient;
 use message_consumer::MessageConsumer;
@@ -6,6 +5,9 @@ use message_producer::MessageProducer;
 use message_shared::IggyConfig;
 
 mod error;
+
+// Re-export error type
+pub use crate::error::MessageClientBuilderError;
 
 pub struct MessageClientBuilder {
     iggy_config: IggyConfig,
@@ -48,17 +50,14 @@ impl MessageClientBuilder {
         dbg_print(&format!("control_topic_id: {control_topic_id}"));
 
         dbg_print("Build iggy client");
-        let iggy_client =
-            match message_shared::build_client(control_stream_id.clone(), control_topic_id.clone())
-                .await
-            {
-                Ok(client) => client,
-                Err(err) => {
-                    return Err(MessageClientBuilderError::FailedToCreateIggyClient(
-                        err.to_string(),
-                    ))
-                }
-            };
+        let iggy_client = match message_shared::build_client(&iggy_config).await {
+            Ok(client) => client,
+            Err(err) => {
+                return Err(MessageClientBuilderError::FailedToCreateIggyClient(
+                    err.to_string(),
+                ))
+            }
+        };
 
         dbg_print("Connect iggy client");
         match iggy_client.connect().await {

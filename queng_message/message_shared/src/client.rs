@@ -1,4 +1,4 @@
-use crate::Args;
+use crate::{Args, IggyConfig};
 use iggy::client_provider;
 use iggy::client_provider::ClientProviderConfig;
 use iggy::clients::client::IggyClient;
@@ -16,9 +16,11 @@ use std::sync::Arc;
 ///
 /// A `Result` wrapping the `IggyClient` instance or an `IggyError`.
 ///
-pub async fn build_client(stream_id: String, topic_id: String) -> Result<IggyClient, IggyError> {
-    let args = Args::new(stream_id, topic_id);
+pub async fn build_client(iggy_config: &IggyConfig) -> Result<IggyClient, IggyError> {
+    // Build config
+    let args = Args::from_iggy_config(iggy_config);
 
+    // Build client
     build_tcp_client_from_args(args.to_sdk_args()).await
 }
 
@@ -33,7 +35,7 @@ pub async fn build_client(stream_id: String, topic_id: String) -> Result<IggyCli
 ///
 /// A `Result` wrapping the `IggyClient` instance or an `IggyError`.
 ///
-pub async fn build_tcp_client_from_args(args: iggy::args::Args) -> Result<IggyClient, IggyError> {
+async fn build_tcp_client_from_args(args: iggy::args::Args) -> Result<IggyClient, IggyError> {
     // Build client provider configuration
     let client_provider_config = Arc::new(
         ClientProviderConfig::from_args(args).expect("Failed to create client provider config"),

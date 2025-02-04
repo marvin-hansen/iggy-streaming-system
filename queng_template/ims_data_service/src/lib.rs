@@ -37,7 +37,6 @@ where
     //
     dbg_print("build config files");
     let integration_config = &config::ims_data_integration_config(exchange_id);
-    let iggy_config = &config::ims_data_iggy_config(exchange_id);
 
     let cfg_manager = ConfigManager::default_with_debug();
     let data_integration = integration_config.integration_id();
@@ -62,7 +61,8 @@ where
         Identifier::from_str_value(&topic_id).expect("[MessageProducer]: Invalid topic id");
 
     dbg_print("Construct iggy producer client");
-    let producer_client = message_shared::build_client(stream_id.clone(), topic_id.clone())
+    let iggy_config = &config::ims_data_iggy_config(exchange_id);
+    let producer_client = message_shared::build_client(&iggy_config)
         .await
         .expect("Failed to build client");
 
@@ -76,7 +76,8 @@ where
         .expect("Failed to login user");
 
     dbg_print("Construct iggy consumer client");
-    let consumer_client = message_shared::build_client(stream_id.clone(), topic_id.clone())
+    let iggy_config = &config::ims_data_iggy_config(exchange_id);
+    let consumer_client = message_shared::build_client(&iggy_config)
         .await
         .expect("Failed to build client");
 

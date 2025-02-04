@@ -1,6 +1,7 @@
 use std::fmt::{Display, Formatter};
 
 use crate::config_iggy_user::IggyUser;
+use crate::IggyTcpTLSConfig;
 use iggy::identifier::Identifier;
 
 /// Configuration for Iggy, containing user information, stream and topic identifiers,
@@ -13,7 +14,8 @@ pub struct IggyConfig {
     stream_partition_count: u32,
     topic_id: Identifier,
     topic_name: String,
-    tcp_server_addr: String,
+    tcp_server_addr: Option<String>,
+    tcp_tls_config: Option<IggyTcpTLSConfig>,
     partition_id: u32,
     messages_per_batch: u32,
     auto_commit: bool,
@@ -34,10 +36,13 @@ pub struct IggyConfig {
 impl IggyConfig {
     pub fn new(
         user: IggyUser,
-        tcp_server_addr: &str,
         stream_id: u32,
+        stream_name: String,
         stream_partition_count: u32,
         topic_id: u32,
+        topic_name: String,
+        tcp_server_addr: Option<String>,
+        tcp_tls_config: Option<IggyTcpTLSConfig>,
         partition_id: u32,
         messages_per_batch: u32,
         auto_commit: bool,
@@ -45,11 +50,12 @@ impl IggyConfig {
         Self {
             user,
             stream_id: Identifier::numeric(stream_id).unwrap(),
-            stream_name: format!("stream_{}", stream_id),
+            stream_name,
             stream_partition_count,
             topic_id: Identifier::numeric(topic_id).unwrap(),
-            topic_name: format!("topic_{}", topic_id),
-            tcp_server_addr: tcp_server_addr.to_owned(),
+            topic_name,
+            tcp_server_addr,
+            tcp_tls_config,
             partition_id,
             messages_per_batch,
             auto_commit,
@@ -81,7 +87,8 @@ impl IggyConfig {
             stream_partition_count,
             topic_id: Identifier::numeric(client_id).unwrap(),
             topic_name: format!("topic_{}", client_id),
-            tcp_server_addr: "127.0.0.1:8090".to_owned(),
+            tcp_server_addr: Some("127.0.0.1:8090".to_string()),
+            tcp_tls_config: None,
             partition_id: client_id,
             messages_per_batch: 10,
             auto_commit: true,
@@ -129,8 +136,13 @@ impl IggyConfig {
     }
 
     /// Returns a copy of the `tcp_server_addr`
-    pub fn tcp_server_addr(&self) -> String {
+    pub fn tcp_server_addr(&self) -> Option<String> {
         self.tcp_server_addr.to_owned()
+    }
+
+    // Returns a reference to the `tcp_tls_config`
+    pub fn tcp_tls_config(&self) -> Option<IggyTcpTLSConfig> {
+        self.tcp_tls_config.to_owned()
     }
 
     /// Returns a reference to the `user`
@@ -144,7 +156,7 @@ impl Display for IggyConfig {
         write!(
             f,
             "IggyConfig: \
-            iggy_user: {} tcp_server_addr: {}, stream_id: {}, stream_name: {}, stream_partition_count: {}, topic_id: {}, topic_name: {}, \
+            iggy_user: {} tcp_server_addr: {:?}, stream_id: {}, stream_name: {}, stream_partition_count: {}, topic_id: {}, topic_name: {}, \
              partition_id: {}, messages_per_batch: {}, auto_commit: {}",
             self.user.username(),
             self.tcp_server_addr,

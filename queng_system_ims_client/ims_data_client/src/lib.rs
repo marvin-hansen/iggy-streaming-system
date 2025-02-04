@@ -98,9 +98,7 @@ impl ImsDataClient {
         let iggy_control_stream_config =
             IggyConfig::from_client_id(&IggyUser::default(), client_id);
         let iggy_client_control =
-            match message_shared::build_client(control_stream_id.clone(), control_topic_id.clone())
-                .await
-            {
+            match message_shared::build_client(&iggy_control_stream_config).await {
                 Ok(client) => client,
                 Err(err) => return Err(ImsClientError::FailedToCreateIggyClient(err.to_string())),
             };
@@ -195,12 +193,10 @@ impl ImsDataClient {
         }
 
         let iggy_data_stream_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
-        let iggy_client_data =
-            match message_shared::build_client(data_stream_id.clone(), data_topic_id.clone()).await
-            {
-                Ok(client) => client,
-                Err(err) => return Err(ImsClientError::FailedToCreateIggyClient(err.to_string())),
-            };
+        let iggy_client_data = match message_shared::build_client(&iggy_data_stream_config).await {
+            Ok(client) => client,
+            Err(err) => return Err(ImsClientError::FailedToCreateIggyClient(err.to_string())),
+        };
 
         match iggy_client_data.connect().await {
             Ok(_) => {}
