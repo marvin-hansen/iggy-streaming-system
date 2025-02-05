@@ -17,10 +17,9 @@ rust_library(
         "//alias:message_consumer",
         "//alias:message_producer",
         "//alias:message_shared",
+        "//alias:trait_event_consumer",
         # External crates
         "//thirdparty/crates:iggy",
-        "//thirdparty/crates:tokio",
-        "//thirdparty/crates:tokio-util",
     ],
 )
 

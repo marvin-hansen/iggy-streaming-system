@@ -25,10 +25,15 @@ rust_test_suite(
         # Internal crates
         "//alias:common_exchange",
         "//alias:config_manager",
+        "//alias:message_shared",
         "//alias:iggy_test_utils",
-        # External crates
+        "//alias:trait_event_consumer",
+         # External crates
         "//thirdparty/crates:service_utils",
+        "//thirdparty/crates:iggy",
         "//thirdparty/crates:tokio",
+        "//thirdparty/crates:tokio-util",
+
     ],
 )
 

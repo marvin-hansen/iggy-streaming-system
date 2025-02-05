@@ -18,6 +18,7 @@ workspace = true
 message_consumer = { workspace = true }
 message_producer = { workspace = true }
 message_shared = { workspace = true }
+trait_event_consumer = { workspace = true }
 # External crates
 iggy = { workspace = true }
 

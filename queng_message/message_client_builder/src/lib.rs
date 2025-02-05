@@ -8,6 +8,9 @@ mod error;
 
 // Re-export error type
 pub use crate::error::MessageClientBuilderError;
+// Re-export the event consumer trait and Error type
+pub use trait_event_consumer::EventConsumer;
+pub use trait_event_consumer::EventConsumerError;
 
 pub struct MessageClientBuilder {
     iggy_config: IggyConfig,
