@@ -22,6 +22,7 @@ common_service = { workspace = true }
 config_manager = { workspace = true }
 common_sbe_errors = { workspace = true }
 client_error_ext = { workspace = true }
+data_error_ext = { workspace = true }
 message_consumer = { workspace = true }
 message_producer = { workspace = true }
 message_shared = { workspace = true }

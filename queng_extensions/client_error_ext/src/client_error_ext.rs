@@ -2,7 +2,6 @@ use common_sbe_errors::ClientError;
 use sbe_types::{SbeDecodeError, SbeEncodeError};
 
 /// Provides an extension trait for `ClientError` to encode and decode into an SBE message.
-
 pub trait SbeClientErrorExtension {
     /// Encodes a `ClientError` to a byte buffer.
     ///

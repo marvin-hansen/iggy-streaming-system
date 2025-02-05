@@ -66,6 +66,7 @@ environment_manager = { path = "queng_components/environment_manager" }
 client_error_ext = { path = "queng_extensions/client_error_ext" }
 common_data_bar_ext = { path = "queng_extensions/common_data_bar_ext" }
 #cow_ext = { path = "queng_extensions/cow_ext" }
+data_error_ext = { path = "queng_extensions/data_error_ext" }
 
 # Integration
 # Data integration

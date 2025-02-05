@@ -1,7 +1,8 @@
 use crate::service::Service;
 use client_error_ext::SbeClientErrorExtension;
 use common_errors::MessageProcessingError;
-use common_sbe_errors::ClientError;
+use common_sbe_errors::{ClientError, DataError};
+use data_error_ext::SbeDataErrorExtension;
 use sbe_types::{ClientErrorType, DataErrorType};
 use trait_data_integration::ImsDataIntegration;
 use trait_event_processor::EventProcessor;
@@ -25,6 +26,8 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         client_id: u16,
         client_error: ClientErrorType,
     ) -> Result<(), MessageProcessingError> {
+
+        // Build error type
         let client_error = ClientError::new(client_id, client_error as u8);
 
         // Encode message as SBE binary
@@ -58,8 +61,13 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         client_id: u16,
         data_error: DataErrorType,
     ) -> Result<(), MessageProcessingError> {
+
+        // Build error type
+        let data_error = DataError::new(client_id, data_error as u8);
+
         // Encode message as SBE binary
-        let message = sbe_utils::encode_data_error(client_id, data_error)
+        let (_, message) = data_error
+            .encode_to_sbe()
             .expect("Failed to encode data error message");
 
         // Send message

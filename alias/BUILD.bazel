@@ -84,6 +84,10 @@ alias(
     actual = "//queng_extensions/cow_ext",
 )
 
+alias(
+    name = "data_error_ext",
+    actual = "//queng_extensions/data_error_ext",
+)
 
 ###############################################################################
 # Integration

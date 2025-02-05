@@ -1,11 +1,12 @@
 [package]
-name = "sbe_messages_data"
+name = "data_error_ext"
 version = "0.1.0"
 edition.workspace = true
 rust-version.workspace = true
 readme.workspace = true
 repository.workspace = true
 authors.workspace = true
+license.workspace = true
 
 
 [lints]
@@ -13,11 +14,6 @@ workspace = true
 
 
 [dependencies]
-# Internal crates
-common_data_bar = { workspace = true }
 common_sbe_errors = { workspace = true }
-sbe_bindings = { workspace = true }
-sbe_types  = { workspace = true }
-# External crates
-chrono = { workspace = true }
-rust_decimal = { workspace = true }
+sbe_messages_data = { workspace = true }
+sbe_types = { workspace = true }

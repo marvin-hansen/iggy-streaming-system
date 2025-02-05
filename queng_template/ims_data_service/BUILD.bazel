@@ -18,6 +18,7 @@ rust_library(
         "//alias:config_manager",
         "//alias:common_sbe_errors",
         "//alias:client_error_ext",
+        "//alias:data_error_ext",
         "//alias:message_consumer",
         "//alias:message_producer",
         "//alias:message_shared",
