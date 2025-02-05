@@ -24,6 +24,11 @@ pub async fn build_client(iggy_config: &IggyConfig) -> Result<IggyClient, IggyEr
     build_tcp_client_from_args(args.to_sdk_args()).await
 }
 
+pub async fn build_client_from_args(args: Args) -> Result<IggyClient, IggyError> {
+    // Build client
+    build_tcp_client_from_args(args.to_sdk_args()).await
+}
+
 /// Builds a raw Iggy TCP client using the provided `Args`.
 /// Client is not connected to any stream or topic.
 ///
