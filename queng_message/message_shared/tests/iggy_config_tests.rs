@@ -50,7 +50,7 @@ fn test_from_client_id() {
     assert!(config.tcp_server_addr().is_some());
     assert!(config.tcp_tls_config().is_none());
     assert_eq!(config.partition_id(), 100);
-    assert_eq!(config.messages_per_batch(), 10);
+    assert_eq!(config.messages_per_batch(), 1);
     assert!(config.auto_commit());
     assert_eq!(config.user(), &user);
 }
