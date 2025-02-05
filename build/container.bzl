@@ -2,10 +2,6 @@ load("@rules_oci//oci:defs.bzl", "oci_image", "oci_image_index")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//:build/transition.bzl", "multi_arch")
 
-# Build a Bazel Macro
-# https://belov.nz/posts/bazel-rules-macros/
-# https://codilime.com/blog/bazel-build-system-build-containerized-applications/
-
 def build_multi_arch_image(
         name,
         entry_point,
