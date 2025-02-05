@@ -35,6 +35,7 @@ pub struct IggyConfig {
 ///
 /// The `from_client_id` method is mainly used for testing purposes.
 impl IggyConfig {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         user: IggyUser,
         stream_id: u32,

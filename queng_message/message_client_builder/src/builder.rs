@@ -38,9 +38,9 @@ impl MessageClientBuilder {
             ));
         }
 
-        let config_fields = if iggy_config.is_some() {
+        let config_fields = if let Some(iggy_config) = iggy_config {
             dbg_print("Build fields from iggy config");
-            ConfigFields::from_iggy_config(iggy_config.unwrap())
+            ConfigFields::from_iggy_config(iggy_config)
         } else {
             dbg_print("Build fields from args");
             let (args, consumer_name) = args.clone().unwrap();
