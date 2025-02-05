@@ -14,12 +14,10 @@ rust_library(
     visibility = ["//visibility:public"],
     deps = [
         # Internal crates
-        "//alias:common_ims",
         "//alias:message_producer",
         "//alias:message_shared",
         # External crates
         "//thirdparty/crates:iggy",
-        "//thirdparty/crates:tokio",
     ],
 )
 

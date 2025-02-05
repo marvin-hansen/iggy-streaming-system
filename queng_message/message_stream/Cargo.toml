@@ -10,12 +10,10 @@ authors.workspace = true
 
 [dependencies]
 # Internal crates
-common_ims = {workspace = true}
 message_producer = {workspace = true}
 message_shared = {workspace = true}
 # External crates
 iggy = {workspace = true}
-tokio  = {workspace = true}
 
 [lints]
 workspace = true
