@@ -92,10 +92,16 @@ impl ImsDataClient {
         // # Control stream
         // ###############################################################################
         let iggy_control_stream_config = config::control_stream_config(exchange_id);
-        let (iggy_client_control, control_builder) =
-            MessageClientBuilder::build(dbg, &iggy_control_stream_config)
+
+        let (iggy_client_control, control_builder) = if dbg {
+            MessageClientBuilder::new(&iggy_control_stream_config)
                 .await
-                .expect("Failed to build control stream");
+                .expect("Failed to build control stream")
+        } else {
+            MessageClientBuilder::with_debug(&iggy_control_stream_config)
+                .await
+                .expect("Failed to build control stream")
+        };
 
         let control_producer = control_builder.iggy_producer().to_owned();
         let control_consumer = control_builder.iggy_consumer();
@@ -119,10 +125,15 @@ impl ImsDataClient {
         // # Data stream
         // ###############################################################################
         let iggy_data_stream_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
-        let (iggy_client_data, data_builder) =
-            MessageClientBuilder::build(dbg, &iggy_data_stream_config)
+        let (iggy_client_data, data_builder) = if dbg {
+            MessageClientBuilder::new(&iggy_data_stream_config)
                 .await
-                .expect("Failed to build control stream");
+                .expect("Failed to build control stream")
+        } else {
+            MessageClientBuilder::with_debug(&iggy_data_stream_config)
+                .await
+                .expect("Failed to build control stream")
+        };
 
         let data_producer = data_builder.iggy_producer().to_owned();
         let data_consumer = data_builder.iggy_consumer();

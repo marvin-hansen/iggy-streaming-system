@@ -72,7 +72,9 @@ impl Args {
         let tcp_tls_config = iggy_config.tcp_tls_config();
 
         // Build config
-        let args = match (server_address, tcp_tls_config) {
+
+
+        match (server_address, tcp_tls_config) {
             (Some(server_address), Some(tcp_tls_config)) => Self::with_server_and_tls_config(
                 stream_id,
                 topic_id,
@@ -84,9 +86,7 @@ impl Args {
                 Self::with_tls_config(stream_id, topic_id, &tcp_tls_config)
             }
             (None, None) => Self::new(stream_id, topic_id),
-        };
-
-        args
+        }
     }
 
     #[inline]

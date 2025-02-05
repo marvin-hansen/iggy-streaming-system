@@ -80,7 +80,7 @@ async fn test_binance_spot() {
 
     dbg!("Send a test message via producer");
     let payload = "hello world";
-    let message = Message::from_str(&payload).expect("Failed to create test message");
+    let message = Message::from_str(payload).expect("Failed to create test message");
 
     let res = message_producer.producer().send_one(message).await;
     assert!(res.is_ok());
