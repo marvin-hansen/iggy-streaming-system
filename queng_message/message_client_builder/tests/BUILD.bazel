@@ -1,0 +1,48 @@
+load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "tests",
+    srcs = glob([
+        "tests.rs",
+    ]),
+    data = [
+        # copy iggy server
+        ":copy_iggy_server_darwin_aarch64",
+        ":copy_iggy_server_linux_x86_64",
+    ],
+    tags = [
+        # The first tag is for local testing, which must be in sequential order b/c there can just one iggy run at a time
+        # Run with bazel test //... --test_tag_filters=message_client_builder_test --test_env=ENV=LOCAL
+        "message_client_builder_test",
+        # The second tag is for acceptance testing on the CI, which runs in parallel.
+        # "integration_test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:message_client_builder",
+        # Internal crates
+        "//alias:common_exchange",
+        "//alias:config_manager",
+        "//alias:iggy_test_utils",
+        # External crates
+        "//thirdparty/crates:service_utils",
+        "//thirdparty/crates:tokio",
+    ],
+)
+
+# Copy iggy server required for test
+copy_file(
+    name = "copy_iggy_server_darwin_aarch64",
+    src = "//alias/tool:iggy_server_darwin_aarch64",
+    out = "iggy_server_darwin_aarch64",
+    is_executable = True,
+)
+
+copy_file(
+    name = "copy_iggy_server_linux_x86_64",
+    src = "//alias/tool:iggy_server_linux_x86_64",
+    out = "iggy_server_linux_x86_64",
+    is_executable = True,
+)

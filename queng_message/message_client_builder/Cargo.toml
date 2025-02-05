@@ -8,6 +8,11 @@ repository.workspace = true
 authors.workspace = true
 license.workspace = true
 
+
+[lints]
+workspace = true
+
+
 [dependencies]
 # Internal crates
 message_consumer = { workspace = true }
@@ -15,8 +20,13 @@ message_producer = { workspace = true }
 message_shared = { workspace = true }
 # External crates
 iggy = { workspace = true }
+
+# For testing
+[dev-dependencies]
+# Internal crates
+config_manager = { workspace = true }
+iggy_test_utils = { workspace = true }
+# External crates
+service_utils = { workspace = true }
 tokio = { workspace = true }
 tokio-util = { workspace = true }
-
-[lints]
-workspace = true
