@@ -18,6 +18,15 @@ fn get_service_start_config(health_url: String) -> ServiceStartConfig {
         .build()
 }
 
+//
+// Bazel only test; run with
+//
+// bazel test //... --test_tag_filters=binance_spot_testnet_test --test_env=ENV=LOCAL
+//
+// Cargo cannot execute this test, because cargo cannot copy the iggy binaries in the test environment
+// set by the root path and Cargo does not stop the iggy server after the test.
+// Therefore, this test is Bazel only.
+
 #[tokio::test]
 async fn test_binance_spot() {
     dbg!("Start service util");

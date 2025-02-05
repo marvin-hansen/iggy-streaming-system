@@ -15,7 +15,7 @@ rust_test_suite(
     ],
     tags = [
         # The first tag is for local testing, which must be in sequential order b/c there is just one DB
-        # Run with bazel test //... --test_tag_filters=binance_usd_future --test_env=ENV=LOCAL
+        # Run with bazel test //... --test_tag_filters=binance_usd_future_test --test_env=ENV=LOCAL
         "binance_usd_future_test",
         # The second tag is for acceptance testing on the CI, which runs in parallel.
         "ims-acceptance_test",
