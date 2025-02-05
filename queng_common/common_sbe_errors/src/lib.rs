@@ -1,6 +1,11 @@
 mod client_error_types;
 mod client_error;
+mod data_error;
+mod data_error_types;
+
+// Public re-exports
 
 pub use client_error::ClientError;
-// Public re-exports
 pub use client_error_types::ClientErrorType;
+pub use data_error::DataError;
+pub use data_error_types::DataErrorType;
