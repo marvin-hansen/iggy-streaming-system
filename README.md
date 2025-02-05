@@ -7,6 +7,10 @@ single machine.
 This project integrates all three Binance services: spot, coin future and usd future and relays market data SBE encoded
 via iggy.
 
+## Current status
+
+Active and early development so things may break or change any given day.
+
 ## This project features:
 
 * Multiple streaming microservices in [the ims data folder](queng_system_ims_data).
@@ -14,14 +18,6 @@ via iggy.
 * Efficient SBE message encoding in the [SBE folder](queng_sbe).
 * Type extension based serialization in the [extensions folder](queng_extensions).
 * Template based microservices in [the template folder](queng_template).
-* Docker-free container builds via [Bazel's rules_oci](https://github.com/bazel-contrib/rules_oci) with secure base
-  images via [rules_apko](https://github.com/chainguard-dev/rules_apko).
-* Fast multi-arch container builds via [custom build rules](build).
-* Parallel docker-free integration tests via Bazel and
-  the [bazel build_utils](https://github.com/marvin-hansen/buildutils) in
-  the [tests folder](queng_system_ims_data/binance_tests).
-* Fast cross compilation to linux ARM64 via Bazel, [rules_rust](https://github.com/bazelbuild/rules_rust),
-  and [musl-toolchain](https://github.com/bazel-contrib/musl-toolchain).
 
 ## Quick start
 

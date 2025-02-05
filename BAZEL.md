@@ -1,6 +1,17 @@
 # Build information
 
-Bazel is configured as primary build system for this project.
+Bazel is configured as primary build system for this project. Bazel offers a number of unique advantages, such as:
+
+* Docker-free container builds via [Bazel's rules_oci](https://github.com/bazel-contrib/rules_oci) with secure base
+  images via [rules_apko](https://github.com/chainguard-dev/rules_apko).
+* Fast multi-arch container builds via [custom build rules](build).
+* Parallel docker-free integration tests via Bazel and
+  the [bazel build_utils](https://github.com/marvin-hansen/buildutils) in
+  the [tests folder](queng_system_ims_data/binance_tests).
+* Fast cross compilation to linux ARM64 via Bazel, [rules_rust](https://github.com/bazelbuild/rules_rust),
+  and [musl-toolchain](https://github.com/bazel-contrib/musl-toolchain).
+
+For simplicity, the various Bazel commands and other tools wrapped into a simple to use makefile.
 
 ## Build commands
 
