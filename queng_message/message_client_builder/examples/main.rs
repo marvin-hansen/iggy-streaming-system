@@ -69,7 +69,6 @@ async fn main() -> Result<(), Box<Error>> {
     println!("✅ iggy consumer stopped");
 
     if CLEANUP {
-
         // There is a known issue on the iggy server where the stream and topic deletion
         // during shutdown trigger some errors shown in the server log. However,
         // topics and streams get deleted and shutdown is successful so these errors

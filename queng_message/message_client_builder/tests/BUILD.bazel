@@ -28,12 +28,11 @@ rust_test_suite(
         "//alias:message_shared",
         "//alias:iggy_test_utils",
         "//alias:trait_event_consumer",
-         # External crates
+        # External crates
         "//thirdparty/crates:service_utils",
         "//thirdparty/crates:iggy",
         "//thirdparty/crates:tokio",
         "//thirdparty/crates:tokio-util",
-
     ],
 )
 

@@ -52,7 +52,6 @@ async fn test_binance_spot() {
     assert!(result.is_ok());
     dbg!("✅ iggy messaging service started");
 
-
     dbg!("Build iggy client");
     let iggy_config = iggy_config();
     let (iggy_client, iggy_client_builder) = MessageClientBuilder::with_debug(&iggy_config)
