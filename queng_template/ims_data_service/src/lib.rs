@@ -38,7 +38,13 @@ where
     dbg_print("build config files");
     let integration_config = &config::ims_data_integration_config(exchange_id);
 
-    let cfg_manager = ConfigManager::default_with_debug();
+    dbg_print("build config manager");
+    let cfg_manager = if dbg {
+        ConfigManager::default_with_debug()
+    } else {
+        ConfigManager::default()
+    };
+
     let data_integration = integration_config.integration_id();
     let svc_name = &format!("IMS {data_integration} Service");
 

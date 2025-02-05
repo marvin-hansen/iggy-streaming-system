@@ -5,7 +5,7 @@ use sbe_types::ClientErrorType;
 use trait_data_integration::ImsDataIntegration;
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
-    //
+    ///
     /// Logs a client in by validating the client ID and creating a new message stream.
     ///
     /// Checks if the client is already logged in, and if not, checks if the client is allowed to log in.

@@ -30,6 +30,10 @@ impl ConfigManager {
         Self::build(true, ServiceID::Default)
     }
 
+    pub fn default() -> Self {
+        Self::build(false, ServiceID::Default)
+    }
+
     fn build(dbg: bool, _svc: ServiceID) -> Self {
         let config_manager = if dbg {
             println!("[CfgManager]: Debug mode enabled");
