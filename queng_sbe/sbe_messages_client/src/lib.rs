@@ -1,6 +1,6 @@
+mod client_error;
 mod client_login;
 mod client_logout;
-mod client_error;
 
 pub use crate::client_error::*;
 // Re exports

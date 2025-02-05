@@ -21,7 +21,6 @@ use tokio_util::sync::CancellationToken;
 pub use client_trait::ImsDataClientTrait;
 pub use trait_event_consumer::{EventConsumer, EventConsumerError};
 
-
 /// The selector for the IMS data client allows
 /// to select between the real and mock client while keeping the same client interface.
 #[enum_dispatch]
@@ -59,7 +58,7 @@ impl ImsDataClient {
             control_event_processor,
             data_event_processor,
         )
-            .await
+        .await
     }
 
     pub async fn with_debug(
@@ -75,7 +74,7 @@ impl ImsDataClient {
             control_event_processor,
             data_event_processor,
         )
-            .await
+        .await
     }
 }
 

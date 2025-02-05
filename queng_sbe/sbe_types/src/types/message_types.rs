@@ -70,7 +70,6 @@ impl From<MessageType> for u16 {
     }
 }
 
-
 /// Implements `From<u16>` to convert u16 to `MessageType`.
 ///
 /// # Arguments

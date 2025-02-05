@@ -39,7 +39,6 @@ impl From<DataErrorType> for u8 {
     }
 }
 
-
 impl From<u8> for DataErrorType {
     /// Implements conversion from `u8` to `DataErrorType`.
     ///

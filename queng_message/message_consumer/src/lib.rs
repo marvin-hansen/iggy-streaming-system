@@ -71,7 +71,7 @@ impl MessageConsumer {
         .auto_commit(AutoCommit::When(AutoCommitWhen::PollingMessages))
         .create_consumer_group_if_not_exists()
         .auto_join_consumer_group()
-            .polling_strategy(PollingStrategy::last())
+        .polling_strategy(PollingStrategy::last())
         .poll_interval(
             IggyDuration::from_str(&args.interval)
                 .expect("[MessageConsumer]: Invalid interval format"),

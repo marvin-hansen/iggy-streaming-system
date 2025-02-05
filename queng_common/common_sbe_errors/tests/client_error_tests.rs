@@ -4,14 +4,20 @@ use common_sbe_errors::{ClientError, ClientErrorType};
 fn test_client_error_new() {
     let error = ClientError::new(123, 0);
     assert_eq!(error.client_id(), 123);
-    assert_eq!(error.client_error_type(), ClientErrorType::UnknownClientError);
+    assert_eq!(
+        error.client_error_type(),
+        ClientErrorType::UnknownClientError
+    );
 }
 
 #[test]
 fn test_client_error_default() {
     let error = ClientError::default();
     assert_eq!(error.client_id(), 0);
-    assert_eq!(error.client_error_type(), ClientErrorType::UnknownClientError);
+    assert_eq!(
+        error.client_error_type(),
+        ClientErrorType::UnknownClientError
+    );
 }
 
 #[test]

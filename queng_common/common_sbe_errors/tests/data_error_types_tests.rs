@@ -15,8 +15,14 @@ fn test_data_error_type_from_u8() {
     assert_eq!(DataErrorType::from(4), DataErrorType::DataTableNotFound);
     assert_eq!(DataErrorType::from(5), DataErrorType::DataSendError);
     assert_eq!(DataErrorType::from(6), DataErrorType::DataChannelError);
-    assert_eq!(DataErrorType::from(7), DataErrorType::DataWrongExchangeError);
-    assert_eq!(DataErrorType::from(8), DataErrorType::DataClientNotLoggedInError);
+    assert_eq!(
+        DataErrorType::from(7),
+        DataErrorType::DataWrongExchangeError
+    );
+    assert_eq!(
+        DataErrorType::from(8),
+        DataErrorType::DataClientNotLoggedInError
+    );
     assert_eq!(DataErrorType::from(9), DataErrorType::DataStartError);
     assert_eq!(DataErrorType::from(10), DataErrorType::DataStopError);
     assert_eq!(DataErrorType::from(11), DataErrorType::DataStopAllError);
@@ -41,18 +47,48 @@ fn test_data_error_type_to_u8() {
 
 #[test]
 fn test_data_error_type_display() {
-    assert_eq!(format!("{}", DataErrorType::UnknownDataError), "UnknownDataError");
-    assert_eq!(format!("{}", DataErrorType::DataTypeNotKnownError), "DataTypeNotKnownError");
-    assert_eq!(format!("{}", DataErrorType::DataUnavailableError), "DataUnavailableError");
-    assert_eq!(format!("{}", DataErrorType::DataEncodingError), "DataEncodingError");
-    assert_eq!(format!("{}", DataErrorType::DataTableNotFound), "DataTableNotFound");
+    assert_eq!(
+        format!("{}", DataErrorType::UnknownDataError),
+        "UnknownDataError"
+    );
+    assert_eq!(
+        format!("{}", DataErrorType::DataTypeNotKnownError),
+        "DataTypeNotKnownError"
+    );
+    assert_eq!(
+        format!("{}", DataErrorType::DataUnavailableError),
+        "DataUnavailableError"
+    );
+    assert_eq!(
+        format!("{}", DataErrorType::DataEncodingError),
+        "DataEncodingError"
+    );
+    assert_eq!(
+        format!("{}", DataErrorType::DataTableNotFound),
+        "DataTableNotFound"
+    );
     assert_eq!(format!("{}", DataErrorType::DataSendError), "DataSendError");
-    assert_eq!(format!("{}", DataErrorType::DataChannelError), "DataChannelError");
-    assert_eq!(format!("{}", DataErrorType::DataWrongExchangeError), "DataWrongExchangeError");
-    assert_eq!(format!("{}", DataErrorType::DataClientNotLoggedInError), "DataClientNotLoggedInError");
-    assert_eq!(format!("{}", DataErrorType::DataStartError), "DataStartError");
+    assert_eq!(
+        format!("{}", DataErrorType::DataChannelError),
+        "DataChannelError"
+    );
+    assert_eq!(
+        format!("{}", DataErrorType::DataWrongExchangeError),
+        "DataWrongExchangeError"
+    );
+    assert_eq!(
+        format!("{}", DataErrorType::DataClientNotLoggedInError),
+        "DataClientNotLoggedInError"
+    );
+    assert_eq!(
+        format!("{}", DataErrorType::DataStartError),
+        "DataStartError"
+    );
     assert_eq!(format!("{}", DataErrorType::DataStopError), "DataStopError");
-    assert_eq!(format!("{}", DataErrorType::DataStopAllError), "DataStopAllError");
+    assert_eq!(
+        format!("{}", DataErrorType::DataStopAllError),
+        "DataStopAllError"
+    );
 }
 
 #[test]

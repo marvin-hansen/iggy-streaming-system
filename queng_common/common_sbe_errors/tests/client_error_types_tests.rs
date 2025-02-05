@@ -8,14 +8,29 @@ fn test_client_error_type_default() {
 
 #[test]
 fn test_client_error_type_from_u8() {
-    assert_eq!(ClientErrorType::from(0), ClientErrorType::UnknownClientError);
-    assert_eq!(ClientErrorType::from(1), ClientErrorType::ClientAlreadyLoggedIn);
+    assert_eq!(
+        ClientErrorType::from(0),
+        ClientErrorType::UnknownClientError
+    );
+    assert_eq!(
+        ClientErrorType::from(1),
+        ClientErrorType::ClientAlreadyLoggedIn
+    );
     assert_eq!(ClientErrorType::from(2), ClientErrorType::ClientLogInError);
     assert_eq!(ClientErrorType::from(3), ClientErrorType::ClientNotLoggedIn);
     assert_eq!(ClientErrorType::from(4), ClientErrorType::ClientLogOutError);
-    assert_eq!(ClientErrorType::from(5), ClientErrorType::ClientNotAuthorized);
-    assert_eq!(ClientErrorType::from(6), ClientErrorType::ClientShutdownError);
-    assert_eq!(ClientErrorType::from(7), ClientErrorType::UnknownClientError);
+    assert_eq!(
+        ClientErrorType::from(5),
+        ClientErrorType::ClientNotAuthorized
+    );
+    assert_eq!(
+        ClientErrorType::from(6),
+        ClientErrorType::ClientShutdownError
+    );
+    assert_eq!(
+        ClientErrorType::from(7),
+        ClientErrorType::UnknownClientError
+    );
 }
 
 #[test]
@@ -31,13 +46,34 @@ fn test_client_error_type_to_u8() {
 
 #[test]
 fn test_client_error_type_display() {
-    assert_eq!(format!("{}", ClientErrorType::UnknownClientError), "UnknownClientError");
-    assert_eq!(format!("{}", ClientErrorType::ClientAlreadyLoggedIn), "ClientAlreadyLoggedIn");
-    assert_eq!(format!("{}", ClientErrorType::ClientLogInError), "ClientLogInError");
-    assert_eq!(format!("{}", ClientErrorType::ClientNotLoggedIn), "ClientNotLoggedIn");
-    assert_eq!(format!("{}", ClientErrorType::ClientLogOutError), "ClientLogOutError");
-    assert_eq!(format!("{}", ClientErrorType::ClientNotAuthorized), "ClientNotAuthorized");
-    assert_eq!(format!("{}", ClientErrorType::ClientShutdownError), "ClientShutdownError");
+    assert_eq!(
+        format!("{}", ClientErrorType::UnknownClientError),
+        "UnknownClientError"
+    );
+    assert_eq!(
+        format!("{}", ClientErrorType::ClientAlreadyLoggedIn),
+        "ClientAlreadyLoggedIn"
+    );
+    assert_eq!(
+        format!("{}", ClientErrorType::ClientLogInError),
+        "ClientLogInError"
+    );
+    assert_eq!(
+        format!("{}", ClientErrorType::ClientNotLoggedIn),
+        "ClientNotLoggedIn"
+    );
+    assert_eq!(
+        format!("{}", ClientErrorType::ClientLogOutError),
+        "ClientLogOutError"
+    );
+    assert_eq!(
+        format!("{}", ClientErrorType::ClientNotAuthorized),
+        "ClientNotAuthorized"
+    );
+    assert_eq!(
+        format!("{}", ClientErrorType::ClientShutdownError),
+        "ClientShutdownError"
+    );
 }
 
 #[test]

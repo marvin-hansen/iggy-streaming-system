@@ -26,7 +26,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         client_id: u16,
         client_error: ClientErrorType,
     ) -> Result<(), MessageProcessingError> {
-
         // Build error type
         let client_error = ClientError::new(client_id, client_error as u8);
 
@@ -61,7 +60,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         client_id: u16,
         data_error: DataErrorType,
     ) -> Result<(), MessageProcessingError> {
-
         // Build error type
         let data_error = DataError::new(client_id, data_error as u8);
 

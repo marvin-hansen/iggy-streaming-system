@@ -1,5 +1,5 @@
-mod client_error_types;
 mod client_error;
+mod client_error_types;
 mod data_error;
 mod data_error_types;
 

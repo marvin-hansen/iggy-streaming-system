@@ -28,7 +28,9 @@ use sbe_types::SbeEncodeError;
 /// - Encode `data_error_type`
 /// - Return encoded size and buffer
 ///
-pub(crate) fn encode_data_error_message(data: DataError) -> Result<(usize, Vec<u8>), SbeEncodeError> {
+pub(crate) fn encode_data_error_message(
+    data: DataError,
+) -> Result<(usize, Vec<u8>), SbeEncodeError> {
     let mut buffer = vec![0u8; 13];
 
     let mut csg = DataErrorEncoder::default();

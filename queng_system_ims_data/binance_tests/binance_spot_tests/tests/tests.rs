@@ -93,8 +93,8 @@ async fn test_binance_spot() {
         &PrintEventConsumer {},
         &PrintEventConsumer {},
     )
-        .await
-        .expect("Failed to create ImsDataClient");
+    .await
+    .expect("Failed to create ImsDataClient");
 
     println!("✅ ImsDataClient started");
 

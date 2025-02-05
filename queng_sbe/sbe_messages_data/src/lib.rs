@@ -1,6 +1,6 @@
+mod data_error;
 mod ohlcv_bar;
 mod trade_bar;
-mod data_error;
 
 pub use crate::data_error::*;
 // Re exports

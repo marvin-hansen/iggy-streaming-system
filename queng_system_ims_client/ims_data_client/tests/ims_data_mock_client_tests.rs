@@ -12,9 +12,9 @@ async fn test_mock_ims_data_client() {
         &PrintEventConsumer {},
         &PrintEventConsumer {},
     )
-        .await
-        .expect("Failed to create mock client")
-        .into();
+    .await
+    .expect("Failed to create mock client")
+    .into();
 
     let res = client.login().await;
     assert!(res.is_ok());

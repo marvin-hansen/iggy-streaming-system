@@ -73,7 +73,6 @@ impl Args {
 
         // Build config
 
-
         match (server_address, tcp_tls_config) {
             (Some(server_address), Some(tcp_tls_config)) => Self::with_server_and_tls_config(
                 stream_id,
