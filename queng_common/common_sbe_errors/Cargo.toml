@@ -1,15 +1,16 @@
 [package]
-name = "sbe_utils"
+name = "common_sbe_errors"
 version = "0.1.0"
 edition.workspace = true
 rust-version.workspace = true
 readme.workspace = true
 repository.workspace = true
 authors.workspace = true
+license.workspace = true
+
 
 [lints]
 workspace = true
+
+
 [dependencies]
-common_errors = { workspace = true }
-sbe_bindings = { workspace = true }
-sbe_types  = { workspace = true }

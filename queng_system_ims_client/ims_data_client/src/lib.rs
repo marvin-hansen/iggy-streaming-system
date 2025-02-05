@@ -16,10 +16,11 @@ use message_client_builder::MessageClientBuilder;
 use message_producer::MessageProducer;
 use message_shared::{IggyConfig, IggyUser};
 use tokio_util::sync::CancellationToken;
-use trait_event_consumer::EventConsumer;
 
-// Re-export pub use client_trait::ImsDataClientTrait;
+// Re-export
 pub use client_trait::ImsDataClientTrait;
+pub use trait_event_consumer::{EventConsumer, EventConsumerError};
+
 
 /// The selector for the IMS data client allows
 /// to select between the real and mock client while keeping the same client interface.

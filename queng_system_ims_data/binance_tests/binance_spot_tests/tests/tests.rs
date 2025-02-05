@@ -1,6 +1,8 @@
 use common_exchange::ExchangeID;
+use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
 use config_manager::ConfigManager;
 use iggy_test_utils::{iggy_start_config_builder, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64};
+use ims_data_client::{EventConsumer, EventConsumerError, ImsDataClient, ImsDataClientTrait};
 use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
 
 const ROOT_PATH: &str = "queng_system_ims_data/binance_tests/binance_spot_tests/tests";
@@ -29,11 +31,13 @@ fn get_service_start_config(health_url: String) -> ServiceStartConfig {
 
 #[tokio::test]
 async fn test_binance_spot() {
+    // ###############################################################################
+    // # Start iggy messaging service
+    // ###############################################################################
+
     dbg!("Start service util");
     let res = ServiceUtil::with_debug(ROOT_PATH, Vec::from(BINARIES)).await;
-    if res.is_err() {
-        dbg!(&res);
-    }
+    // dbg!(&res);
     assert!(res.is_ok());
     let svc_util = res.unwrap();
     dbg!("✅ service util started");
@@ -54,11 +58,13 @@ async fn test_binance_spot() {
 
     dbg!("Start iggy messaging service");
     let result = svc_util.start_service_from_config(iggy_start_config).await;
-    if result.is_err() {
-        dbg!(&result);
-    }
+    // dbg!(&result);
     assert!(result.is_ok());
     dbg!("✅ iggy messaging service started");
+
+    // ###############################################################################
+    // # Start BinanceSpot IMS Data integration service
+    // ###############################################################################
 
     dbg!("Configure IMS Data service - Binance Spot");
     let uri = config_manager
@@ -72,9 +78,73 @@ async fn test_binance_spot() {
 
     dbg!("Start IMS Data service - Binance Spot");
     let result = svc_util.start_service_from_config(dbgw_start_config).await;
-    if result.is_err() {
-        dbg!(&result);
-    }
+    // dbg!(&result);
     assert!(result.is_ok());
     dbg!("✅ IMS Data service service started");
+
+    // ###############################################################################
+    // # Start IMS Data Client and connect to IMS Data service via Iggy messaging
+    // ###############################################################################
+
+    println!("Create ImsDataClient client");
+    let client: ImsDataClient = ImsDataClient::with_debug(
+        120,
+        ims_data_integration_config(ExchangeID::BinanceSpot),
+        &PrintEventConsumer {},
+        &PrintEventConsumer {},
+    )
+        .await
+        .expect("Failed to create ImsDataClient");
+
+    println!("✅ ImsDataClient started");
+
+    // ###############################################################################
+    // # Run tests
+    // ###############################################################################
+
+    println!("Login ImsDataClient ");
+    let res = client.login().await;
+    // dbg!(&res);
+    assert!(res.is_ok());
+    println!("✅ Login ImsDataClient completed");
+
+    println!("Logout ImsDataClient ");
+    let res = client.logout().await;
+    // dbg!(&res);
+    assert!(res.is_ok());
+    println!("✅ Logout ImsDataClient completed");
+
+    println!("Shutdown ImsDataClient ");
+    let res = client.shutdown().await;
+    // dbg!(&res);
+    assert!(res.is_ok());
+    println!("✅ Shutdown ImsDataClient completed");
+}
+
+#[derive(Debug)]
+struct PrintEventConsumer {}
+
+impl EventConsumer for PrintEventConsumer {
+    async fn consume(&self, data: Vec<u8>) -> Result<(), EventConsumerError> {
+        // convert message into raw bytes
+        let raw_message = data.as_slice();
+
+        // Replace with SBE decoder
+        let message = String::from_utf8_lossy(raw_message);
+
+        // Print message to stdout
+        println!("[PrintEventConsumer]: {}", message);
+
+        Ok(())
+    }
+}
+
+pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig {
+    IntegrationConfig::new(
+        format!("{}-data", exchange_id),
+        1,
+        ImsIntegrationType::Data,
+        exchange_id,
+        IntegrationMessageConfig::new(1, 1, exchange_id),
+    )
 }

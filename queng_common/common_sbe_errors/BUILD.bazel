@@ -1,34 +1,31 @@
 load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
 
 rust_library(
-    name = "sbe_utils",
+    name = "common_sbe_errors",
     srcs = glob([
-        "src/**",
+        "src/*.rs",
     ]),
     crate_root = "src/lib.rs",
     tags = [
-        "sbe",
-        "sbe_utils",
+        "common",
+        "common_sbe_errors",
     ],
     visibility = ["//visibility:public"],
     deps = [
-        # Internal crates
-        "//alias:common_errors",
-        "//alias:sbe_types",
         # External crates
     ],
 )
 
 rust_doc(
     name = "doc",
-    crate = ":sbe_utils",
+    crate = ":common_sbe_errors",
     tags = ["doc"],
     visibility = ["//visibility:public"],
 )
 
 rust_doc_test(
     name = "doc_test",
-    crate = ":sbe_utils",
+    crate = ":common_sbe_errors",
     tags = ["doc-test"],
     visibility = ["//visibility:public"],
 )

@@ -2,7 +2,6 @@ mod errors;
 mod types;
 
 // Errors
-pub use crate::errors::error_client::*;
 pub use crate::errors::error_data::*;
 pub use crate::errors::error_sbe::sbe_decode_error::*;
 pub use crate::errors::error_sbe::sbe_encode_error::*;

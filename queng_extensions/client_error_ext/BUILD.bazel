@@ -1,37 +1,33 @@
 load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
 
 rust_library(
-    name = "sbe_messages_client",
+    name = "client_error_ext",
     srcs = glob([
         "src/**",
     ]),
     crate_root = "src/lib.rs",
     tags = [
-        "sbe",
-        "sbe_messages_client",
+        "client_error_ext",
+        "extensions",
     ],
     visibility = ["//visibility:public"],
     deps = [
-        # Internal crates
         "//alias:common_sbe_errors",
-        "//alias:sbe_bindings",
+        "//alias:sbe_messages_client",
         "//alias:sbe_types",
-        # External crates
-        "//thirdparty/crates:rust_decimal",
-        "//thirdparty/crates:chrono",
     ],
 )
 
 rust_doc(
     name = "doc",
-    crate = ":sbe_messages_client",
+    crate = ":client_error_ext",
     tags = ["doc"],
     visibility = ["//visibility:public"],
 )
 
 rust_doc_test(
     name = "doc_test",
-    crate = ":sbe_messages_client",
+    crate = ":client_error_ext",
     tags = ["doc-test"],
     visibility = ["//visibility:public"],
 )

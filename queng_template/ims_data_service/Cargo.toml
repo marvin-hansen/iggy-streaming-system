@@ -20,6 +20,8 @@ common_exchange = { workspace = true }
 common_ims = {workspace = true}
 common_service = { workspace = true }
 config_manager = { workspace = true }
+common_sbe_errors = { workspace = true }
+client_error_ext = { workspace = true }
 message_consumer = { workspace = true }
 message_producer = { workspace = true }
 message_shared = { workspace = true }
@@ -27,9 +29,9 @@ message_stream = { workspace = true }
 sbe_messages_client = {workspace = true}
 sbe_messages_control = {workspace = true}
 sbe_types = { workspace = true }
-sbe_utils = { workspace = true }
 trait_data_integration = { workspace = true }
 trait_event_processor = { workspace = true }
+
 
 
 # External crates

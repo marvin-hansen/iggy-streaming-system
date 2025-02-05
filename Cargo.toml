@@ -45,7 +45,7 @@ deprecated_safe_2024 = "warn"
 # ==============
 
 # Clients
-#ims_client = { path = "queng_system_ims_client/ims_data_client" }
+ims_data_client = { path = "queng_system_ims_client/ims_data_client" }
 
 # Common
 common_config = { path = "queng_common/common_config" }
@@ -55,6 +55,7 @@ common_errors = { path = "queng_common/common_errors" }
 common_exchange = { path = "queng_common/common_exchange" }
 common_ims = { path = "queng_common/common_ims" }
 common_platform = { path = "queng_common/common_platform" }
+common_sbe_errors = { path = "queng_common/common_sbe_errors" }
 common_service = { path = "queng_common/common_service" }
 
 # Components
@@ -62,6 +63,7 @@ config_manager = { path = "queng_components/config_manager" }
 environment_manager = { path = "queng_components/environment_manager" }
 
 # Extensions
+client_error_ext = { path = "queng_extensions/client_error_ext" }
 common_data_bar_ext = { path = "queng_extensions/common_data_bar_ext" }
 #cow_ext = { path = "queng_extensions/cow_ext" }
 
@@ -91,7 +93,6 @@ sbe_messages_client = { path = "queng_sbe/sbe_messages_client" }
 sbe_messages_control = { path = "queng_sbe/sbe_messages_control" }
 sbe_messages_data = { path = "queng_sbe/sbe_messages_data" }
 sbe_types = { path = "queng_sbe/sbe_types" }
-sbe_utils = { path = "queng_sbe/sbe_utils" }
 
 # Template for microservices in /queng_system_ims_data
 ims_data_service = { path = "queng_template/ims_data_service" }

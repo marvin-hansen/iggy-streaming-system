@@ -63,6 +63,14 @@ pub enum MessageType {
     DataError = 802_u16,
 }
 
+impl From<MessageType> for u16 {
+    #[inline]
+    fn from(value: MessageType) -> Self {
+        value as u16
+    }
+}
+
+
 /// Implements `From<u16>` to convert u16 to `MessageType`.
 ///
 /// # Arguments

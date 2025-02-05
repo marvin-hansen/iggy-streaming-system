@@ -1,9 +1,9 @@
-use crate::{ClientErrorMessage, ClientErrorType, MessageType};
+use common_sbe_errors::ClientError;
 use sbe_bindings::client_error_codec::SBE_TEMPLATE_ID;
 use sbe_bindings::{
     client_error_codec::ClientErrorDecoder, message_header_codec::MessageHeaderDecoder, ReadBuf,
-    SbeResult,
 };
+use sbe_types::{MessageType, SbeDecodeError};
 
 /// Decodes a `ClientErrorMessage` from a byte buffer.
 ///
@@ -29,7 +29,7 @@ use sbe_bindings::{
 /// - Decode and validate `client_error_type`
 /// - Create and return `ClientErrorMessage`
 ///
-pub fn decode_client_error_message(buffer: &[u8]) -> SbeResult<ClientErrorMessage> {
+pub(crate) fn decode_client_error_message(buffer: &[u8]) -> Result<ClientError, SbeDecodeError> {
     let buf = ReadBuf::new(buffer);
 
     let mut csg = ClientErrorDecoder::default();
@@ -45,9 +45,7 @@ pub fn decode_client_error_message(buffer: &[u8]) -> SbeResult<ClientErrorMessag
     let client_id = csg.client_id();
     let client_error_type_raw = csg.client_error_type();
 
-    let client_error_type = ClientErrorType::from(client_error_type_raw);
-
-    let message = ClientErrorMessage::new(client_id, client_error_type);
+    let message = ClientError::new(client_id, client_error_type_raw);
 
     Ok(message)
 }

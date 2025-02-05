@@ -18,8 +18,11 @@ path = "src/fake_lib.rs"
 
 # For testing
 [dev-dependencies]
+client_error_ext = { workspace = true }
 common_exchange = { workspace = true }
+common_ims = { workspace = true }
 config_manager = { workspace = true }
+ims_data_client = { workspace = true }
 iggy_test_utils = { workspace = true }
 # External crates
 service_utils = { workspace = true }
