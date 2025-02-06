@@ -24,6 +24,7 @@ rust_library(
         "//alias:trait_data_integration",
         "//alias:trait_event_processor",
         # External crates
+        "//thirdparty/crates:sdk",
         "//thirdparty/crates:rustls",
         "//thirdparty/crates:tokio",
     ],

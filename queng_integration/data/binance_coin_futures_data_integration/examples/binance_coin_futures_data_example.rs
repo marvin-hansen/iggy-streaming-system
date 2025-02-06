@@ -11,13 +11,13 @@ use binance_coin_futures_data_integration::ImsBinanceCoinFuturesDataIntegration;
 use common_data_bar::{OHLCVBar, TimeResolution, TradeBar};
 use common_data_bar_ext::{SbeOHLCVBarExtension, SbeTradeBarExtension};
 use sbe_types::MessageType;
+use sdk::builder::{EventProducer, IggyError, Message};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time;
 use trait_data_integration::{
     ImsDataIntegrationError, ImsOhlcvDataIntegration, ImsSymbolIntegration, ImsTradeDataIntegration,
 };
-use trait_event_processor::{EventProcessor, EventProcessorError};
 
 /// Main example function demonstrating Binance Coin Futures data integration
 #[tokio::main]
@@ -90,9 +90,10 @@ async fn main() -> Result<(), ImsDataIntegrationError> {
 #[derive(Debug)]
 struct PrintEventProcessor;
 
-impl EventProcessor for PrintEventProcessor {
-    async fn process_one_event(&self, bytes: Vec<u8>) -> Result<(), EventProcessorError> {
-        let raw_message = bytes.as_slice();
+impl EventProducer for PrintEventProcessor {
+    async fn send_one_event(&self, message: Message) -> Result<(), IggyError> {
+        let payload = message.payload;
+        let raw_message = payload.as_ref();
 
         // Determine SBE message type based on the second byte
         let message_type = MessageType::from(u16::from(raw_message[2]));
@@ -122,10 +123,7 @@ impl EventProcessor for PrintEventProcessor {
         Ok(())
     }
 
-    async fn process_event_batch(
-        &self,
-        _bytes_batch: &[Vec<u8>],
-    ) -> Result<(), EventProcessorError> {
-        Err(EventProcessorError::new("Not supported".to_string()))
+    async fn send_event_batch(&self, _messages: Vec<Message>) -> Result<(), IggyError> {
+        Ok(())
     }
 }

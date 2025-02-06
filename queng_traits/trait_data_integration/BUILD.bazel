@@ -17,7 +17,8 @@ rust_library(
     deps = [
         # Internal crates
         "//alias:common_data_bar",
-        "//alias:trait_event_processor",
+        # External crates
+        "//thirdparty/crates:sdk",
     ],
 )
 

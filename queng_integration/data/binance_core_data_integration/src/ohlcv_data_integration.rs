@@ -1,8 +1,11 @@
 use crate::{utils, MAX_RECONNECT_ATTEMPTS, RECONNECT_DELAY, RECONNECT_INTERVAL};
 use crate::{utils_connect, ImsBinanceDataIntegration};
+use bytes::Bytes;
 use common_data_bar::{OHLCVBar, TimeResolution};
 use common_data_bar_ext::SbeOHLCVBarExtension;
 use futures_util::StreamExt;
+use sdk::builder::EventProducer;
+use sdk::builder::Message as IggyMessage;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::{sleep, Instant};
@@ -10,7 +13,7 @@ use tokio_tungstenite::tungstenite::Message;
 use trait_data_integration::{
     ImsDataIntegrationError, ImsOhlcvDataIntegration, ImsSymbolIntegration,
 };
-use trait_event_processor::EventProcessor;
+
 
 impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
     /// Starts real-time OHLCV (candlestick) data streams for the specified symbols.
@@ -48,7 +51,7 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
         processor: &Arc<P>,
     ) -> Result<(), ImsDataIntegrationError>
     where
-        P: EventProcessor + Send + Sync + 'static,
+        P: EventProducer + Send + Sync + 'static,
     {
         // Validate symbols first
         self.validate_symbols(symbols).await?;
@@ -95,7 +98,11 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
                                     if let Some(bar) = bar {
                                         let (_, data) = OHLCVBar::encode_to_sbe(bar)
                                             .expect("Failed to encode OHLCV data");
-                                        if let Err(e) = processor.process_one_event(data).await {
+
+                                        let payload = Bytes::from(data);
+                                        let message = IggyMessage::new(None, payload, None);
+
+                                        if let Err(e) = processor.send_one_event(message).await {
                                             eprintln!("Error processing OHLCV data: {}", e);
                                             return;
                                         }

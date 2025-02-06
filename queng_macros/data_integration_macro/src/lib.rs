@@ -84,7 +84,7 @@ pub fn ims_data_integration(input: TokenStream) -> TokenStream {
                 processor: &Arc<P>,
             ) -> impl Future<Output = Result<(), ImsDataIntegrationError>> + Send
             where
-                P: EventProcessor + Send + Sync + 'static,
+                P: EventProducer + Send + Sync + 'static,
             {
                 self.integration.start_trade_data(symbols, processor)
             }
@@ -111,7 +111,7 @@ pub fn ims_data_integration(input: TokenStream) -> TokenStream {
                 processor: &Arc<P>,
             ) -> impl Future<Output = Result<(), ImsDataIntegrationError>> + Send
             where
-                P: EventProcessor + Send + Sync + 'static,
+                P: EventProducer + Send + Sync + 'static,
             {
                 self.integration
                     .start_ohlcv_data(symbols, time_resolution, processor)

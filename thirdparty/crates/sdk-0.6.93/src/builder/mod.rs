@@ -1,7 +1,3 @@
-
-use iggy::clients::client::IggyClient;
-use iggy::error::IggyError;
-
 mod builder;
 pub mod config;
 mod event_consumer;
@@ -11,6 +7,9 @@ pub mod message_producer;
 mod utils;
 
 // Re-exports
+pub use iggy::clients::client::IggyClient;
+pub use iggy::error::IggyError;
+pub use iggy::messages::send_messages::Message;
 pub use crate::builder::config::*;
 pub use crate::builder::event_consumer::*;
 pub use crate::builder::event_producer::*;

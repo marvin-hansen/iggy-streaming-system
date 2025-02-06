@@ -18,4 +18,5 @@ common_data_bar = { workspace = true }
 binance_core_data_integration = { workspace = true }
 data_integration_macro = { workspace = true }
 trait_data_integration = { workspace = true }
-trait_event_processor = { workspace = true }
+# External crates
+sdk = { workspace = true }

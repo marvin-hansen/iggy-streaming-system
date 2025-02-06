@@ -15,6 +15,6 @@ workspace = true
 [dependencies]
 # Internal crates
 common_data_bar = {workspace = true}
-trait_event_processor = { workspace = true }
 # External crates
+sdk = { workspace = true }
 trait-variant  = {workspace = true}

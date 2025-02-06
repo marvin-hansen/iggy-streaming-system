@@ -2,13 +2,13 @@ use binance_usd_futures_data_integration::ImsBinanceUsdFuturesDataIntegration;
 use common_data_bar::{OHLCVBar, TimeResolution, TradeBar};
 use common_data_bar_ext::{SbeOHLCVBarExtension, SbeTradeBarExtension};
 use sbe_types::MessageType;
+use sdk::builder::{EventProducer, IggyError, Message};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time;
 use trait_data_integration::{
     ImsDataIntegrationError, ImsOhlcvDataIntegration, ImsSymbolIntegration, ImsTradeDataIntegration,
 };
-use trait_event_processor::{EventProcessor, EventProcessorError};
 
 /// Example demonstrating the usage of Binance USD Futures Data Integration
 ///
@@ -20,11 +20,6 @@ use trait_event_processor::{EventProcessor, EventProcessorError};
 /// 5. Stop trade data streams
 #[tokio::main]
 async fn main() -> Result<(), ImsDataIntegrationError> {
-    // Initialize rustls crypto provider for secure WebSocket connections
-    // https://github.com/snapview/tokio-tungstenite/issues/353
-    rustls::crypto::ring::default_provider()
-        .install_default()
-        .expect("Failed to install default rustls crypto provider");
 
     // Create Binance USD Futures data integration instance
     let integration = ImsBinanceUsdFuturesDataIntegration::new();
@@ -87,21 +82,26 @@ async fn main() -> Result<(), ImsDataIntegrationError> {
 #[derive(Debug)]
 struct PrintEventProcessor;
 
-impl EventProcessor for PrintEventProcessor {
-    async fn process_one_event(&self, bytes: Vec<u8>) -> Result<(), EventProcessorError> {
-        let raw_message = bytes.as_slice();
+impl EventProducer for PrintEventProcessor {
+    async fn send_one_event(&self, message: Message) -> Result<(), IggyError> {
+        let payload = message.payload;
+        let raw_message = payload.as_ref();
+
         // Determine SBE message type based on the second byte
         let message_type = MessageType::from(u16::from(raw_message[2]));
 
         // Decode and print SBE message relative to its message type
         match message_type {
             MessageType::TradeBar => {
+                // SBE encoding and decoding is done via the SbeTradeBarExtension
                 let bar = TradeBar::decode_from_sbe(raw_message)
                     .expect("Failed to decode trade bar message");
+
                 println!("Received trade data:");
                 println!("{}", bar);
             }
             MessageType::OHLCVBar => {
+                // SBE encoding and decoding is done via the SbeOHLCVBarExtension
                 let bar = OHLCVBar::decode_from_sbe(raw_message)
                     .expect("Failed to decode OHLCV bar message");
                 println!("Received OHLCV data:");
@@ -115,10 +115,7 @@ impl EventProcessor for PrintEventProcessor {
         Ok(())
     }
 
-    async fn process_event_batch(
-        &self,
-        _bytes_batch: &[Vec<u8>],
-    ) -> Result<(), EventProcessorError> {
-        Err(EventProcessorError::new("Not supported".to_string()))
+    async fn send_event_batch(&self, _messages: Vec<Message>) -> Result<(), IggyError> {
+        Ok(())
     }
 }

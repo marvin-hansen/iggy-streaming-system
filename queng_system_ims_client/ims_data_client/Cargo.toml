@@ -19,7 +19,6 @@ path = "examples/main.rs"
 common_data_bar = { workspace = true }
 common_exchange = { workspace = true }
 common_ims = { workspace = true }
-sdk = { workspace = true }
 sbe_messages_control = { workspace = true }
 sbe_messages_client = { workspace = true }
 sbe_types = { workspace = true }
@@ -28,8 +27,10 @@ async-trait = { workspace = true }
 bytes = { workspace = true }
 enum_dispatch = { workspace = true }
 iggy = { workspace = true }
+sdk = { workspace = true }
 tokio = { workspace = true }
 tokio-util = { workspace = true }
+
 
 [lints]
 workspace = true
