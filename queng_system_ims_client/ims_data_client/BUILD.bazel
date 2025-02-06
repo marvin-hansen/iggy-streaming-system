@@ -20,6 +20,7 @@ rust_library(
         "//alias:message_client_builder",
         "//alias:message_producer",
         "//alias:message_shared",
+        "//alias:sdk",
         "//alias:sbe_messages_client",
         "//alias:sbe_messages_control",
         "//alias:sbe_types",

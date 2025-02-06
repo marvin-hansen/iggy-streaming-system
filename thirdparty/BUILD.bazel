@@ -142,7 +142,7 @@ crates_vendor(
                 "time",
             ],
             package = "tokio",
-            version = "1.42",
+            version = "1.43",
         ),
         "tokio-util": crate.spec(
             default_features = False,
