@@ -1,4 +1,3 @@
-use async_trait::async_trait;
 use iggy::client::Client;
 use iggy::messages::send_messages::Message;
 use sdk::builder::config::IggyConfig;
@@ -78,7 +77,6 @@ fn iggy_config() -> IggyConfig {
 #[derive(Debug)]
 struct PrintEventConsumer {}
 
-#[async_trait]
 impl EventConsumer for PrintEventConsumer {
     async fn consume(&self, data: Vec<u8>) -> Result<(), EventConsumerError> {
         // convert message into raw bytes

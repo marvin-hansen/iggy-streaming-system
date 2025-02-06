@@ -23,9 +23,6 @@ sdk = { workspace = true }
 sbe_messages_control = { workspace = true }
 sbe_messages_client = { workspace = true }
 sbe_types = { workspace = true }
-
-#trait_event_consumer = { workspace = true }
-
 # External crates
 async-trait = { workspace = true }
 bytes = { workspace = true }

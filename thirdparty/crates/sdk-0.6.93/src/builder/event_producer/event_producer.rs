@@ -1,10 +1,10 @@
-use async_trait::async_trait;
 use iggy::error::IggyError;
 use iggy::messages::send_messages::Message;
 
 /// Event producer interface
-#[async_trait]
-pub trait EventProducer {
+#[allow(dead_code)] // Clippy can't see that the trait is used
+#[trait_variant::make(EventProducer: Send)]
+pub trait LocalEventProducer {
     /// Send a single iggy message.
     ///
     /// The message is provided as an iggy `Message`.
@@ -27,7 +27,6 @@ pub trait EventProducer {
 
 // Default implementation for `&T`
 // https://users.rust-lang.org/t/hashmap-get-dereferenced/33558
-#[async_trait]
 impl<T: EventProducer + Send + Sync> EventProducer for &T {
     async fn send_one_event(&self, message: Message) -> Result<(), IggyError> {
         (**self).send_one_event(message).await

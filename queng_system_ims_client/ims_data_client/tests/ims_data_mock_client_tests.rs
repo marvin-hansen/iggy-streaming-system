@@ -1,4 +1,3 @@
-use async_trait::async_trait;
 use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
 use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
@@ -54,7 +53,6 @@ pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig
 #[derive(Debug)]
 struct PrintEventConsumer {}
 
-#[async_trait]
 impl EventConsumer for PrintEventConsumer {
     async fn consume(&self, data: Vec<u8>) -> Result<(), EventConsumerError> {
         // convert message into raw bytes
