@@ -25,7 +25,7 @@ impl ImsDataClient {
         };
 
         self.dbg_print("Send logout message");
-        match self.send_one_message(message).await {
+        match self.send_one_message(message.as_slice()).await {
             Ok(_) => {}
             Err(err) => return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
                 format!(

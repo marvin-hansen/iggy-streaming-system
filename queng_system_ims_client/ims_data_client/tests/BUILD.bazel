@@ -5,6 +5,9 @@ rust_test_suite(
     srcs = glob([
         "*_tests.rs",
     ]),
+    proc_macro_deps = [
+        "//thirdparty/crates:async-trait",
+    ],
     tags = [
         "client",
         "ims_data_client",
@@ -18,8 +21,8 @@ rust_test_suite(
         "//alias:common_data_bar",
         "//alias:common_exchange",
         "//alias:common_ims",
-        "//alias:trait_event_consumer",
         # External dependencies
+        "//thirdparty/crates:sdk",
         "//thirdparty/crates:tokio",
     ],
 )

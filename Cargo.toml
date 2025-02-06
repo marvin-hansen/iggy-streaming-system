@@ -112,7 +112,7 @@ iggy_test_utils = { path = "queng_utils_test/iggy_test_utils" }
 
 # Work in progress & not yet published
 # https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#choice-of-commit
-sdk = { git = "https://github.com/marvin-hansen/iggy_builder.git", branch = "main" }
+sdk = { git = "https://github.com/marvin-hansen/iggy_builder.git", rev = "cbadf707a16891f9adec79e4419ea2e48ed8678a" }
 
 # Proc Macro Dependencies
 async-trait = { version = "0.1" }

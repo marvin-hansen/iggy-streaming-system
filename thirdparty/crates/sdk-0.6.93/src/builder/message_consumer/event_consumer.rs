@@ -38,7 +38,7 @@ impl MessageConsumer {
         event_processor: &'static (impl EventConsumer + Sync),
         cancellation_token: CancellationToken,
     ) -> Result<(), IggyError> {
-        let consumer = &mut self.consumer;
+        let consumer = self.consumer_mut();
 
         select! {
              _ = cancellation_token.cancelled() => {

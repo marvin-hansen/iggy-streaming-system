@@ -1,5 +1,4 @@
-use crate::builder::message_consumer::MessageConsumer;
-use crate::builder::message_producer::MessageProducer;
+
 use iggy::clients::client::IggyClient;
 use iggy::error::IggyError;
 
@@ -7,14 +6,16 @@ mod builder;
 pub mod config;
 mod event_consumer;
 mod event_producer;
-mod message_consumer;
-mod message_producer;
+pub mod message_consumer;
+pub mod message_producer;
 mod utils;
 
 // Re-exports
 pub use crate::builder::config::*;
 pub use crate::builder::event_consumer::*;
 pub use crate::builder::event_producer::*;
+pub use crate::builder::message_consumer::MessageConsumer;
+pub use crate::builder::message_producer::MessageProducer;
 
 pub struct IggyBuilder {
     iggy_producer: MessageProducer,

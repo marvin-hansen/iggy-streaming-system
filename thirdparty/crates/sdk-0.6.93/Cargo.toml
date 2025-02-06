@@ -31,14 +31,14 @@ name = "mod"
 path = "tests/mod.rs"
 
 [dependencies]
-async-trait = "0.1.85"
-futures = "0.3.31"
-futures-util = "0.3.31"
-tokio = "1.43.0"
-tokio-util = "0.7.13"
+async-trait = "0.1"
+futures = "0.3"
+futures-util = "0.3"
+tokio = "1.40"
+tokio-util = "0.7"
 
 [dependencies.iggy]
 version = "0.6"
 
 [dependencies.tracing]
-version = "0.1.41"
+version = "0.1"

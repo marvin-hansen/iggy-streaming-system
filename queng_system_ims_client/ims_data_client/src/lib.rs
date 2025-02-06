@@ -12,14 +12,11 @@ use common_ims::IntegrationConfig;
 use enum_dispatch::enum_dispatch;
 pub use error::ImsClientError;
 use iggy::clients::client::IggyClient;
-use message_client_builder::MessageClientBuilder;
-use message_producer::MessageProducer;
-use message_shared::{IggyConfig, IggyUser};
+use sdk::builder::{EventConsumer, IggyBuilder, MessageProducer};
 use tokio_util::sync::CancellationToken;
 
 // Re-export
 pub use client_trait::ImsDataClientTrait;
-pub use trait_event_consumer::{EventConsumer, EventConsumerError};
 
 /// The selector for the IMS data client allows
 /// to select between the real and mock client while keeping the same client interface.
@@ -92,16 +89,13 @@ impl ImsDataClient {
         // # Control stream
         // ###############################################################################
         let iggy_control_stream_config = config::control_stream_config(exchange_id);
-
-        let (iggy_client_control, control_builder) = if dbg {
-            MessageClientBuilder::new(&iggy_control_stream_config)
-                .await
-                .expect("Failed to build control stream")
-        } else {
-            MessageClientBuilder::with_debug(&iggy_control_stream_config)
-                .await
-                .expect("Failed to build control stream")
-        };
+        let (iggy_client_control, control_builder) =
+            match IggyBuilder::from_config(&iggy_control_stream_config).await {
+                Ok(builder) => builder,
+                Err(err) => {
+                    return Err(ImsClientError::FailedToCreateIggyClient(err.to_string()));
+                }
+            };
 
         let control_producer = control_builder.iggy_producer().to_owned();
         let control_consumer = control_builder.iggy_consumer();
@@ -124,16 +118,14 @@ impl ImsDataClient {
         // ###############################################################################
         // # Data stream
         // ###############################################################################
-        let iggy_data_stream_config = IggyConfig::from_client_id(&IggyUser::default(), client_id);
-        let (iggy_client_data, data_builder) = if dbg {
-            MessageClientBuilder::new(&iggy_data_stream_config)
-                .await
-                .expect("Failed to build control stream")
-        } else {
-            MessageClientBuilder::with_debug(&iggy_data_stream_config)
-                .await
-                .expect("Failed to build control stream")
-        };
+        let iggy_data_stream_config = config::data_stream_config(client_id, exchange_id);
+        let (iggy_client_data, data_builder) =
+            match IggyBuilder::from_config(&iggy_data_stream_config).await {
+                Ok(builder) => builder,
+                Err(err) => {
+                    return Err(ImsClientError::FailedToCreateIggyClient(err.to_string()));
+                }
+            };
 
         let data_producer = data_builder.iggy_producer().to_owned();
         let data_consumer = data_builder.iggy_consumer();

@@ -1,8 +1,10 @@
+use async_trait::async_trait;
 use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
 use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
+use ims_data_client::ImsDataClientTrait;
 use ims_data_client::*;
-use trait_event_consumer::{EventConsumer, EventConsumerError};
+use sdk::builder::{EventConsumer, EventConsumerError};
 
 #[tokio::test]
 async fn test_mock_ims_data_client() {
@@ -52,6 +54,7 @@ pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig
 #[derive(Debug)]
 struct PrintEventConsumer {}
 
+#[async_trait]
 impl EventConsumer for PrintEventConsumer {
     async fn consume(&self, data: Vec<u8>) -> Result<(), EventConsumerError> {
         // convert message into raw bytes
