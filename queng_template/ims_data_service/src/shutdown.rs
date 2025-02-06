@@ -1,3 +1,4 @@
+use iggy::client::Client;
 use iggy::clients::client::IggyClient;
 use iggy::identifier::Identifier;
 use iggy::locking::IggySharedMutFn;
@@ -35,12 +36,14 @@ pub(crate) async fn shutdown_iggy(
         .expect("Failed to control data topic");
 
     dbg_print("Shutting down iggy producer client");
-    message_shared::shutdown(producer_client)
+    producer_client
+        .shutdown()
         .await
         .expect("Failed to shutdown iggy producer client");
 
-    dbg_print("Shutdown iggy consumer client");
-    message_shared::shutdown(consumer_client)
+    dbg_print("Shutting down iggy consumer client");
+    consumer_client
+        .shutdown()
         .await
         .expect("Failed to shutdown iggy consumer client");
 }

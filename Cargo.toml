@@ -7,7 +7,6 @@ members = [
     "queng_extensions/*",
     "queng_integration/data/*",
     "queng_macros/*",
-    "queng_message/*",
     "queng_system_ims_client/*",
     "queng_system_ims_data/*/*",
     "queng_sbe/*",
@@ -81,12 +80,6 @@ binance_usd_futures_testnet_data_integration = { path = "queng_integration/data/
 # Macros
 data_integration_macro = { path = "queng_macros/data_integration_macro" }
 
-# Mesasge bus
-message_consumer = { path = "queng_message/message_consumer" }
-message_producer = { path = "queng_message/message_producer" }
-message_shared = { path = "queng_message/message_shared" }
-message_stream = { path = "queng_message/message_stream" }
-
 # SBE
 sbe_bindings = { path = "queng_sbe/sbe_bindings" }
 sbe_messages_client = { path = "queng_sbe/sbe_messages_client" }
@@ -99,8 +92,6 @@ ims_data_service = { path = "queng_template/ims_data_service" }
 
 # Traits
 trait_data_integration = { path = "queng_traits/trait_data_integration" }
-trait_event_consumer = { path = "queng_traits/trait_event_consumer" }
-trait_event_processor = { path = "queng_traits/trait_event_processor" }
 
 # Utils for integration testing
 iggy_test_utils = { path = "queng_utils_test/iggy_test_utils" }

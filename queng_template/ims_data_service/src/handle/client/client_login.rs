@@ -1,6 +1,5 @@
 use crate::service::Service;
 use common_errors::MessageProcessingError;
-use message_stream::MessageStream;
 use sbe_types::ClientErrorType;
 use trait_data_integration::ImsDataIntegration;
 
@@ -72,38 +71,29 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         }
 
         self.dbg_print(&format!(
-            "Create a new message stream for client with id {}",
+            "Create a new message producer for client with id {}",
             client_id
         ));
-        let message_stream = match MessageStream::new(client_id).await {
-            Ok(stream) => stream,
-            Err(err) => {
-                return Err((
-                    ClientErrorType::ClientLogInError,
-                    MessageProcessingError(format!(
-                        "Failed to create message stream for client with id {} due to error: { }",
-                        client_id, err
-                    )),
-                ))
-            }
-        };
 
-        // RW lock the client_data_producers hashmap
-        let mut client_data_producers = self.client_producers().write().await;
 
-        self.dbg_print(&format!("Login in client with id {}", client_id));
-        if client_data_producers
-            .insert(client_id, message_stream)
-            .is_none()
-        {
-            return Err((
-                ClientErrorType::ClientLogInError,
-                MessageProcessingError(format!("Failed to login client with id {}", client_id,)),
-            ));
-        };
-
-        // Unlock the client_data_producers hashmap
-        drop(client_data_producers);
+        // Re-write
+        //
+        // // RW lock the client_data_producers hashmap
+        // let mut client_data_producers = self.client_producers().write().await;
+        //
+        // self.dbg_print(&format!("Login in client with id {}", client_id));
+        // if client_data_producers
+        //     .insert(client_id, message_stream)
+        //     .is_none()
+        // {
+        //     return Err((
+        //         ClientErrorType::ClientLogInError,
+        //         MessageProcessingError(format!("Failed to login client with id {}", client_id,)),
+        //     ));
+        // };
+        //
+        // // Unlock the client_data_producers hashmap
+        // drop(client_data_producers);
 
         self.dbg_print(&format!(
             "Client login successful for client with id {}",

@@ -1,10 +1,7 @@
 use common_exchange::ExchangeID;
 use common_ims::IntegrationConfig;
 use iggy::clients::client::IggyClient;
-use message_consumer::MessageConsumer;
-use message_producer::MessageProducer;
-use message_shared::IggyConfig;
-use message_stream::MessageStream;
+use sdk::builder::{IggyConfig, MessageConsumer, MessageProducer};
 use std::collections::HashMap;
 use std::error::Error;
 use trait_data_integration::ImsDataIntegration;
@@ -25,7 +22,7 @@ pub struct Service<Integration: ImsDataIntegration> {
     ims_integration: Guarded<Integration>,
     integration_config: IntegrationConfig,
     client_configs: Guarded<HashMap<u16, IggyConfig>>,
-    client_producers: Guarded<HashMap<u16, MessageStream>>,
+    client_producers: Guarded<HashMap<u16, MessageProducer>>,
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
@@ -90,9 +87,10 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 
         dbg_print("Create MessageProducer");
         let producer =
-            MessageProducer::from_client(dbg, producer_client, stream_id.clone(), topic_id.clone())
+            MessageProducer::from_client(producer_client, stream_id.clone(), topic_id.clone())
                 .await
                 .expect("Failed to create producer");
+
         let producer = std::sync::Arc::new(tokio::sync::RwLock::new(producer));
         dbg_print("MessageProducer created");
 
@@ -138,7 +136,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         &self.ims_integration
     }
 
-    pub fn client_producers(&self) -> &Guarded<HashMap<u16, MessageStream>> {
+    pub fn client_producers(&self) -> &Guarded<HashMap<u16, MessageProducer>> {
         &self.client_producers
     }
 

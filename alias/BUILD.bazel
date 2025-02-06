@@ -139,35 +139,6 @@ alias(
 )
 
 ###############################################################################
-# Message
-###############################################################################
-
-alias(
-    name = "message_client_builder",
-    actual = "//queng_message/message_client_builder",
-)
-
-alias(
-    name = "message_consumer",
-    actual = "//queng_message/message_consumer",
-)
-
-alias(
-    name = "message_producer",
-    actual = "//queng_message/message_producer",
-)
-
-alias(
-    name = "message_shared",
-    actual = "//queng_message/message_shared",
-)
-
-alias(
-    name = "message_stream",
-    actual = "//queng_message/message_stream",
-)
-
-###############################################################################
 # SBE
 ###############################################################################
 
@@ -204,17 +175,6 @@ alias(
     name = "trait_data_integration",
     actual = "//queng_traits/trait_data_integration",
 )
-
-alias(
-    name = "trait_event_consumer",
-    actual = "//queng_traits/trait_event_consumer",
-)
-
-alias(
-    name = "trait_event_processor",
-    actual = "//queng_traits/trait_event_processor",
-)
-
 
 ###############################################################################
 # Utils Tests

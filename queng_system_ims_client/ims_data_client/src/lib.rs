@@ -12,11 +12,12 @@ use common_ims::IntegrationConfig;
 use enum_dispatch::enum_dispatch;
 pub use error::ImsClientError;
 use iggy::clients::client::IggyClient;
-use sdk::builder::{EventConsumer, IggyBuilder, MessageProducer};
+use sdk::builder::{IggyBuilder, MessageProducer};
 use tokio_util::sync::CancellationToken;
 
 // Re-export
 pub use client_trait::ImsDataClientTrait;
+pub use sdk::builder::{EventConsumer, EventConsumerError};
 
 /// The selector for the IMS data client allows
 /// to select between the real and mock client while keeping the same client interface.

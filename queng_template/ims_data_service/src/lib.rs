@@ -3,8 +3,8 @@ use crate::service::Service;
 use common_config::ServiceID;
 use common_exchange::ExchangeID;
 use common_service::{print_utils, shutdown_utils};
-use iggy::client::{Client, UserClient};
 use iggy::identifier::Identifier;
+use sdk::builder::IggyBuilder;
 use tokio::time::Instant;
 use trait_data_integration::ImsDataIntegration;
 use warp::Filter;
@@ -68,33 +68,17 @@ where
 
     dbg_print("Construct iggy producer client");
     let iggy_config = &config::ims_data_iggy_config(exchange_id);
-    let producer_client = message_shared::build_client(iggy_config)
-        .await
-        .expect("Failed to build client");
 
-    dbg_print("Connecting producer");
-    producer_client.connect().await.expect("Failed to connect");
-
-    dbg_print("Login producer");
-    producer_client
-        .login_user(iggy_config.user().username(), iggy_config.user().password())
+    let (producer_client, _iggy_client_builder) = IggyBuilder::from_config(&iggy_config)
         .await
-        .expect("Failed to login user");
+        .expect("Failed to build control IggyBuilder");
+
 
     dbg_print("Construct iggy consumer client");
     let iggy_config = &config::ims_control_iggy_config(exchange_id);
-    let consumer_client = message_shared::build_client(iggy_config)
+    let (consumer_client, _iggy_client_builder) = IggyBuilder::from_config(&iggy_config)
         .await
-        .expect("Failed to build client");
-
-    dbg_print("Connecting consumer");
-    consumer_client.connect().await.expect("Failed to connect");
-
-    dbg_print("Login consumer");
-    consumer_client
-        .login_user(iggy_config.user().username(), iggy_config.user().password())
-        .await
-        .expect("Failed to login user");
+        .expect("Failed to build control IggyBuilder");
 
     dbg_print("Configuring health endpoint");
 

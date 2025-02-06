@@ -1,6 +1,5 @@
 use crate::service::Service;
 use common_errors::MessageProcessingError;
-use iggy::client::Client;
 use sbe_types::ClientErrorType;
 use trait_data_integration::ImsDataIntegration;
 
@@ -55,50 +54,53 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         }
 
         // lock the client_data_producers hashmap
-        let mut client_data_producers = self.client_producers().write().await;
+        let client_data_producers = self.client_producers().write().await;
 
-        // get the client data producer from the hashmap
-        match client_data_producers.get(&client_id) {
-            Some(message_stream) => {
-                self.dbg_print(&format!(
-                    "Stopping the message stream for client with id {}",
-                    client_id
-                ));
-                match message_stream.iggy_client().shutdown().await {
-                    Ok(_) => {}
-                    Err(e) => {
-                        MessageProcessingError(format!(
-                            "Failed to shutdown client with id {} due to error: {}",
-                            client_id, e
-                        ));
-                    }
-                }
-
-                self.dbg_print(&format!("Logout client with id {}", client_id));
-                match client_data_producers.remove(&client_id) {
-                    Some(_) => {}
-                    None => {
-                        return Err((
-                            ClientErrorType::ClientLogOutError,
-                            MessageProcessingError(format!(
-                                "Failed to logout client with id {}",
-                                client_id,
-                            )),
-                        ))
-                    }
-                };
-            }
-
-            None => {
-                return Err((
-                    ClientErrorType::ClientLogOutError,
-                    MessageProcessingError(format!(
-                        "Failed to logout client with id {}",
-                        client_id,
-                    )),
-                ))
-            }
-        };
+        //
+        // Re-write
+        //
+        // // get the client data producer from the hashmap
+        // match client_data_producers.get(&client_id) {
+        //     Some(message_stream) => {
+        //         self.dbg_print(&format!(
+        //             "Stopping the message stream for client with id {}",
+        //             client_id
+        //         ));
+        //         match message_stream.iggy_client().shutdown().await {
+        //             Ok(_) => {}
+        //             Err(e) => {
+        //                 MessageProcessingError(format!(
+        //                     "Failed to shutdown client with id {} due to error: {}",
+        //                     client_id, e
+        //                 ));
+        //             }
+        //         }
+        //
+        //         self.dbg_print(&format!("Logout client with id {}", client_id));
+        //         match client_data_producers.remove(&client_id) {
+        //             Some(_) => {}
+        //             None => {
+        //                 return Err((
+        //                     ClientErrorType::ClientLogOutError,
+        //                     MessageProcessingError(format!(
+        //                         "Failed to logout client with id {}",
+        //                         client_id,
+        //                     )),
+        //                 ))
+        //             }
+        //         };
+        //     }
+        //
+        //     None => {
+        //         return Err((
+        //             ClientErrorType::ClientLogOutError,
+        //             MessageProcessingError(format!(
+        //                 "Failed to logout client with id {}",
+        //                 client_id,
+        //             )),
+        //         ))
+        //     }
+        // };
 
         // Unlock the client_data_producers hashmap
         drop(client_data_producers);

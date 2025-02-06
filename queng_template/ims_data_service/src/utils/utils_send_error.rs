@@ -1,11 +1,13 @@
 use crate::service::Service;
+use bytes::Bytes;
 use client_error_ext::SbeClientErrorExtension;
 use common_errors::MessageProcessingError;
 use common_sbe_errors::{ClientError, DataError};
 use data_error_ext::SbeDataErrorExtension;
 use sbe_types::{ClientErrorType, DataErrorType};
+use sdk::builder::EventProducer;
+use sdk::builder::Message as IggyMessage;
 use trait_data_integration::ImsDataIntegration;
-use trait_event_processor::EventProcessor;
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
     /// Sends a `ClientError` message to the given producer.
@@ -76,12 +78,15 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         Ok(())
     }
 
-    pub(crate) async fn send_error(&self, bytes: Vec<u8>) -> Result<(), MessageProcessingError> {
+    pub(crate) async fn send_error(&self, data: Vec<u8>) -> Result<(), MessageProcessingError> {
+        let payload = Bytes::from(data);
+        let message = IggyMessage::new(None, payload, None);
+
         // Send message
         self.producer()
             .read()
             .await
-            .process_one_event(bytes)
+            .send_one_event(message)
             .await
             .expect("Failed to send error message");
 

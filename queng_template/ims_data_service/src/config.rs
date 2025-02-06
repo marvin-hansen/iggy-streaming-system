@@ -1,6 +1,6 @@
 use common_ims::{ExchangeID, IntegrationConfig};
 use common_ims::{ImsIntegrationType, IntegrationMessageConfig};
-use message_shared::{IggyConfig, IggyUser};
+use sdk::builder::{IggyConfig, IggyUser};
 
 pub(crate) fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig {
     IntegrationConfig::new(
