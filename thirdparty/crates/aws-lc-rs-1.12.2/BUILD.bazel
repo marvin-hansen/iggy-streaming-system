@@ -90,7 +90,7 @@ rust_library(
     version = "1.12.2",
     deps = [
         "//thirdparty/crates/aws-lc-rs-1.12.2:build_script_build",
-        "//thirdparty/crates/aws-lc-sys-0.25.0:aws_lc_sys",
+        "//thirdparty/crates/aws-lc-sys-0.25.1:aws_lc_sys",
         "//thirdparty/crates/zeroize-1.8.1:zeroize",
     ],
 )
@@ -134,7 +134,7 @@ cargo_build_script(
     ),
     edition = "2021",
     link_deps = [
-        "//thirdparty/crates/aws-lc-sys-0.25.0:aws_lc_sys",
+        "//thirdparty/crates/aws-lc-sys-0.25.1:aws_lc_sys",
     ],
     links = "aws_lc_rs_1_12_1_sys",
     pkg_name = "aws-lc-rs",

@@ -235,6 +235,18 @@ alias(
 )
 
 alias(
+    name = "sdk-0.6.93",
+    actual = "//thirdparty/crates/sdk-0.6.93:sdk",
+    tags = ["manual"],
+)
+
+alias(
+    name = "sdk",
+    actual = "//thirdparty/crates/sdk-0.6.93:sdk",
+    tags = ["manual"],
+)
+
+alias(
     name = "serde-1.0.217",
     actual = "//thirdparty/crates/serde-1.0.217:serde",
     tags = ["manual"],

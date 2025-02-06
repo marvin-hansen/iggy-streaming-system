@@ -109,6 +109,11 @@ iggy_test_utils = { path = "queng_utils_test/iggy_test_utils" }
 # ==============
 # External crates
 # ==============
+
+# Work in progress & not yet published
+# https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#choice-of-commit
+sdk = { git = "https://github.com/marvin-hansen/iggy_builder.git", branch = "main" }
+
 # Proc Macro Dependencies
 async-trait = { version = "0.1" }
 enum_dispatch = { version = "0.3" }

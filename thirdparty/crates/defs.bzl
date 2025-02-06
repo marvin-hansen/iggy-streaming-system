@@ -306,6 +306,7 @@ _NORMAL_DEPENDENCIES = {
             "reqwest": Label("//thirdparty/crates/reqwest-0.12.12:reqwest"),
             "rust_decimal": Label("//thirdparty/crates/rust_decimal-1.36.0:rust_decimal"),
             "rustls": Label("//thirdparty/crates/rustls-0.23.22:rustls"),
+            "sdk": Label("//thirdparty/crates/sdk-0.6.93:sdk"),
             "serde": Label("//thirdparty/crates/serde-1.0.217:serde"),
             "serde_json": Label("//thirdparty/crates/serde_json-1.0.138:serde_json"),
             "service_utils": Label("//thirdparty/crates/service_utils-0.2.0:service_utils"),

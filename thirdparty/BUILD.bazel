@@ -5,6 +5,14 @@ crates_vendor(
     annotations = {},
     mode = "local",
     packages = {
+        # Dependencies that are work in progress
+        # and not yet published
+        "sdk": crate.spec(
+            package = "sdk",
+            # https://bazelbuild.github.io/rules_rust/crate_universe_bzlmod.html#from_specs
+            git = "https://github.com/marvin-hansen/iggy_builder.git",
+            branch = "main",
+        ),
         #
         # Dependencies for integration tests
         "docker_utils": crate.spec(

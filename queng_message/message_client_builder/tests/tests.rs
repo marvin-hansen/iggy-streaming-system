@@ -22,7 +22,7 @@ const BINARIES: [&str; 2] = [IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64];
 // Therefore, this test is Bazel only.
 
 #[tokio::test]
-async fn test_binance_spot() {
+async fn test_message_client_builder() {
     dbg!("Start service util");
     let res = ServiceUtil::with_debug(ROOT_PATH, Vec::from(BINARIES)).await;
     if res.is_err() {
