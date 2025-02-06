@@ -91,7 +91,7 @@ impl ImsDataClient {
         let iggy_control_stream_config = config::control_stream_config(exchange_id);
         let (iggy_client_control, control_builder) =
             match IggyBuilder::from_config(&iggy_control_stream_config).await {
-                Ok(builder) => builder,
+                Ok(control_builder) => control_builder,
                 Err(err) => {
                     return Err(ImsClientError::FailedToCreateIggyClient(err.to_string()));
                 }
@@ -121,7 +121,7 @@ impl ImsDataClient {
         let iggy_data_stream_config = config::data_stream_config(client_id, exchange_id);
         let (iggy_client_data, data_builder) =
             match IggyBuilder::from_config(&iggy_data_stream_config).await {
-                Ok(builder) => builder,
+                Ok(data_builder) => data_builder,
                 Err(err) => {
                     return Err(ImsClientError::FailedToCreateIggyClient(err.to_string()));
                 }
