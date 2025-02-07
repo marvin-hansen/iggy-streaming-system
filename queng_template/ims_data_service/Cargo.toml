@@ -23,6 +23,7 @@ config_manager = { workspace = true }
 common_sbe_errors = { workspace = true }
 client_error_ext = { workspace = true }
 data_error_ext = { workspace = true }
+ims_iggy_config = { workspace = true }
 sbe_messages_client = {workspace = true}
 sbe_messages_control = {workspace = true}
 sbe_types = { workspace = true }

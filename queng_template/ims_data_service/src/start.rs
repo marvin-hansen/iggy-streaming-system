@@ -3,13 +3,14 @@ use common_config::ServiceID;
 use common_exchange::ExchangeID;
 use common_service::{print_utils, shutdown_utils};
 use iggy::identifier::Identifier;
+use ims_iggy_config;
 use sdk::builder::IggyBuilder;
 use tokio::time::Instant;
 use trait_data_integration::ImsDataIntegration;
 use warp::Filter;
 
 use crate::service::Service;
-use crate::{config, stop};
+use crate::stop;
 use config_manager::ConfigManager;
 
 pub async fn start<Integration>(
@@ -29,7 +30,7 @@ where
     let start = Instant::now();
     //
     dbg_print("build config files");
-    let integration_config = &config::ims_data_integration_config(exchange_id);
+    let integration_config = &ims_iggy_config::ims_data_integration_config(exchange_id);
 
     dbg_print("build config manager");
     let cfg_manager = if dbg {
@@ -60,14 +61,14 @@ where
         Identifier::from_str_value(&topic_id).expect("[MessageProducer]: Invalid topic id");
 
     dbg_print("Construct iggy producer client");
-    let iggy_config = &config::ims_data_iggy_config(exchange_id);
+    let iggy_config = &ims_iggy_config::ims_data_iggy_config(exchange_id);
 
     let (producer_client, _iggy_client_builder) = IggyBuilder::from_config(&iggy_config)
         .await
         .expect("Failed to build control IggyBuilder");
 
     dbg_print("Construct iggy consumer client");
-    let iggy_config = &config::ims_control_iggy_config(exchange_id);
+    let iggy_config = &ims_iggy_config::ims_control_iggy_config(exchange_id);
     let (consumer_client, _iggy_client_builder) = IggyBuilder::from_config(&iggy_config)
         .await
         .expect("Failed to build control IggyBuilder");

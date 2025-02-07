@@ -1,5 +1,4 @@
 
-mod config;
 mod handle;
 mod health_check;
 mod service;

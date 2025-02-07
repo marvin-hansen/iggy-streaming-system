@@ -19,6 +19,7 @@ rust_library(
         "//alias:common_sbe_errors",
         "//alias:client_error_ext",
         "//alias:data_error_ext",
+        "//alias:ims_iggy_config",
         "//alias:sbe_messages_client",
         "//alias:sbe_messages_control",
         "//alias:sbe_types",
