@@ -79,6 +79,7 @@ The main folders of this project:
 * [queng_message](queng_message): iggy messaging utils
 * [queng_sbe](queng_sbe): SBE message encoding
 * [queng_system_ims_client](queng_system_ims_client): client for the IMS data system
+* [queng_system_ims_config](queng_system_ims_config): Configuration shared between parts of the IMS system
 * [queng_system_ims_data](queng_system_ims_data): microservices of the IMS data system
 * [queng_integration](queng_integration): integration code for the IMS data system
 * [queng_template](queng_template): microservice template used in [queng_system_ims_data](queng_system_ims_data)
