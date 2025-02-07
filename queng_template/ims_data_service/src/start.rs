@@ -8,10 +8,9 @@ use tokio::time::Instant;
 use trait_data_integration::ImsDataIntegration;
 use warp::Filter;
 
-use crate::config;
-use crate::service::{shutdown_iggy, Service};
+use crate::service::Service;
+use crate::{config, stop};
 use config_manager::ConfigManager;
-
 
 pub async fn start<Integration>(
     dbg: bool,
@@ -66,7 +65,6 @@ where
     let (producer_client, _iggy_client_builder) = IggyBuilder::from_config(&iggy_config)
         .await
         .expect("Failed to build control IggyBuilder");
-
 
     dbg_print("Construct iggy consumer client");
     let iggy_config = &config::ims_control_iggy_config(exchange_id);
@@ -124,7 +122,7 @@ where
     }
 
     dbg_print("Shutting down messaging clients");
-    shutdown_iggy(
+    stop::shutdown_iggy(
         &dbg_print,
         &control_stream_id,
         &control_topic_id,

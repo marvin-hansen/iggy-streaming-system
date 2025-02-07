@@ -1,5 +1,5 @@
-mod shutdown;
 mod run;
+mod shutdown;
 
 use common_exchange::ExchangeID;
 use common_ims::IntegrationConfig;
@@ -8,9 +8,6 @@ use sdk::builder::{IggyConfig, MessageConsumer, MessageProducer};
 use std::collections::HashMap;
 use std::error::Error;
 use trait_data_integration::ImsDataIntegration;
-
-// Re-export
-pub(crate) use shutdown::shutdown_iggy;
 
 type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 
@@ -160,29 +157,5 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         if self.dbg {
             println!("[IMSData/Server]: {msg}");
         }
-    }
-}
-
-impl<Integration: ImsDataIntegration> Service<Integration> {
-    pub(crate) async fn shutdown(&self) -> Result<(), std::fmt::Error> {
-        let client_db = self.client_producers().read().await;
-        if !client_db.is_empty() {
-            self.dbg_print("Logging out all remaining clients");
-            for (client_id, _) in client_db.iter() {
-                self.client_logout(*client_id)
-                    .await
-                    .unwrap_or_else(|_| panic!("Failed to log out client {client_id}"));
-            }
-        }
-
-        self.dbg_print("Shutdown integration service");
-        self.ims_integration()
-            .read()
-            .await
-            .shutdown()
-            .await
-            .expect("Failed to shutdown integration service");
-
-        Ok(())
     }
 }

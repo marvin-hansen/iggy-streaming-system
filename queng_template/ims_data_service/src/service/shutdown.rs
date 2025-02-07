@@ -1,49 +1,26 @@
-use iggy::client::Client;
-use iggy::clients::client::IggyClient;
-use iggy::identifier::Identifier;
-use iggy::locking::IggySharedMutFn;
+use crate::service::Service;
+use trait_data_integration::ImsDataIntegration;
 
-/// Shuts down iggy clients and user.
-///
-/// # Parameters
-///
-/// * `dbg_print` - A function to print debug messages.
-/// * `producer_client` - The iggy producer client.
-/// * `consumer_client` - The iggy consumer client.
-pub(crate) async fn shutdown_iggy(
-    dbg_print: &dyn Fn(&str),
-    control_stream_id: &Identifier,
-    control_topic_id: &Identifier,
-    producer_client: &IggyClient,
-    consumer_client: &IggyClient,
-) {
-    dbg_print("Delete control topic");
-    consumer_client
-        .client()
-        .read()
-        .await
-        .delete_topic(control_stream_id, control_topic_id)
-        .await
-        .expect("Failed to delete control topic");
+impl<Integration: ImsDataIntegration> Service<Integration> {
+    pub(crate) async fn shutdown(&self) -> Result<(), std::fmt::Error> {
+        let client_db = self.client_producers().read().await;
+        if !client_db.is_empty() {
+            self.dbg_print("Logging out all remaining clients");
+            for (client_id, _) in client_db.iter() {
+                self.client_logout(*client_id)
+                    .await
+                    .unwrap_or_else(|_| panic!("Failed to log out client {client_id}"));
+            }
+        }
 
-    dbg_print("Delete control stream");
-    consumer_client
-        .client()
-        .read()
-        .await
-        .delete_stream(control_stream_id)
-        .await
-        .expect("Failed to control data topic");
+        self.dbg_print("Shutdown integration service");
+        self.ims_integration()
+            .read()
+            .await
+            .shutdown()
+            .await
+            .expect("Failed to shutdown integration service");
 
-    dbg_print("Shutting down iggy producer client");
-    producer_client
-        .shutdown()
-        .await
-        .expect("Failed to shutdown iggy producer client");
-
-    dbg_print("Shutting down iggy consumer client");
-    consumer_client
-        .shutdown()
-        .await
-        .expect("Failed to shutdown iggy consumer client");
+        Ok(())
+    }
 }
