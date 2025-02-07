@@ -60,6 +60,10 @@ where
     let control_topic_id =
         Identifier::from_str_value(&topic_id).expect("[MessageProducer]: Invalid topic id");
 
+
+    //
+    // Re-write the iggy client, consumer, and producer stuff.
+    //
     dbg_print("Construct iggy producer client");
     let iggy_config = &ims_iggy_config::ims_data_iggy_config(exchange_id);
     let (producer_client, _) = IggyBuilder::from_config(&iggy_config)
