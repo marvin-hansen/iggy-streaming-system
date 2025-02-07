@@ -1,0 +1,20 @@
+load("@rules_rust//rust:defs.bzl", "rust_test_suite")
+
+rust_test_suite(
+    name = "tests",
+    srcs = glob([
+        "*_tests.rs",
+    ]),
+    tags = [
+        "ims",
+        "ims_iggy_config",
+        "unit-test",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        # Crate to test
+        "//alias:ims_iggy_config",
+        # Internal crates
+        "//alias:common_ims",
+    ],
+)
