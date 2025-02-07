@@ -1,8 +1,17 @@
 use crate::ConfigManager;
 use common_env::EnvironmentType;
+use common_platform::PlatformType;
 
 impl ConfigManager {
-    pub fn env_var(&self) -> (String, String) {
+    pub(crate) fn get_platform_type(&self) -> PlatformType {
+        self.platform_type
+    }
+
+    pub(crate) fn get_env_type(&self) -> EnvironmentType {
+        self.env_type
+    }
+
+    pub(crate) fn get_env_var(&self) -> (String, String) {
         self.dbg_print("env_var");
         self.dbg_print("EnvironmentType");
         self.dbg_print(self.env_type.to_string().as_str());

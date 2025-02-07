@@ -11,7 +11,7 @@ use warp::Filter;
 
 use crate::service::Service;
 use crate::stop;
-use config_manager::ConfigManager;
+use config_manager::{ConfigManager, ConfigManagerTrait};
 
 pub async fn start<Integration>(
     dbg: bool,
@@ -47,7 +47,7 @@ where
 
     dbg_print("Configure service ip and port automatically!");
     let service_addr = cfg_manager
-        .get_data_svc_socket_addr(exchange_id)
+        .data_svc_socket_addr(exchange_id)
         .expect("Failed to get service host and port");
 
     let stream_id = integration_config.control_channel();
@@ -86,7 +86,7 @@ where
 
     dbg_print("Configure http service");
     let port_http = cfg_manager
-        .get_data_svc_port(exchange_id)
+        .data_svc_port(exchange_id)
         .expect("Failed to get port");
     let http_signal = shutdown_utils::signal_handler("http server");
     let (_, http_server) =

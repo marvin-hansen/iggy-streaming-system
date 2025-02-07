@@ -5,7 +5,7 @@ use common_env::EnvironmentType;
 use common_exchange::ExchangeID;
 
 impl ConfigManager {
-    pub fn get_data_svc_socket_health_uri(
+    pub(crate) fn get_data_svc_socket_health_uri(
         &self,
         exchange_id: ExchangeID,
     ) -> Result<String, ConfigError> {
@@ -16,11 +16,11 @@ impl ConfigManager {
         Ok(uri)
     }
 
-    pub fn get_data_svc_port(&self, exchange_id: ExchangeID) -> Result<u16, ConfigError> {
+    pub(crate) fn get_data_svc_port(&self, exchange_id: ExchangeID) -> Result<u16, ConfigError> {
         self.get_ims_port(&exchange_id)
     }
 
-    pub fn get_data_svc_socket_addr(&self, exchange_id: ExchangeID) -> Result<String, ConfigError> {
+    pub(crate) fn get_data_svc_socket_addr(&self, exchange_id: ExchangeID) -> Result<String, ConfigError> {
         // Set host to default (0.0.0.0) to listen on all interfaces
         let host = DEFAULT_HOST;
 

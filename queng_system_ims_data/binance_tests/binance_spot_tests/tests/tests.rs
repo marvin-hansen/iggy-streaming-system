@@ -1,6 +1,6 @@
 use common_exchange::ExchangeID;
 use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
-use config_manager::ConfigManager;
+use config_manager::{ConfigManager, ConfigManagerTrait};
 use iggy_test_utils::{iggy_start_config_builder, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64};
 use ims_data_client::{EventConsumer, EventConsumerError, ImsDataClient, ImsDataClientTrait};
 use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
@@ -68,7 +68,7 @@ async fn test_binance_spot() {
 
     dbg!("Configure IMS Data service - Binance Spot");
     let uri = config_manager
-        .get_data_svc_socket_addr(EXCHANGE_ID)
+        .data_svc_socket_addr(EXCHANGE_ID)
         .expect("Failed to get host and port for IMS Data service");
 
     dbg!(&format!(" IMS Data service uri: {uri}"));
