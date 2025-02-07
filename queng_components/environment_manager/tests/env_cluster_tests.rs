@@ -1,5 +1,5 @@
 use common_env::EnvironmentType;
-use environment_manager::EnvironmentManager;
+use environment_manager::{EnvironmentManager, EnvironmentManagerTrait};
 use std::env;
 
 #[test]

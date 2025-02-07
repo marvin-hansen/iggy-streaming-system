@@ -35,7 +35,7 @@ capabilities for environment-related issues.
 ### Basic Usage
 
 ```rust
-use environment_manager::EnvironmentManager;
+use environment_manager::{EnvironmentManager, EnvironmentManagerTrait};
 
 // Create default environment manager
 let env_manager = EnvironmentManager::new();
@@ -47,7 +47,7 @@ let env_type = env_manager.env_type();
 ### Debug Mode
 
 ```rust
-use environment_manager::EnvironmentManager;
+use environment_manager::{EnvironmentManager, EnvironmentManagerTrait};
 
 // Create environment manager with debug mode
 let env_manager = EnvironmentManager::with_debug();

@@ -1,7 +1,7 @@
 use common_config::ServiceID;
 use common_env::EnvironmentType;
 use common_platform::PlatformType;
-use environment_manager::EnvironmentManager;
+use environment_manager::{EnvironmentManager, EnvironmentManagerTrait};
 
 #[derive(Debug)]
 pub struct ConfigManager {

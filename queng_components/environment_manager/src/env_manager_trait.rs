@@ -1,8 +1,7 @@
-use crate::{EnvironmentManager, EnvironmentManagerTrait};
 use common_env::EnvironmentType;
 use common_platform::PlatformType;
 
-impl EnvironmentManagerTrait for EnvironmentManager {
+pub trait EnvironmentManagerTrait {
     /// Returns the type of environment.
     ///
     /// This method returns the `EnvironmentType` of the current `EnvironmentManager` instance.
@@ -11,10 +10,7 @@ impl EnvironmentManagerTrait for EnvironmentManager {
     ///
     /// The `EnvironmentType` associated with this manager.
     ///
-    #[inline]
-    fn env_type(&self) -> EnvironmentType {
-        self.env_type
-    }
+    fn env_type(&self) -> EnvironmentType;
     /// Returns the platform type.
     ///
     /// This method returns the `PlatformType` of the current `EnvironmentManager` instance.
@@ -23,8 +19,5 @@ impl EnvironmentManagerTrait for EnvironmentManager {
     ///
     /// The `PlatformType` associated with this manager.
     ///
-    #[inline]
-    fn platform_type(&self) -> PlatformType {
-        self.platform_type
-    }
+    fn platform_type(&self) -> PlatformType;
 }
