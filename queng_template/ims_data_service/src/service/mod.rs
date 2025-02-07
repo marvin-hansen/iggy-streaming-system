@@ -1,3 +1,6 @@
+mod shutdown;
+mod run;
+
 use common_exchange::ExchangeID;
 use common_ims::IntegrationConfig;
 use iggy::clients::client::IggyClient;
@@ -5,6 +8,9 @@ use sdk::builder::{IggyConfig, MessageConsumer, MessageProducer};
 use std::collections::HashMap;
 use std::error::Error;
 use trait_data_integration::ImsDataIntegration;
+
+// Re-export
+pub(crate) use shutdown::shutdown_iggy;
 
 type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 
@@ -57,7 +63,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             integration_config,
             iggy_config,
         )
-        .await
+            .await
     }
 }
 
@@ -101,8 +107,8 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             stream_id.clone(),
             topic_id.clone(),
         )
-        .await
-        .expect("[Service]: Failed to create consumer");
+            .await
+            .expect("[Service]: Failed to create consumer");
         let consumer = std::sync::Arc::new(tokio::sync::RwLock::new(consumer));
         dbg_print("MessageConsumer crated");
 
