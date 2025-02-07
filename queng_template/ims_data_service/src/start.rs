@@ -62,8 +62,7 @@ where
 
     dbg_print("Construct iggy producer client");
     let iggy_config = &ims_iggy_config::ims_data_iggy_config(exchange_id);
-
-    let (producer_client, _iggy_client_builder) = IggyBuilder::from_config(&iggy_config)
+    let (producer_client, _) = IggyBuilder::from_config(&iggy_config)
         .await
         .expect("Failed to build control IggyBuilder");
 

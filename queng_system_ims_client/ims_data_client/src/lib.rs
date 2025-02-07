@@ -1,7 +1,6 @@
 mod client_api;
 mod client_mock;
 mod client_trait;
-mod config;
 mod error;
 mod handler;
 mod shutdown;
@@ -89,7 +88,7 @@ impl ImsDataClient {
         // ###############################################################################
         // # Control stream
         // ###############################################################################
-        let iggy_control_stream_config = config::control_stream_config(exchange_id);
+        let iggy_control_stream_config = ims_iggy_config::ims_control_iggy_config(exchange_id);
         let (iggy_client_control, control_builder) =
             match IggyBuilder::from_config(&iggy_control_stream_config).await {
                 Ok(control_builder) => control_builder,
@@ -119,7 +118,7 @@ impl ImsDataClient {
         // ###############################################################################
         // # Data stream
         // ###############################################################################
-        let iggy_data_stream_config = config::data_stream_config(client_id, exchange_id);
+        let iggy_data_stream_config = ims_iggy_config::ims_client_data_iggy_config(client_id, exchange_id);
         let (iggy_client_data, data_builder) =
             match IggyBuilder::from_config(&iggy_data_stream_config).await {
                 Ok(data_builder) => data_builder,
