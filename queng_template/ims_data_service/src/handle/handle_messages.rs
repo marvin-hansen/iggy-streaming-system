@@ -26,9 +26,8 @@ impl<Integration: ImsDataIntegration + 'static> Service<Integration> {
         &self,
         polled_message: PolledMessage,
     ) -> Result<(), MessageProcessingError> {
-        //
-        let message = polled_message.payload.to_vec();
-        let raw_message = message.as_slice();
+        // payload is a sliceable chunk of contiguous memory; thus we can direct access its contents.
+        let raw_message = polled_message.payload.as_ref();
         let message_type = MessageType::from(u16::from(raw_message[2]));
 
         match message_type {
