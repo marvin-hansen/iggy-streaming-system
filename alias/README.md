@@ -18,8 +18,6 @@ These aliases are then used as regular dependencies across all Bazel targets i.e
     srcs = glob(["*_tests.rs",]),
     visibility = ["//visibility:public"],
     deps = [
-        # Crate to test
-        "//alias/client:ims_data_client",
         # Internal dependencies
         "//alias:common_data_bar",
         "//alias:common_exchange",

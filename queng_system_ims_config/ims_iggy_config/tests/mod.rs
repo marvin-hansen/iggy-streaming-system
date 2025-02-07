@@ -1,0 +1,3 @@
+mod ims_data_iggy_config_tests;
+mod ims_control_iggy_config_tests;
+mod ims_data_integration_config_tests;

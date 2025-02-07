@@ -28,7 +28,7 @@ rust_test_suite(
         "//alias:common_ims",
         "//alias:config_manager",
         "//alias:iggy_test_utils",
-        "//alias/client:ims_data_client",
+        "//alias:ims_data_client",
         # External crates
         "//thirdparty/crates:service_utils",
         "//thirdparty/crates:tokio",

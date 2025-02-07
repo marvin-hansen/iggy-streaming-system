@@ -8,6 +8,7 @@ members = [
     "queng_integration/data/*",
     "queng_macros/*",
     "queng_system_ims_client/*",
+    "queng_system_ims_config/*",
     "queng_system_ims_data/*/*",
     "queng_sbe/*",
     "queng_template/*",
@@ -45,6 +46,8 @@ deprecated_safe_2024 = "warn"
 
 # Clients
 ims_data_client = { path = "queng_system_ims_client/ims_data_client" }
+# Configs
+ims_iggy_config = { path = "queng_system_ims_config/ims_iggy_config" }
 
 # Common
 common_config = { path = "queng_common/common_config" }
