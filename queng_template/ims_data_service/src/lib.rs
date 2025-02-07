@@ -1,6 +1,6 @@
 
 mod handle;
-mod health_check;
+mod health;
 mod service;
 mod start;
 mod stop;

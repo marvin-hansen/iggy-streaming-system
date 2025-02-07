@@ -1,4 +1,4 @@
-use crate::health_check::health_handler::health_handler;
+use crate::health::health_handler::health_handler;
 use common_config::ServiceID;
 use common_exchange::ExchangeID;
 use common_service::{print_utils, shutdown_utils};
