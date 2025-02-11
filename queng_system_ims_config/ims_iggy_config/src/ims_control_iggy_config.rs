@@ -1,19 +1,16 @@
 use common_ims::ExchangeID;
-use sdk::builder::{IggyConfig, IggyUser};
+use iggy::messages::poll_messages::PollingStrategy;
+use iggy::utils::duration::IggyDuration;
+use sdk::builder::IggyStreamConfig;
+use std::str::FromStr;
 
-pub fn ims_control_iggy_config(exchange_id: ExchangeID) -> IggyConfig {
-    IggyConfig::new(
-        IggyUser::default(),
-        1,
-        format!("{}-control", exchange_id),
-        exchange_id as u32,
-        1,
-        "control".to_string(),
-        Some("localhost:8090".to_string()),
-        None,
-        1,
-        "consumer_control".to_string(),
-        1,
-        true,
+pub fn ims_control_iggy_config(exchange_id: ExchangeID) -> IggyStreamConfig {
+    IggyStreamConfig::new(
+        format!("{}-control-stream", exchange_id).as_str(),
+        format!("{}-control-topic", exchange_id).as_str(),
+        100,
+        IggyDuration::from_str("1ms").unwrap(),
+        IggyDuration::from_str("1ms").unwrap(),
+        PollingStrategy::last(),
     )
 }

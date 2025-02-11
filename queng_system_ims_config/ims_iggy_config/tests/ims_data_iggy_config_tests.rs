@@ -1,15 +1,15 @@
 use common_ims::ExchangeID;
+use iggy::messages::poll_messages::PollingStrategy;
 use ims_iggy_config::ims_data_iggy_config;
 
 #[test]
 fn test_ims_data_iggy_config() {
     let exchange_id = ExchangeID::BinanceSpot;
-    let config = ims_data_iggy_config(exchange_id);
+    let client_id = 120;
+    let config = ims_data_iggy_config(client_id, exchange_id);
 
-    let expected_stream = format!("{}-data", exchange_id).to_ascii_lowercase();
-    assert_eq!(config.stream_name(), expected_stream);
-    assert_eq!(config.topic_name(), "data");
-    assert_eq!(config.tcp_server_addr(), Some("localhost:8090".to_string()));
-    assert_eq!(config.message_consumer_name(), "consumer_data");
-    assert_eq!(config.partition_id(), 1);
+    assert_eq!(config.stream_name(), "binancespot-data-client-120");
+    assert_eq!(config.topic_name(), "binancespot-data-topic");
+    assert_eq!(config.batch_size(), 100);
+    assert_eq!(config.polling_strategy(), PollingStrategy::last());
 }

@@ -16,5 +16,6 @@ workspace = true
 [dependencies]
 common_ims = { workspace = true }
 # External crates
+iggy = { workspace = true }
 sdk = { workspace = true }
 

@@ -1,6 +1,7 @@
 mod client_api;
 mod client_mock;
 mod client_trait;
+mod client_utils;
 mod error;
 mod handler;
 mod shutdown;
@@ -11,12 +12,14 @@ use common_ims::IntegrationConfig;
 use enum_dispatch::enum_dispatch;
 pub use error::ImsClientError;
 use iggy::clients::client::IggyClient;
-use sdk::builder::{IggyBuilder, MessageProducer};
-use tokio_util::sync::CancellationToken;
+use iggy::clients::producer::IggyProducer;
 
+use crate::client_utils::build_iggy_client;
 // Re-export
 pub use client_trait::ImsDataClientTrait;
 pub use sdk::builder::{EventConsumer, EventConsumerError};
+use sdk::builder::{IggyConsumerMessageExt, IggyStream};
+use tokio::sync::oneshot;
 
 /// The selector for the IMS data client allows
 /// to select between the real and mock client while keeping the same client interface.
@@ -32,46 +35,47 @@ pub struct ImsDataClient {
     dbg: bool,
     client_id: u16,
     exchange_id: ExchangeID,
-    integration_config: IntegrationConfig,
     iggy_client_control: IggyClient,
     iggy_client_data: IggyClient,
-    control_producer: MessageProducer,
-    data_producer: MessageProducer,
-    tx_control_consumer: CancellationToken,
-    tx_data_consumer: CancellationToken,
+    control_producer: IggyProducer,
+    data_producer: IggyProducer,
 }
 
 impl ImsDataClient {
     pub async fn new(
         client_id: u16,
-        integration_config: IntegrationConfig,
+        exchange_id: ExchangeID,
+        iggy_connection_string: &str,
         control_event_processor: &'static (impl EventConsumer + Sync),
         data_event_processor: &'static (impl EventConsumer + Sync),
     ) -> Result<Self, ImsClientError> {
         Self::build(
             false,
             client_id,
-            integration_config,
+            exchange_id,
+            iggy_connection_string,
             control_event_processor,
             data_event_processor,
         )
-            .await
+        .await
     }
 
     pub async fn with_debug(
         client_id: u16,
-        integration_config: IntegrationConfig,
+        exchange_id: ExchangeID,
+        iggy_connection_string: &str,
         control_event_processor: &'static (impl EventConsumer + Sync),
         data_event_processor: &'static (impl EventConsumer + Sync),
     ) -> Result<Self, ImsClientError> {
         Self::build(
             true,
             client_id,
-            integration_config,
+            exchange_id,
+            iggy_connection_string,
             control_event_processor,
             data_event_processor,
         )
-            .await
+        .await
     }
 }
 
@@ -79,33 +83,28 @@ impl ImsDataClient {
     pub async fn build(
         dbg: bool,
         client_id: u16,
-        integration_config: IntegrationConfig,
+        exchange_id: ExchangeID,
+        iggy_connection_string: &str,
         control_event_processor: &'static (impl EventConsumer + Sync),
         data_event_processor: &'static (impl EventConsumer + Sync),
     ) -> Result<Self, ImsClientError> {
-        let exchange_id = integration_config.exchange_id();
-
         // ###############################################################################
         // # Control stream
         // ###############################################################################
+        let iggy_client_control = build_iggy_client(iggy_connection_string).await?;
         let iggy_control_stream_config = ims_iggy_config::ims_control_iggy_config(exchange_id);
-        let (iggy_client_control, control_builder) =
-            match IggyBuilder::from_config(&iggy_control_stream_config).await {
+        let (control_producer, control_consumer) =
+            match IggyStream::new(&iggy_client_control, &iggy_control_stream_config).await {
                 Ok(control_builder) => control_builder,
                 Err(err) => {
-                    return Err(ImsClientError::FailedToCreateIggyClient(err.to_string()));
+                    return Err(ImsClientError::FailedToCreateIggyConsumer(err.to_string()));
                 }
             };
 
-        let control_producer = control_builder.iggy_producer().to_owned();
-        let control_consumer = control_builder.iggy_consumer();
-
-        // https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html#examples
-        let token = CancellationToken::new();
-        let tx_control_consumer = token.clone();
+        let (tx_control_consumer, receiver) = oneshot::channel();
         tokio::spawn(async move {
             match control_consumer
-                .consume_messages(control_event_processor, token)
+                .consume_messages(control_event_processor, receiver)
                 .await
             {
                 Ok(_) => {}
@@ -118,24 +117,20 @@ impl ImsDataClient {
         // ###############################################################################
         // # Data stream
         // ###############################################################################
-        let iggy_data_stream_config = ims_iggy_config::ims_client_data_iggy_config(client_id, exchange_id);
-        let (iggy_client_data, data_builder) =
-            match IggyBuilder::from_config(&iggy_data_stream_config).await {
+        let iggy_client_data = build_iggy_client(iggy_connection_string).await?;
+        let iggy_data_stream_config = ims_iggy_config::ims_data_iggy_config(client_id, exchange_id);
+        let (data_producer, data_consumer) =
+            match IggyStream::new(&iggy_client_data, &iggy_data_stream_config).await {
                 Ok(data_builder) => data_builder,
                 Err(err) => {
-                    return Err(ImsClientError::FailedToCreateIggyClient(err.to_string()));
+                    return Err(ImsClientError::FailedToCreateIggyConsumer(err.to_string()));
                 }
             };
 
-        let data_producer = data_builder.iggy_producer().to_owned();
-        let data_consumer = data_builder.iggy_consumer();
-
-        // https://docs.rs/tokio-util/latest/tokio_util/sync/struct.CancellationToken.html#examples
-        let token = CancellationToken::new();
-        let tx_data_consumer = token.clone();
+        let (tx_data_consumer, receiver) = oneshot::channel();
         tokio::spawn(async move {
             match data_consumer
-                .consume_messages(data_event_processor, token)
+                .consume_messages(data_event_processor, receiver)
                 .await
             {
                 Ok(_) => {}
@@ -149,13 +144,10 @@ impl ImsDataClient {
             dbg,
             client_id,
             exchange_id,
-            integration_config,
             iggy_client_control,
             iggy_client_data,
             control_producer,
             data_producer,
-            tx_data_consumer,
-            tx_control_consumer,
         })
     }
 }
@@ -169,15 +161,11 @@ impl ImsDataClient {
         self.exchange_id
     }
 
-    pub fn integration_config(&self) -> &IntegrationConfig {
-        &self.integration_config
-    }
-
-    pub fn control_producer(&self) -> &MessageProducer {
+    pub fn control_producer(&self) -> &IggyProducer {
         &self.control_producer
     }
 
-    pub fn data_producer(&self) -> &MessageProducer {
+    pub fn data_producer(&self) -> &IggyProducer {
         &self.data_producer
     }
 }

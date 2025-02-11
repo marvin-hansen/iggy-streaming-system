@@ -25,7 +25,7 @@ impl ImsDataClient {
         };
 
         self.dbg_print("Send stop_data message");
-        match self.send_one_message(message.as_slice()).await {
+        match self.send_control_message(message.as_slice()).await {
             Ok(_) => {}
             Err(err) => {
                 return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
