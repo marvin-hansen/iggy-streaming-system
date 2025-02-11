@@ -1,10 +1,10 @@
-use async_trait::async_trait;
 use common_exchange::ExchangeID;
 use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
 use ims_data_client::{ImsDataClient, ImsDataClientTrait};
+use sbe_messages_client::{ClientLoginMessage, ClientLogoutMessage};
+use sbe_types::MessageType;
 use sdk::builder::{EventConsumer, EventConsumerError};
 use std::fmt::Error;
-
 //
 // Ensure iggy is running before running this example
 // i.e. run cargo r --bin iggy-server
@@ -18,13 +18,10 @@ async fn main() -> Result<(), Box<Error>> {
         &PrintEventConsumer {},
         &PrintEventConsumer {},
     )
-        .await
-        .expect("Failed to create ImsDataClient");
+    .await
+    .expect("Failed to create ImsDataClient");
 
     println!("✅ ImsDataClient started");
-
-    // wait 1 second
-    tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
     println!("Login ImsDataClient ");
     let res = client.login().await;
@@ -32,17 +29,14 @@ async fn main() -> Result<(), Box<Error>> {
     assert!(res.is_ok());
     println!("✅ Login ImsDataClient completed");
 
-    // wait 5 seconds
-    tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
-
     println!("Logout ImsDataClient ");
     let res = client.logout().await;
     // dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Logout ImsDataClient completed");
 
-    // wait 5 seconds
-    tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
+    // wait 1 second
+    tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
     println!("Shutdown ImsDataClient ");
     let res = client.shutdown().await;
@@ -71,11 +65,27 @@ impl EventConsumer for PrintEventConsumer {
         // convert message into raw bytes
         let raw_message = data.as_slice();
 
-        // convert into raw string
-        let message = String::from_utf8_lossy(raw_message);
+        // determine message type
+        let message_type = MessageType::from(u16::from(raw_message[2]));
+
+        // decode SBE message and convert to string
+        let msg_string = match message_type {
+            MessageType::ClientLogin => {
+                let client_login_msg = ClientLoginMessage::from(raw_message);
+                client_login_msg.to_string()
+            }
+            MessageType::ClientLogout => {
+                let client_logout_msg = ClientLogoutMessage::from(raw_message);
+                client_logout_msg.to_string()
+            }
+            _ => "Unknown message type".to_string(),
+        };
 
         // Print message to stdout
-        println!("[PrintEventConsumer]: {}", message);
+        println!("###################");
+        println!("Message received: ");
+        println!("{msg_string}");
+        println!("###################");
 
         Ok(())
     }
