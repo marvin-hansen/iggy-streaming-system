@@ -300,7 +300,7 @@ _NORMAL_DEPENDENCIES = {
             "docker_utils": Label("//thirdparty/crates/docker_utils-0.2.3:docker_utils"),
             "futures": Label("//thirdparty/crates/futures-0.3.31:futures"),
             "futures-util": Label("//thirdparty/crates/futures-util-0.3.31:futures_util"),
-            "iggy": Label("//thirdparty/crates/iggy-0.6.101:iggy"),
+            "iggy": Label("//thirdparty/crates/iggy-0.6.102:iggy"),
             "mimalloc": Label("//thirdparty/crates/mimalloc-0.1.43:mimalloc"),
             "quote": Label("//thirdparty/crates/quote-1.0.38:quote"),
             "reqwest": Label("//thirdparty/crates/reqwest-0.12.12:reqwest"),

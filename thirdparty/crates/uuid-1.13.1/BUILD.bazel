@@ -89,7 +89,7 @@ rust_library(
     }),
     version = "1.13.1",
     deps = [
-        "//thirdparty/crates/zerocopy-0.8.16:zerocopy",
+        "//thirdparty/crates/zerocopy-0.8.17:zerocopy",
     ] + select({
         "@rules_rust//rust/platform:aarch64-apple-darwin": [
             "//thirdparty/crates/getrandom-0.3.1:getrandom",  # aarch64-apple-darwin

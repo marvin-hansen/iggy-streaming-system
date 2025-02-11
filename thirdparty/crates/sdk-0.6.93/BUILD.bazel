@@ -31,6 +31,7 @@ rust_library(
     crate_root = "src/lib.rs",
     edition = "2021",
     proc_macro_deps = [
+        "//thirdparty/crates/async-trait-0.1.86:async_trait",
         "//thirdparty/crates/trait-variant-0.1.2:trait_variant",
     ],
     rustc_flags = [
@@ -86,7 +87,7 @@ rust_library(
     deps = [
         "//thirdparty/crates/futures-0.3.31:futures",
         "//thirdparty/crates/futures-util-0.3.31:futures_util",
-        "//thirdparty/crates/iggy-0.6.101:iggy",
+        "//thirdparty/crates/iggy-0.6.102:iggy",
         "//thirdparty/crates/tokio-1.43.0:tokio",
         "//thirdparty/crates/tokio-util-0.7.13:tokio_util",
         "//thirdparty/crates/tracing-0.1.41:tracing",

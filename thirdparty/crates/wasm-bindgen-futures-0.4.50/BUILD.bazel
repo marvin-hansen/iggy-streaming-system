@@ -87,7 +87,7 @@ rust_library(
     deps = [
         "//thirdparty/crates/cfg-if-1.0.0:cfg_if",
         "//thirdparty/crates/js-sys-0.3.77:js_sys",
-        "//thirdparty/crates/once_cell-1.20.2:once_cell",
+        "//thirdparty/crates/once_cell-1.20.3:once_cell",
         "//thirdparty/crates/wasm-bindgen-0.2.100:wasm_bindgen",
     ],
 )

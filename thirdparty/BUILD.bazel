@@ -8,7 +8,7 @@ crates_vendor(
         # Dependencies that are work in progress
         # and not yet published
         "sdk": crate.spec(
-            branch = "main",
+            rev = "8e0ad282f1ae853301f356b2132431456ed00914",
             # https://bazelbuild.github.io/rules_rust/crate_universe_bzlmod.html#from_specs
             git = "https://github.com/marvin-hansen/iggy_builder.git",
             package = "sdk",

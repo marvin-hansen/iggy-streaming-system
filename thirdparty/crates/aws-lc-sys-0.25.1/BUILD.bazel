@@ -144,8 +144,8 @@ cargo_build_script(
     version = "0.25.1",
     visibility = ["//visibility:private"],
     deps = [
-        "//thirdparty/crates/cc-1.2.12:cc",
-        "//thirdparty/crates/cmake-0.1.53:cmake",
+        "//thirdparty/crates/cc-1.2.13:cc",
+        "//thirdparty/crates/cmake-0.1.54:cmake",
         "//thirdparty/crates/dunce-1.0.5:dunce",
         "//thirdparty/crates/fs_extra-1.3.0:fs_extra",
     ] + select({

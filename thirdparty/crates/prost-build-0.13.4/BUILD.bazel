@@ -89,7 +89,7 @@ rust_library(
         "//thirdparty/crates/itertools-0.13.0:itertools",
         "//thirdparty/crates/log-0.4.25:log",
         "//thirdparty/crates/multimap-0.10.0:multimap",
-        "//thirdparty/crates/once_cell-1.20.2:once_cell",
+        "//thirdparty/crates/once_cell-1.20.3:once_cell",
         "//thirdparty/crates/petgraph-0.6.5:petgraph",
         "//thirdparty/crates/prettyplease-0.2.29:prettyplease",
         "//thirdparty/crates/prost-0.13.4:prost",

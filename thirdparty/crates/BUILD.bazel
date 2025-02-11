@@ -151,14 +151,14 @@ alias(
 )
 
 alias(
-    name = "iggy-0.6.101",
-    actual = "//thirdparty/crates/iggy-0.6.101:iggy",
+    name = "iggy-0.6.102",
+    actual = "//thirdparty/crates/iggy-0.6.102:iggy",
     tags = ["manual"],
 )
 
 alias(
     name = "iggy",
-    actual = "//thirdparty/crates/iggy-0.6.101:iggy",
+    actual = "//thirdparty/crates/iggy-0.6.102:iggy",
     tags = ["manual"],
 )
 

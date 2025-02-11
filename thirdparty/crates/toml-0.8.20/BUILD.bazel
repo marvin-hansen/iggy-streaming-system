@@ -89,6 +89,6 @@ rust_library(
         "//thirdparty/crates/serde-1.0.217:serde",
         "//thirdparty/crates/serde_spanned-0.6.8:serde_spanned",
         "//thirdparty/crates/toml_datetime-0.6.8:toml_datetime",
-        "//thirdparty/crates/toml_edit-0.22.23:toml_edit",
+        "//thirdparty/crates/toml_edit-0.22.24:toml_edit",
     ],
 )
