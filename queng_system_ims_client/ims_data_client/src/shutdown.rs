@@ -16,23 +16,20 @@ impl ImsDataClient {
             let _ = tx_data.send(());
             self.dbg_print("Sent cancellation signal to data consumer");
         }
-
-        // Wait a bit to let the consumers shutdown complete
-        tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
-
-        self.dbg_print("Delete data stream");
-        let data_stream_id = &self.data_producer().stream();
-        match &self
-            .iggy_client_data
-            .client()
-            .read()
-            .await
-            .delete_stream(data_stream_id)
-            .await
-        {
-            Ok(_) => (),
-            Err(err) => return Err(ImsClientError::FailedToDeleteIggyStream(err.to_string())),
-        }
+        //
+        // // Wait a bit to let the consumers shutdown complete
+        // tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+        //
+        // self.dbg_print("Delete data stream");
+        // let data_stream_id = &self.data_producer().stream().to_owned();
+        // match &self
+        //     .iggy_client_data
+        //     .delete_stream(data_stream_id)
+        //     .await
+        // {
+        //     Ok(_) => (),
+        //     Err(err) => return Err(ImsClientError::FailedToDeleteIggyStream(err.to_string())),
+        // }
 
         // Wait a bit to let the iggy server to catch up.
         tokio::time::sleep(tokio::time::Duration::from_millis(250)).await;

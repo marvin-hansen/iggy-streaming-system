@@ -93,7 +93,13 @@ impl ImsDataClient {
         // ###############################################################################
         // # Control stream
         // ###############################################################################
-        let iggy_client_control = build_iggy_client(iggy_connection_string).await?;
+        let iggy_client_control = match build_iggy_client(iggy_connection_string).await {
+            Ok(client) => client,
+            Err(err) => {
+                return Err(err);
+            }
+        };
+
         let iggy_control_stream_config = ims_iggy_config::ims_control_iggy_config(exchange_id);
         let (control_producer, control_consumer) =
             match IggyStream::new(&iggy_client_control, &iggy_control_stream_config).await {
@@ -119,7 +125,13 @@ impl ImsDataClient {
         // ###############################################################################
         // # Data stream
         // ###############################################################################
-        let iggy_client_data = build_iggy_client(iggy_connection_string).await?;
+        let iggy_client_data = match build_iggy_client(iggy_connection_string).await {
+            Ok(client) => client,
+            Err(err) => {
+                return Err(err);
+            }
+        };
+
         let iggy_data_stream_config = ims_iggy_config::ims_data_iggy_config(client_id, exchange_id);
         let (data_producer, data_consumer) =
             match IggyStream::new(&iggy_client_data, &iggy_data_stream_config).await {
