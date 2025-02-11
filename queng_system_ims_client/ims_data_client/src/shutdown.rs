@@ -5,33 +5,16 @@ use iggy::client::Client;
 impl ImsDataClient {
     /// Shutdown the IMS data client.
     pub(crate) async fn client_shutdown(&self) -> Result<(), ImsClientError> {
-        // self.dbg_print("Delete data topic");
-        // let data_stream_id = &self.data_producer().stream();
-        // let data_topic_id = &self.data_producer.topic();
-        // match &self
-        //     .iggy_client_data
-        //     .client()
-        //     .read()
-        //     .await
-        //     .delete_topic(data_stream_id, data_topic_id)
-        //     .await
-        // {
-        //     Ok(_) => (),
-        //     Err(err) => return Err(ImsClientError::FailedToDeleteIggyTopic(err.to_string())),
-        // }
-        //
-        // self.dbg_print("Delete data stream");
-        // match &self
-        //     .iggy_client_data
-        //     .client()
-        //     .read()
-        //     .await
-        //     .delete_stream(data_stream_id)
-        //     .await
-        // {
-        //     Ok(_) => (),
-        //     Err(err) => return Err(ImsClientError::FailedToDeleteIggyStream(err.to_string())),
-        // }
+        // Send cancellation signals to consumers
+        if let Some(tx_control) = self.tx_control_consumer.write().await.take() {
+            let _ = tx_control.send(());
+            self.dbg_print("Sent cancellation signal to control consumer");
+        }
+
+        if let Some(tx_data) = self.tx_data_consumer.write().await.take() {
+            let _ = tx_data.send(());
+            self.dbg_print("Sent cancellation signal to data consumer");
+        }
 
         self.dbg_print("Shutdown iggy client for control stream");
         match &self.iggy_client_control.shutdown().await {

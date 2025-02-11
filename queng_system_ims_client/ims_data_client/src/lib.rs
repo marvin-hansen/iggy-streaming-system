@@ -39,6 +39,8 @@ pub struct ImsDataClient {
     iggy_client_data: IggyClient,
     control_producer: IggyProducer,
     data_producer: IggyProducer,
+    tx_control_consumer: tokio::sync::RwLock<Option<oneshot::Sender<()>>>,
+    tx_data_consumer: tokio::sync::RwLock<Option<oneshot::Sender<()>>>,
 }
 
 impl ImsDataClient {
@@ -101,7 +103,7 @@ impl ImsDataClient {
                 }
             };
 
-        let (tx_control_consumer, receiver) = oneshot::channel();
+        let (tx_control_sender, receiver) = oneshot::channel();
         tokio::spawn(async move {
             match control_consumer
                 .consume_messages(control_event_processor, receiver)
@@ -127,7 +129,7 @@ impl ImsDataClient {
                 }
             };
 
-        let (tx_data_consumer, receiver) = oneshot::channel();
+        let (tx_data_sender, receiver) = oneshot::channel();
         tokio::spawn(async move {
             match data_consumer
                 .consume_messages(data_event_processor, receiver)
@@ -148,6 +150,8 @@ impl ImsDataClient {
             iggy_client_data,
             control_producer,
             data_producer,
+            tx_control_consumer: tokio::sync::RwLock::new(Some(tx_control_sender)),
+            tx_data_consumer: tokio::sync::RwLock::new(Some(tx_data_sender)),
         })
     }
 }
