@@ -14,7 +14,7 @@ const IGGY_URL: &str = "iggy://iggy:iggy@localhost:8090";
 #[tokio::main]
 async fn main() -> Result<(), Box<Error>> {
     println!("Create ImsDataClient client");
-    let client: ImsDataClient = ImsDataClient::with_debug(
+    let ims_client = ImsDataClient::with_debug(
         120,
         ExchangeID::BinanceSpot,
         IGGY_URL,
@@ -27,22 +27,22 @@ async fn main() -> Result<(), Box<Error>> {
     println!("✅ ImsDataClient started");
 
     println!("Login ImsDataClient ");
-    let res = client.login().await;
+    let res = ims_client.login().await;
     // dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Login ImsDataClient completed");
 
     println!("Logout ImsDataClient ");
-    let res = client.logout().await;
+    let res = ims_client.logout().await;
     // dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Logout ImsDataClient completed");
 
-    // wait 1 second
+    // wait 1 second for all messages to arrive
     tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
 
     println!("Shutdown ImsDataClient ");
-    let res = client.shutdown().await;
+    let res = ims_client.shutdown().await;
     // dbg!(&res);
     assert!(res.is_ok());
     println!("✅ Shutdown ImsDataClient completed");

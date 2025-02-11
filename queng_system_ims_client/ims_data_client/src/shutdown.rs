@@ -1,6 +1,7 @@
 use crate::error::ImsClientError;
 use crate::ImsDataClient;
 use iggy::client::Client;
+use iggy::locking::IggySharedMutFn;
 
 impl ImsDataClient {
     /// Shutdown the IMS data client.
@@ -16,11 +17,34 @@ impl ImsDataClient {
             self.dbg_print("Sent cancellation signal to data consumer");
         }
 
+        // Wait a bit to let the consumers shutdown complete
+        tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+
+        self.dbg_print("Delete data stream");
+        let data_stream_id = &self.data_producer().stream();
+        match &self
+            .iggy_client_data
+            .client()
+            .read()
+            .await
+            .delete_stream(data_stream_id)
+            .await
+        {
+            Ok(_) => (),
+            Err(err) => return Err(ImsClientError::FailedToDeleteIggyStream(err.to_string())),
+        }
+
+        // Wait a bit to let the iggy server to catch up.
+        tokio::time::sleep(tokio::time::Duration::from_millis(250)).await;
+
         self.dbg_print("Shutdown iggy client for control stream");
         match &self.iggy_client_control.shutdown().await {
             Ok(_) => {}
             Err(err) => return Err(ImsClientError::FailedToShutdownIggyClient(err.to_string())),
         }
+
+        // Wait a bit to let the iggy server to catch up.
+        tokio::time::sleep(tokio::time::Duration::from_millis(250)).await;
 
         self.dbg_print("Shutdown iggy client for data stream");
         match &self.iggy_client_data.shutdown().await {
