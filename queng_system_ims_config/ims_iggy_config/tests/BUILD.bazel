@@ -16,5 +16,6 @@ rust_test_suite(
         "//alias:ims_iggy_config",
         # Internal crates
         "//alias:common_ims",
+        #
     ],
 )

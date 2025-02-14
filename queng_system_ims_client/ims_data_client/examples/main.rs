@@ -1,9 +1,10 @@
 use common_exchange::ExchangeID;
-use iggy::models::messages::PolledMessage;
+use iggy::clients::consumer::ReceivedMessage;
+use iggy::consumer_ext::MessageConsumer;
+use iggy::error::IggyError;
 use ims_data_client::{ImsDataClient, ImsDataClientTrait};
 use sbe_messages_client::{ClientLoginMessage, ClientLogoutMessage};
 use sbe_types::MessageType;
-use sdk::builder::{EventConsumer, EventConsumerError};
 use std::fmt::Error;
 //
 // Ensure iggy is running before running this example
@@ -53,10 +54,10 @@ async fn main() -> Result<(), Box<Error>> {
 #[derive(Debug)]
 struct PrintEventConsumer {}
 
-impl EventConsumer for PrintEventConsumer {
-    async fn consume(&self, message: PolledMessage) -> Result<(), EventConsumerError> {
+impl MessageConsumer for PrintEventConsumer {
+    async fn consume(&self, message: ReceivedMessage) -> Result<(), IggyError> {
         // Extract message payload as raw bytes
-        let raw_message = message.payload.as_ref();
+        let raw_message = message.message.payload.as_ref();
 
         // determine message type
         let message_type = MessageType::from(u16::from(raw_message[2]));

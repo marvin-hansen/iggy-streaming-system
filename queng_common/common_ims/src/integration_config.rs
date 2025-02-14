@@ -8,6 +8,7 @@ pub struct IntegrationConfig {
     integration_id: String,
     integration_version: u16,
     ims_integration_type: ImsIntegrationType,
+    iggy_url: String,
     online: bool,
     exchange_id: ExchangeID,
     integration_message_config: IntegrationMessageConfig,
@@ -33,6 +34,7 @@ impl IntegrationConfig {
         integration_id: String,
         integration_version: u16,
         ims_integration_type: ImsIntegrationType,
+        iggy_url: String,
         exchange_id: ExchangeID,
         integration_message_config: IntegrationMessageConfig,
     ) -> Self {
@@ -40,6 +42,7 @@ impl IntegrationConfig {
             integration_id,
             integration_version,
             ims_integration_type,
+            iggy_url,
             online: false,
             exchange_id,
             integration_message_config,
@@ -65,6 +68,7 @@ impl IntegrationConfig {
         integration_id: String,
         integration_version: u16,
         ims_integration_type: ImsIntegrationType,
+        iggy_url: String,
         online: bool,
         exchange_id: ExchangeID,
         integration_message_config: IntegrationMessageConfig,
@@ -73,6 +77,7 @@ impl IntegrationConfig {
             integration_id,
             integration_version,
             ims_integration_type,
+            iggy_url,
             online,
             exchange_id,
             integration_message_config,
@@ -119,6 +124,11 @@ impl IntegrationConfig {
     #[inline]
     pub const fn ims_integration_type(&self) -> ImsIntegrationType {
         self.ims_integration_type
+    }
+
+    #[inline]
+    pub fn iggy_url(&self) -> &str {
+        &self.iggy_url
     }
 
     /// Returns whether this integration is currently online.

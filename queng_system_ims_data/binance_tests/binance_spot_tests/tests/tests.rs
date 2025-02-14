@@ -1,8 +1,11 @@
 use common_exchange::ExchangeID;
 use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
 use config_manager::{ConfigManager, ConfigManagerTrait};
+use iggy::clients::consumer::ReceivedMessage;
+use iggy::consumer_ext::MessageConsumer;
+use iggy::error::IggyError;
 use iggy_test_utils::{IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64, iggy_start_config_builder};
-use ims_data_client::{EventConsumer, EventConsumerError, ImsDataClient, ImsDataClientTrait};
+use ims_data_client::{ImsDataClient, ImsDataClientTrait};
 use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
 
 const ROOT_PATH: &str = "queng_system_ims_data/binance_tests/binance_spot_tests/tests";
@@ -12,6 +15,8 @@ const PROGRAM: &str = "ims_data_service";
 const BINARIES: [&str; 3] = [PROGRAM, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64];
 
 const EXCHANGE_ID: ExchangeID = ExchangeID::BinanceSpot;
+
+const IGGY_URL: &str = "iggy://iggy:iggy@localhost:8090";
 
 fn get_service_start_config(health_url: String) -> ServiceStartConfig {
     ServiceStartConfig::builder()
@@ -89,7 +94,8 @@ async fn test_binance_spot() {
     println!("Create ImsDataClient client");
     let client: ImsDataClient = ImsDataClient::with_debug(
         120,
-        ims_data_integration_config(ExchangeID::BinanceSpot),
+        ExchangeID::BinanceSpot,
+        IGGY_URL,
         &PrintEventConsumer {},
         &PrintEventConsumer {},
     )
@@ -124,10 +130,10 @@ async fn test_binance_spot() {
 #[derive(Debug)]
 struct PrintEventConsumer {}
 
-impl EventConsumer for PrintEventConsumer {
-    async fn consume(&self, data: Vec<u8>) -> Result<(), EventConsumerError> {
+impl MessageConsumer for PrintEventConsumer {
+    async fn consume(&self, message: ReceivedMessage) -> Result<(), IggyError> {
         // convert message into raw bytes
-        let raw_message = data.as_slice();
+        let raw_message = message.message.payload.as_ref();
 
         // Replace with SBE decoder
         let message = String::from_utf8_lossy(raw_message);
@@ -144,6 +150,7 @@ pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig
         format!("{}-data", exchange_id),
         1,
         ImsIntegrationType::Data,
+        IGGY_URL.to_string(),
         exchange_id,
         IntegrationMessageConfig::new(1, 1, exchange_id),
     )

@@ -1,9 +1,13 @@
 use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
 use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
+use iggy::clients::consumer::ReceivedMessage;
+use iggy::consumer_ext::MessageConsumer;
+use iggy::error::IggyError;
 use ims_data_client::ImsDataClientTrait;
 use ims_data_client::*;
-use sdk::builder::{EventConsumer, EventConsumerError};
+
+const IGGY_URL: &str = "iggy://iggy:iggy@localhost:8090";
 
 #[tokio::test]
 async fn test_mock_ims_data_client() {
@@ -45,6 +49,7 @@ pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig
         format!("{}-data", exchange_id),
         1,
         ImsIntegrationType::Data,
+        IGGY_URL.to_string(),
         exchange_id,
         IntegrationMessageConfig::new(1, 1, exchange_id),
     )
@@ -53,10 +58,10 @@ pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig
 #[derive(Debug)]
 struct PrintEventConsumer {}
 
-impl EventConsumer for PrintEventConsumer {
-    async fn consume(&self, data: Vec<u8>) -> Result<(), EventConsumerError> {
+impl MessageConsumer for PrintEventConsumer {
+    async fn consume(&self, message: ReceivedMessage) -> Result<(), IggyError> {
         // convert message into raw bytes
-        let raw_message = data.as_slice();
+        let raw_message = message.message.payload.as_ref();
 
         // convert into raw string
         let message = String::from_utf8_lossy(raw_message);

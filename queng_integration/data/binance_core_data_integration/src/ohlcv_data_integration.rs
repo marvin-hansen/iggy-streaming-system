@@ -1,11 +1,9 @@
 use crate::{ImsBinanceDataIntegration, utils_connect};
 use crate::{MAX_RECONNECT_ATTEMPTS, RECONNECT_DELAY, RECONNECT_INTERVAL, utils};
-use bytes::Bytes;
 use common_data_bar::{OHLCVBar, TimeResolution};
 use common_data_bar_ext::SbeOHLCVBarExtension;
 use futures_util::StreamExt;
-use sdk::builder::EventProducer;
-use sdk::builder::Message as IggyMessage;
+use iggy_producer_ext::EventProducer;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::{Instant, sleep};
@@ -95,11 +93,8 @@ impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
                                     )
                                     .await;
                                     if let Some(bar) = bar {
-                                        let (_, data) = OHLCVBar::encode_to_sbe(bar)
+                                        let (_, message) = OHLCVBar::encode_to_sbe(bar)
                                             .expect("Failed to encode OHLCV data");
-
-                                        let payload = Bytes::from(data);
-                                        let message = IggyMessage::new(None, payload, None);
 
                                         if let Err(e) = processor.send_one_event(message).await {
                                             eprintln!("Error processing OHLCV data: {}", e);

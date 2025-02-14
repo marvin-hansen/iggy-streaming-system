@@ -1,6 +1,8 @@
 use common_exchange::ExchangeID;
 use common_ims::{ImsIntegrationType, IntegrationConfig, IntegrationMessageConfig};
 
+const IGGY_URL: &str = "iggy://iggy:iggy@localhost:8090";
+
 #[test]
 fn test_new_integration_config_online_default() {
     let msg_config = IntegrationMessageConfig::new(1, 1, ExchangeID::BinanceSpot);
@@ -8,6 +10,7 @@ fn test_new_integration_config_online_default() {
         "test-integration".to_string(),
         1,
         ImsIntegrationType::Data,
+        IGGY_URL.to_string(),
         ExchangeID::BinanceSpot,
         msg_config,
     );
@@ -22,6 +25,7 @@ fn test_integration_config_display() {
         "test-integration".to_string(),
         1,
         ImsIntegrationType::Data,
+        IGGY_URL.to_string(),
         ExchangeID::BinanceSpot,
         msg_config,
     );
@@ -41,6 +45,7 @@ fn test_integration_config_getters() {
         integration_id.clone(),
         version,
         integration_type,
+        IGGY_URL.to_string(),
         exchange,
         msg_config.clone(),
     );

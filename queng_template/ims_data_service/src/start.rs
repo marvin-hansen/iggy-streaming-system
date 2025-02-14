@@ -4,11 +4,11 @@ use common_exchange::ExchangeID;
 use common_service::{print_utils, shutdown_utils};
 use iggy::identifier::Identifier;
 use ims_iggy_config;
-use sdk::builder::IggyBuilder;
 use tokio::time::Instant;
 use trait_data_integration::ImsDataIntegration;
 use warp::Filter;
 
+use crate::handle::utils;
 use crate::service::Service;
 use crate::stop;
 use config_manager::{ConfigManager, ConfigManagerTrait};
@@ -64,14 +64,13 @@ where
     // Re-write the iggy client, consumer, and producer stuff.
     //
     dbg_print("Construct iggy producer client");
-    let iggy_config = &ims_iggy_config::ims_data_iggy_config(exchange_id);
-    let (producer_client, _) = IggyBuilder::from_config(&iggy_config)
+    let producer_client = utils::build_iggy_client(integration_config.iggy_url())
         .await
         .expect("Failed to build control IggyBuilder");
 
     dbg_print("Construct iggy consumer client");
     let iggy_config = &ims_iggy_config::ims_control_iggy_config(exchange_id);
-    let (consumer_client, _iggy_client_builder) = IggyBuilder::from_config(&iggy_config)
+    let consumer_client = utils::build_iggy_client(integration_config.iggy_url())
         .await
         .expect("Failed to build control IggyBuilder");
 

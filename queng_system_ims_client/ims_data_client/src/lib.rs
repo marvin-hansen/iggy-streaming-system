@@ -6,6 +6,9 @@ mod error;
 mod handler;
 mod shutdown;
 
+use crate::client_utils::build_iggy_client;
+// Re-export
+pub use client_trait::ImsDataClientTrait;
 use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
 use common_ims::IntegrationConfig;
@@ -13,12 +16,8 @@ use enum_dispatch::enum_dispatch;
 pub use error::ImsClientError;
 use iggy::clients::client::IggyClient;
 use iggy::clients::producer::IggyProducer;
-
-use crate::client_utils::build_iggy_client;
-// Re-export
-pub use client_trait::ImsDataClientTrait;
-pub use sdk::builder::{EventConsumer, EventConsumerError};
-use sdk::builder::{IggyConsumerMessageExt, IggyStream};
+use iggy::consumer_ext::{IggyConsumerMessageExt, MessageConsumer};
+use iggy::stream_builder::IggyStream;
 use tokio::sync::oneshot;
 
 /// The selector for the IMS data client allows
@@ -50,8 +49,8 @@ impl ImsDataClient {
         client_id: u16,
         exchange_id: ExchangeID,
         iggy_connection_string: &str,
-        control_event_processor: &'static (impl EventConsumer + Sync),
-        data_event_processor: &'static (impl EventConsumer + Sync),
+        control_event_processor: &'static (impl MessageConsumer + Sync),
+        data_event_processor: &'static (impl MessageConsumer + Sync),
     ) -> Result<Self, ImsClientError> {
         Self::build(
             false,
@@ -68,8 +67,8 @@ impl ImsDataClient {
         client_id: u16,
         exchange_id: ExchangeID,
         iggy_connection_string: &str,
-        control_event_processor: &'static (impl EventConsumer + Sync),
-        data_event_processor: &'static (impl EventConsumer + Sync),
+        control_event_processor: &'static (impl MessageConsumer + Sync),
+        data_event_processor: &'static (impl MessageConsumer + Sync),
     ) -> Result<Self, ImsClientError> {
         Self::build(
             true,
@@ -89,8 +88,8 @@ impl ImsDataClient {
         client_id: u16,
         exchange_id: ExchangeID,
         iggy_connection_string: &str,
-        control_event_processor: &'static (impl EventConsumer + Sync),
-        data_event_processor: &'static (impl EventConsumer + Sync),
+        control_event_processor: &'static (impl MessageConsumer + Sync),
+        data_event_processor: &'static (impl MessageConsumer + Sync),
     ) -> Result<Self, ImsClientError> {
         // ###############################################################################
         // # Control stream
@@ -104,7 +103,7 @@ impl ImsDataClient {
 
         let iggy_control_stream_config = ims_iggy_config::ims_control_iggy_config(exchange_id);
         let (control_producer, control_consumer) =
-            match IggyStream::new(&iggy_client_control, &iggy_control_stream_config).await {
+            match IggyStream::build(&iggy_client_control, &iggy_control_stream_config).await {
                 Ok(control_builder) => control_builder,
                 Err(err) => {
                     return Err(ImsClientError::FailedToCreateIggyConsumer(err.to_string()));
@@ -136,7 +135,7 @@ impl ImsDataClient {
 
         let iggy_data_stream_config = ims_iggy_config::ims_data_iggy_config(client_id, exchange_id);
         let (data_producer, data_consumer) =
-            match IggyStream::new(&iggy_client_data, &iggy_data_stream_config).await {
+            match IggyStream::build(&iggy_client_data, &iggy_data_stream_config).await {
                 Ok(data_builder) => data_builder,
                 Err(err) => {
                     return Err(ImsClientError::FailedToCreateIggyConsumer(err.to_string()));
@@ -208,8 +207,8 @@ impl ImsDataMockClient {
     pub async fn new(
         _client_id: u16,
         _integration_config: IntegrationConfig,
-        _control_event_processor: &'static (impl EventConsumer + Sync),
-        _data_event_processor: &'static (impl EventConsumer + Sync),
+        _control_event_processor: &'static (impl MessageConsumer + Sync),
+        _data_event_processor: &'static (impl MessageConsumer + Sync),
     ) -> Result<Self, ImsClientError> {
         Ok(Self {
             time_resolution: TimeResolution::NoValue,

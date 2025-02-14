@@ -25,5 +25,6 @@ config_manager = { workspace = true }
 ims_data_client = { workspace = true }
 iggy_test_utils = { workspace = true }
 # External crates
+iggy = { workspace = true }
 service_utils = { workspace = true }
 tokio = { workspace = true }

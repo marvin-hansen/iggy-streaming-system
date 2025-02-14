@@ -16,8 +16,8 @@ rust_library(
         "//alias:common_data_bar",
         "//alias:common_data_bar_ext",
         "//alias:trait_data_integration",
+        "//alias:iggy_producer_ext",
         # External crates
-        "//thirdparty/crates:bytes",
         "//thirdparty/crates:chrono",
         "//thirdparty/crates:futures-util",
         "//thirdparty/crates:reqwest",

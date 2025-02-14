@@ -3,7 +3,6 @@ use common_data_bar::TimeResolution;
 use common_errors::MessageProcessingError;
 use common_exchange::ExchangeID;
 use sbe_types::{DataErrorType, DataType};
-use std::sync::Arc;
 use trait_data_integration::ImsDataIntegration;
 
 impl<Integration: ImsDataIntegration + 'static> Service<Integration> {
@@ -44,7 +43,6 @@ impl<Integration: ImsDataIntegration + 'static> Service<Integration> {
                     .await
                     .expect("Failed to get data producer");
 
-                let processor = Arc::new(processor);
                 match integration.start_trade_data(symbols, &processor).await {
                     Ok(_) => {}
                     Err(e) => {
@@ -61,7 +59,6 @@ impl<Integration: ImsDataIntegration + 'static> Service<Integration> {
                     .get_data_producer(client_id)
                     .await
                     .expect("Failed to get data producer");
-                let processor = Arc::new(processor);
                 match integration
                     .start_ohlcv_data(symbols, time_resolution, &processor)
                     .await

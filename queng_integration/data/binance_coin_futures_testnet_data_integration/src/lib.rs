@@ -1,7 +1,7 @@
 use binance_core_data_integration::*;
 use common_data_bar::TimeResolution;
 use data_integration_macro::ImsDataIntegrationImpl;
-use sdk::builder::EventProducer;
+use iggy_producer_ext::EventProducer;
 use std::collections::HashSet;
 use std::future::Future;
 use std::sync::Arc;

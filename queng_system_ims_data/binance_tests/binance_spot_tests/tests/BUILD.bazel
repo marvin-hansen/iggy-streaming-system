@@ -30,6 +30,7 @@ rust_test_suite(
         "//alias:iggy_test_utils",
         "//alias:ims_data_client",
         # External crates
+        "//thirdparty/crates:iggy",
         "//thirdparty/crates:service_utils",
         "//thirdparty/crates:tokio",
     ],

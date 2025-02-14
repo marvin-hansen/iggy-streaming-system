@@ -1,12 +1,10 @@
 use crate::service::Service;
-use bytes::Bytes;
 use client_error_ext::SbeClientErrorExtension;
 use common_errors::MessageProcessingError;
 use common_sbe_errors::{ClientError, DataError};
 use data_error_ext::SbeDataErrorExtension;
+use iggy_producer_ext::EventProducer;
 use sbe_types::{ClientErrorType, DataErrorType};
-use sdk::builder::EventProducer;
-use sdk::builder::Message as IggyMessage;
 use trait_data_integration::ImsDataIntegration;
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
@@ -78,10 +76,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         Ok(())
     }
 
-    pub(crate) async fn send_error(&self, data: Vec<u8>) -> Result<(), MessageProcessingError> {
-        let payload = Bytes::from(data);
-        let message = IggyMessage::new(None, payload, None);
-
+    pub(crate) async fn send_error(&self, message: Vec<u8>) -> Result<(), MessageProcessingError> {
         // Send message
         self.producer()
             .read()

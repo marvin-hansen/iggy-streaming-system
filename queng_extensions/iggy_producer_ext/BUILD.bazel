@@ -1,7 +1,7 @@
 load("@rules_rust//rust:defs.bzl", "rust_doc", "rust_doc_test", "rust_library")
 
 rust_library(
-    name = "trait_data_integration",
+    name = "iggy_producer_ext",
     srcs = glob([
         "src/**",
     ]),
@@ -10,28 +10,29 @@ rust_library(
         "//thirdparty/crates:trait-variant",
     ],
     tags = [
-        "trait",
-        "trait_data_integration",
+        "extensions",
+        "iggy_producer_ext",
     ],
     visibility = ["//visibility:public"],
     deps = [
         # Internal crates
-        "//alias:common_data_bar",
-        "//alias:iggy_producer_ext",
+
         # External crates
+        "//thirdparty/crates:bytes",
+        "//thirdparty/crates:iggy",
     ],
 )
 
 rust_doc(
     name = "doc",
-    crate = ":trait_data_integration",
+    crate = ":iggy_producer_ext",
     tags = ["doc"],
     visibility = ["//visibility:public"],
 )
 
 rust_doc_test(
     name = "doc_test",
-    crate = ":trait_data_integration",
+    crate = ":iggy_producer_ext",
     tags = ["doc-test"],
     visibility = ["//visibility:public"],
 )

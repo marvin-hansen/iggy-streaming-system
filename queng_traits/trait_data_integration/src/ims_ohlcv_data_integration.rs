@@ -1,6 +1,6 @@
 use crate::ImsDataIntegrationError;
 use common_data_bar::TimeResolution;
-use sdk::builder::EventProducer;
+use iggy_producer_ext::EventProducer;
 use std::sync::Arc;
 
 #[allow(dead_code)] // Clippy can't see that the trait is used

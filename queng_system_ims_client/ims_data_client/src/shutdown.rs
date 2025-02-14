@@ -1,7 +1,6 @@
 use crate::ImsDataClient;
 use crate::error::ImsClientError;
 use iggy::client::Client;
-use iggy::locking::IggySharedMutFn;
 
 impl ImsDataClient {
     /// Shutdown the IMS data client.

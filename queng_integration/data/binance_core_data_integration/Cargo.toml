@@ -17,8 +17,8 @@ workspace = true
 common_data_bar = {workspace = true}
 common_data_bar_ext = {workspace = true}
 trait_data_integration = {workspace = true}
+iggy_producer_ext = { workspace = true }
 # External crates
-bytes = { workspace = true }
 chrono = { workspace = true }
 futures-util = { workspace = true }
 reqwest = { workspace = true }

@@ -1,11 +1,12 @@
 [package]
-name = "trait_data_integration"
+name = "iggy_producer_ext"
 version = "0.1.0"
 edition.workspace = true
 rust-version.workspace = true
 readme.workspace = true
 repository.workspace = true
 authors.workspace = true
+license.workspace = true
 
 
 [lints]
@@ -13,9 +14,7 @@ workspace = true
 
 
 [dependencies]
-# Internal crates
-common_data_bar = {workspace = true}
-iggy_producer_ext = { workspace = true }
 # External crates
-
-trait-variant  = {workspace = true}
+bytes = { workspace = true }
+iggy = { workspace = true }
+trait-variant = { workspace = true }

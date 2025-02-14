@@ -1,8 +1,8 @@
 use binance_spot_data_integration::ImsBinanceSpotDataIntegration;
 use common_data_bar::{OHLCVBar, TimeResolution, TradeBar};
 use common_data_bar_ext::{SbeOHLCVBarExtension, SbeTradeBarExtension};
+use iggy_producer_ext::EventProducer;
 use sbe_types::MessageType;
-use sdk::builder::{EventProducer, IggyError, Message};
 use std::sync::Arc;
 use tokio::time::Duration;
 use trait_data_integration::{

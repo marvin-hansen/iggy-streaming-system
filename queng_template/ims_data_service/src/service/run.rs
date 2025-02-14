@@ -27,8 +27,8 @@ where
         let signal_future = signal;
         pin!(signal_future);
 
-        let mut consumer_guard = self.consumer().write().await;
-        let consumer = consumer_guard.consumer_mut();
+        let consumer_guard = self.consumer().write().await;
+        let mut consumer = consumer_guard;
 
         loop {
             select! {

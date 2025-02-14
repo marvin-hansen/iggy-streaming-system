@@ -4,9 +4,13 @@ mod shutdown;
 use common_exchange::ExchangeID;
 use common_ims::IntegrationConfig;
 use iggy::clients::client::IggyClient;
-use sdk::builder::{IggyConfig, MessageConsumer, MessageProducer};
+use iggy::clients::consumer::IggyConsumer;
+use iggy::clients::producer::IggyProducer;
+use iggy::stream_builder::IggyStream;
+use iggy::stream_config::IggyStreamConfig;
 use std::collections::HashMap;
 use std::error::Error;
+use std::sync::Arc;
 use trait_data_integration::ImsDataIntegration;
 
 type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
@@ -19,13 +23,13 @@ type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
 pub struct Service<Integration: ImsDataIntegration> {
     dbg: bool,
     exchange_id: ExchangeID,
-    consumer: Guarded<MessageConsumer>,
-    producer: Guarded<MessageProducer>,
-    iggy_config: IggyConfig,
+    consumer: Guarded<IggyConsumer>,
+    producer: Guarded<IggyProducer>,
+    iggy_config: IggyStreamConfig,
     ims_integration: Guarded<Integration>,
     integration_config: IntegrationConfig,
-    client_configs: Guarded<HashMap<u16, IggyConfig>>,
-    client_producers: Guarded<HashMap<u16, MessageProducer>>,
+    client_configs: Guarded<HashMap<u16, IggyStreamConfig>>,
+    client_producers: Guarded<HashMap<u16, Arc<IggyProducer>>>,
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
@@ -50,7 +54,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         producer_client: &IggyClient,
         ims_integration: Integration,
         integration_config: &IntegrationConfig,
-        iggy_config: &IggyConfig,
+        iggy_config: &IggyStreamConfig,
     ) -> Result<Self, Box<dyn Error>> {
         Self::build(
             dbg,
@@ -67,11 +71,11 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 impl<Integration: ImsDataIntegration> Service<Integration> {
     async fn build(
         dbg: bool,
-        consumer_client: &IggyClient,
+        _consumer_client: &IggyClient,
         producer_client: &IggyClient,
         ims_integration: Integration,
         integration_config: &IntegrationConfig,
-        iggy_config: &IggyConfig,
+        iggy_config: &IggyStreamConfig,
     ) -> Result<Self, Box<dyn Error>> {
         let dbg_print = |msg: &str| {
             if dbg {
@@ -89,25 +93,13 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         dbg_print(&format!("topic_id: {topic_id}"));
 
         dbg_print("Create MessageProducer");
-        let producer =
-            MessageProducer::from_client(producer_client, stream_id.clone(), topic_id.clone())
-                .await
-                .expect("Failed to create producer");
+        let (producer, consumer) = IggyStream::build(producer_client, iggy_config)
+            .await
+            .expect("Failed to create producer");
 
-        let producer = std::sync::Arc::new(tokio::sync::RwLock::new(producer));
-        dbg_print("MessageProducer created");
-
-        dbg_print("Create MessageConsumer");
-        let consumer = MessageConsumer::from_client(
-            consumer_client,
-            "control_consumer",
-            stream_id.clone(),
-            topic_id.clone(),
-        )
-        .await
-        .expect("[Service]: Failed to create consumer");
         let consumer = std::sync::Arc::new(tokio::sync::RwLock::new(consumer));
-        dbg_print("MessageConsumer crated");
+        let producer = std::sync::Arc::new(tokio::sync::RwLock::new(producer));
+        dbg_print("producer and consumer created");
 
         // Create a new HashMap to store data producers for each client
         dbg_print("Create HashMaps");
@@ -139,15 +131,15 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         &self.ims_integration
     }
 
-    pub fn client_producers(&self) -> &Guarded<HashMap<u16, MessageProducer>> {
+    pub fn client_producers(&self) -> &Guarded<HashMap<u16, Arc<IggyProducer>>> {
         &self.client_producers
     }
 
-    pub fn consumer(&self) -> &Guarded<MessageConsumer> {
+    pub fn consumer(&self) -> &Guarded<IggyConsumer> {
         &self.consumer
     }
 
-    pub fn producer(&self) -> &Guarded<MessageProducer> {
+    pub fn producer(&self) -> &Guarded<IggyProducer> {
         &self.producer
     }
 }

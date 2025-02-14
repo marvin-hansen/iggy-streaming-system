@@ -89,6 +89,11 @@ alias(
     actual = "//queng_extensions/data_error_ext",
 )
 
+alias(
+    name = "iggy_producer_ext",
+    actual = "//queng_extensions/iggy_producer_ext",
+)
+
 ###############################################################################
 # Integration
 ###############################################################################

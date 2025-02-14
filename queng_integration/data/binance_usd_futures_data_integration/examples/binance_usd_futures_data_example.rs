@@ -2,7 +2,6 @@ use binance_usd_futures_data_integration::ImsBinanceUsdFuturesDataIntegration;
 use common_data_bar::{OHLCVBar, TimeResolution, TradeBar};
 use common_data_bar_ext::{SbeOHLCVBarExtension, SbeTradeBarExtension};
 use sbe_types::MessageType;
-use sdk::builder::{EventProducer, IggyError, Message};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time;
