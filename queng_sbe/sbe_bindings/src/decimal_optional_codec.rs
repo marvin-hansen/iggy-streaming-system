@@ -20,10 +20,11 @@ pub mod encoder {
     {
         #[inline]
         fn get_buf_mut(&mut self) -> &mut WriteBuf<'a> {
-            if let Some(parent) = self.parent.as_mut() {
-                parent.get_buf_mut()
-            } else {
-                panic!("parent was None")
+            match self.parent.as_mut() {
+                Some(parent) => parent.get_buf_mut(),
+                _ => {
+                    panic!("parent was None")
+                }
             }
         }
     }
