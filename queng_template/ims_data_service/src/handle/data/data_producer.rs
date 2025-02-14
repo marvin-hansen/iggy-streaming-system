@@ -8,7 +8,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         &self,
         client_id: u16,
     ) -> Result<impl EventProducer, MessageProcessingError> {
-
         let client_data_producers = self.client_producers().write().await;
 
         let exists = match self.check_client_login(client_id).await {
@@ -17,7 +16,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
                 return Err(MessageProcessingError(format!(
                     "Failed to check if client with id {} is logged in due to error: { }",
                     client_id, err
-                )))
+                )));
             }
         };
 

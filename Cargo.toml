@@ -103,9 +103,6 @@ iggy_test_utils = { path = "queng_utils_test/iggy_test_utils" }
 # External crates
 # ==============
 
-# Work in progress & not yet published
-# https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#choice-of-commit
-sdk = { git = "https://github.com/marvin-hansen/iggy_builder.git", rev = "8e0ad282f1ae853301f356b2132431456ed00914" }
 # Proc Macro Dependencies
 async-trait = { version = "0.1" }
 enum_dispatch = { version = "0.3" }
@@ -121,7 +118,8 @@ rust_decimal = { version = "1.36" }
 futures = { version = "0.3" }
 futures-util = { version = "0.3" }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "blocking", "gzip"] }
-iggy = { version = "0.6" }
+# Work in progress & not yet published
+iggy = { git = "https://github.com/iggy-rs/iggy.git", branch = "Epilogue-Part-2" }
 mimalloc = { version = "0.1" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }

@@ -41,7 +41,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
                         "Failed to check if client with id {} is logged in due to error: { }",
                         client_id, err
                     )),
-                ))
+                ));
             }
         };
 

@@ -1,6 +1,6 @@
+use crate::ConfigManager;
 use crate::config_manager_trait::ConfigManagerTrait;
 use crate::error::ConfigError;
-use crate::ConfigManager;
 use common_env::EnvironmentType;
 use common_exchange::ExchangeID;
 use common_platform::PlatformType;
@@ -18,10 +18,7 @@ impl ConfigManagerTrait for ConfigManager {
         self.get_env_var()
     }
 
-    fn data_svc_socket_health_uri(
-        &self,
-        exchange_id: ExchangeID,
-    ) -> Result<String, ConfigError> {
+    fn data_svc_socket_health_uri(&self, exchange_id: ExchangeID) -> Result<String, ConfigError> {
         self.get_data_svc_socket_health_uri(exchange_id)
     }
 

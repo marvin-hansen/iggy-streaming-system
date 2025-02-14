@@ -20,7 +20,7 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToEncodeControlMessage(format!(
                     "[ImsDataClient/stop_data]: Failed to encode stop_data message: {err}"
-                )))
+                )));
             }
         };
 
@@ -30,7 +30,7 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
                     format!("[ImsDataClient/stop_data]: Failed to send stop_data message: {err}"),
-                ))
+                ));
             }
         };
         Ok(())

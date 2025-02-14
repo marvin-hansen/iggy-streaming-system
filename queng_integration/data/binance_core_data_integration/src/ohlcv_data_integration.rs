@@ -1,5 +1,5 @@
-use crate::{utils, MAX_RECONNECT_ATTEMPTS, RECONNECT_DELAY, RECONNECT_INTERVAL};
-use crate::{utils_connect, ImsBinanceDataIntegration};
+use crate::{ImsBinanceDataIntegration, utils_connect};
+use crate::{MAX_RECONNECT_ATTEMPTS, RECONNECT_DELAY, RECONNECT_INTERVAL, utils};
 use bytes::Bytes;
 use common_data_bar::{OHLCVBar, TimeResolution};
 use common_data_bar_ext::SbeOHLCVBarExtension;
@@ -8,12 +8,11 @@ use sdk::builder::EventProducer;
 use sdk::builder::Message as IggyMessage;
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::time::{sleep, Instant};
+use tokio::time::{Instant, sleep};
 use tokio_tungstenite::tungstenite::Message;
 use trait_data_integration::{
     ImsDataIntegrationError, ImsOhlcvDataIntegration, ImsSymbolIntegration,
 };
-
 
 impl ImsOhlcvDataIntegration for ImsBinanceDataIntegration {
     /// Starts real-time OHLCV (candlestick) data streams for the specified symbols.

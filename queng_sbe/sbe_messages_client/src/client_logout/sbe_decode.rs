@@ -1,8 +1,8 @@
 use crate::ClientLogoutMessage;
 use sbe_bindings::client_logout_codec::SBE_TEMPLATE_ID;
 use sbe_bindings::{
-    client_logout_codec::ClientLogoutDecoder, message_header_codec::MessageHeaderDecoder, ReadBuf,
-    SbeResult,
+    ReadBuf, SbeResult, client_logout_codec::ClientLogoutDecoder,
+    message_header_codec::MessageHeaderDecoder,
 };
 use sbe_types::MessageType;
 

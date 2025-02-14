@@ -159,28 +159,29 @@ impl PortfolioConfig {
 
 impl Display for PortfolioConfig {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f,
-               "portfolio_id: {}, portfolio_description: {}, portfolio_account_type: {}, \
+        write!(
+            f,
+            "portfolio_id: {}, portfolio_description: {}, portfolio_account_type: {}, \
                portfolio_account_id: {}, portfolio_currency: {}, \
                portfolio_cash: {}, portfolio_margin: {:?}, portfolio_max_drawdown: {}, \
                portfolio_instruments: {:?}, instrument_max_allocation: {:?}, \
                instrument_max_drawdown: {:?}, portfolio_free_margin: {:?}, portfolio_free_cash: {:?}, \
                portfolio_free_margin_percent: {:?}, portfolio_free_cash_percent: {:?}",
-               self.portfolio_id,
-               self.portfolio_description,
-               self.portfolio_account_type,
-               self.portfolio_account_id,
-               self.portfolio_currency,
-               self.portfolio_cash,
-               self.portfolio_margin,
-               self.portfolio_max_drawdown,
-               self.portfolio_instruments,
-               self.instrument_max_allocation,
-               self.instrument_max_drawdown,
-               self.portfolio_free_margin,
-               self.portfolio_free_cash,
-               self.portfolio_free_margin_percent,
-               self.portfolio_free_cash_percent
+            self.portfolio_id,
+            self.portfolio_description,
+            self.portfolio_account_type,
+            self.portfolio_account_id,
+            self.portfolio_currency,
+            self.portfolio_cash,
+            self.portfolio_margin,
+            self.portfolio_max_drawdown,
+            self.portfolio_instruments,
+            self.instrument_max_allocation,
+            self.instrument_max_drawdown,
+            self.portfolio_free_margin,
+            self.portfolio_free_cash,
+            self.portfolio_free_margin_percent,
+            self.portfolio_free_cash_percent
         )
     }
 }

@@ -60,7 +60,6 @@ where
     let control_topic_id =
         Identifier::from_str_value(&topic_id).expect("[MessageProducer]: Invalid topic id");
 
-
     //
     // Re-write the iggy client, consumer, and producer stuff.
     //
@@ -105,8 +104,8 @@ where
         integration_config,
         iggy_config,
     )
-        .await
-        .expect("Failed to build new service");
+    .await
+    .expect("Failed to build new service");
 
     dbg_print("Starting message service");
     let service_signal = shutdown_utils::signal_handler("messaging server");
@@ -133,7 +132,7 @@ where
         &producer_client,
         &consumer_client,
     )
-        .await;
+    .await;
 
     print_utils::print_stop_header(&ServiceID::Default);
 

@@ -20,7 +20,7 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToEncodeControlMessage(format!(
                     "[ImsDataClient/login]: Failed to encode login message: {err}"
-                )))
+                )));
             }
         };
 
@@ -30,9 +30,9 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
                     format!(
-                    "[ImsDataClient/login]: Failed to send login message to control channel: {err}"
-                ),
-                ))
+                        "[ImsDataClient/login]: Failed to send login message to control channel: {err}"
+                    ),
+                ));
             }
         };
 

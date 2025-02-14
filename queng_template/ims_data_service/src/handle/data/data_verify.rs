@@ -35,17 +35,16 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         match self.verify_exchange_id(exchange_id) {
             true => {}
             false => {
-                return Err(
-                    (
-                        DataErrorType::DataWrongExchangeError,
-                        MessageProcessingError(format!(
-                            "Client with id {} has requested to stop data from the wrong exchange. \
+                return Err((
+                    DataErrorType::DataWrongExchangeError,
+                    MessageProcessingError(format!(
+                        "Client with id {} has requested to stop data from the wrong exchange. \
                     The client requested exchange id: {}; however this service connects to correct exchange: {}",
-                            client_id,
-                            exchange_id,
-                            self.exchange_id()
-                        ))
-                    ));
+                        client_id,
+                        exchange_id,
+                        self.exchange_id()
+                    )),
+                ));
             }
         };
 

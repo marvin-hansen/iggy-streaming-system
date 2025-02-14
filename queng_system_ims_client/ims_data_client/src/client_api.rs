@@ -1,6 +1,6 @@
+use crate::ImsDataClient;
 use crate::client_trait::ImsDataClientTrait;
 use crate::error::ImsClientError;
-use crate::ImsDataClient;
 use async_trait::async_trait;
 use common_data_bar::TimeResolution;
 use sbe_types::DataType;

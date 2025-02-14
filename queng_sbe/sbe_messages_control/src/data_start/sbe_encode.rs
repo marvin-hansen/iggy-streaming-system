@@ -1,7 +1,7 @@
 use crate::StartDataMessage;
 use sbe_bindings::message_type::MessageType as SbeMessageType;
 use sbe_bindings::{
-    message_header_codec, start_data_msg_codec::StartDataMsgEncoder, Encoder, WriteBuf,
+    Encoder, WriteBuf, message_header_codec, start_data_msg_codec::StartDataMsgEncoder,
 };
 use sbe_types::SbeEncodeError;
 

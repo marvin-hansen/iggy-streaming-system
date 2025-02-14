@@ -24,7 +24,7 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToEncodeControlMessage(format!(
                     "[ImsDataClient/start_data]: Failed to encode start_ohlcv_data message: {err}"
-                )))
+                )));
             }
         };
 
@@ -34,9 +34,9 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
                     format!(
-                    "[ImsDataClient/start_data]: Failed to send start_ohlcv_data message: {err}"
-                ),
-                ))
+                        "[ImsDataClient/start_data]: Failed to send start_ohlcv_data message: {err}"
+                    ),
+                ));
             }
         };
 

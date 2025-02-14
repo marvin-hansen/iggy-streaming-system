@@ -1,7 +1,7 @@
 use crate::ClientLoginMessage;
 use sbe_bindings::message_type::MessageType as SbeMessageType;
 use sbe_bindings::{
-    client_login_codec::ClientLoginEncoder, message_header_codec, Encoder, WriteBuf,
+    Encoder, WriteBuf, client_login_codec::ClientLoginEncoder, message_header_codec,
 };
 use sbe_types::SbeEncodeError;
 

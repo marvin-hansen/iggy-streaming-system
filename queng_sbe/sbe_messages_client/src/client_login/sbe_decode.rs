@@ -1,8 +1,8 @@
 use crate::ClientLoginMessage;
 use sbe_bindings::client_login_codec::SBE_TEMPLATE_ID;
 use sbe_bindings::{
-    client_login_codec::ClientLoginDecoder, message_header_codec::MessageHeaderDecoder, ReadBuf,
-    SbeResult,
+    ReadBuf, SbeResult, client_login_codec::ClientLoginDecoder,
+    message_header_codec::MessageHeaderDecoder,
 };
 use sbe_types::MessageType;
 

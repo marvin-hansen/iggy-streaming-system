@@ -1,6 +1,6 @@
 use common_sbe_errors::DataError;
 use sbe_bindings::message_type::MessageType as SbeMessageType;
-use sbe_bindings::{data_error_codec::DataErrorEncoder, message_header_codec, Encoder, WriteBuf};
+use sbe_bindings::{Encoder, WriteBuf, data_error_codec::DataErrorEncoder, message_header_codec};
 use sbe_types::SbeEncodeError;
 
 /// Encodes a `DataErrorMessage` to a byte buffer.

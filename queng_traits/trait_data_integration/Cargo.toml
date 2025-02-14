@@ -16,5 +16,5 @@ workspace = true
 # Internal crates
 common_data_bar = {workspace = true}
 # External crates
-sdk = { workspace = true }
+
 trait-variant  = {workspace = true}

@@ -20,7 +20,6 @@ use trait_data_integration::{
 /// 5. Stop trade data streams
 #[tokio::main]
 async fn main() -> Result<(), ImsDataIntegrationError> {
-
     // Create Binance USD Futures data integration instance
     let integration = ImsBinanceUsdFuturesDataIntegration::new();
     let processor = Arc::new(PrintEventProcessor);

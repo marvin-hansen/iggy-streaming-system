@@ -2,8 +2,8 @@ use common_data_bar::OHLCVBar;
 use rust_decimal::prelude::ToPrimitive;
 
 use sbe_bindings::{
-    data_bar_codec::DataBarEncoder, message_header_codec,
-    message_type::MessageType as SbeMessageType, Encoder, WriteBuf,
+    Encoder, WriteBuf, data_bar_codec::DataBarEncoder, message_header_codec,
+    message_type::MessageType as SbeMessageType,
 };
 use sbe_types::SbeEncodeError;
 

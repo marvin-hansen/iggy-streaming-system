@@ -1,6 +1,6 @@
+use crate::ConfigManager;
 use crate::error::ConfigError;
 use crate::fields::{DEFAULT_HOST, DEFAULT_PORT};
-use crate::ConfigManager;
 use common_env::EnvironmentType;
 use common_exchange::ExchangeID;
 
@@ -20,7 +20,10 @@ impl ConfigManager {
         self.get_ims_port(&exchange_id)
     }
 
-    pub(crate) fn get_data_svc_socket_addr(&self, exchange_id: ExchangeID) -> Result<String, ConfigError> {
+    pub(crate) fn get_data_svc_socket_addr(
+        &self,
+        exchange_id: ExchangeID,
+    ) -> Result<String, ConfigError> {
         // Set host to default (0.0.0.0) to listen on all interfaces
         let host = DEFAULT_HOST;
 

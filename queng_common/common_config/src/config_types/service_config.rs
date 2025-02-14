@@ -53,7 +53,10 @@ impl ServiceConfig {
     ) -> Self {
         assert!(!endpoints.is_empty(), "endpoints cannot be empty");
 
-        assert!(endpoints.len() >= 2, "endpoints cannot be less than 2. Just must specify at least a service endpoint, a metrics endpoint, and a health endpoint");
+        assert!(
+            endpoints.len() >= 2,
+            "endpoints cannot be less than 2. Just must specify at least a service endpoint, a metrics endpoint, and a health endpoint"
+        );
 
         Self {
             svc_id,
@@ -135,9 +138,20 @@ impl ServiceConfig {
 
 impl Display for ServiceConfig {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f,
-               "ServiceConfig {{ svc_id: {}, name: {}, version: {}, online: {}, description: {}, health_check_uri: {}, cluster_uri: {}, dependencies: {:?}, endpoint: {} metrics: {} health: {:?} }}",
-               self.svc_id, self.name, self.version, self.online, self.description, self.health_check_uri, self.cluster_uri, self.dependencies, self.service_endpoint(), self.metrics_endpoint(), self.health_endpoint(),
+        write!(
+            f,
+            "ServiceConfig {{ svc_id: {}, name: {}, version: {}, online: {}, description: {}, health_check_uri: {}, cluster_uri: {}, dependencies: {:?}, endpoint: {} metrics: {} health: {:?} }}",
+            self.svc_id,
+            self.name,
+            self.version,
+            self.online,
+            self.description,
+            self.health_check_uri,
+            self.cluster_uri,
+            self.dependencies,
+            self.service_endpoint(),
+            self.metrics_endpoint(),
+            self.health_endpoint(),
         )
     }
 }

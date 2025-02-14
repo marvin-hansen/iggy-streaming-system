@@ -3,7 +3,7 @@ use common_data_bar::TradeBar;
 use rust_decimal::Decimal;
 use sbe_bindings::trade_bar_codec::SBE_TEMPLATE_ID;
 use sbe_bindings::{
-    message_header_codec::MessageHeaderDecoder, trade_bar_codec::TradeBarDecoder, ReadBuf,
+    ReadBuf, message_header_codec::MessageHeaderDecoder, trade_bar_codec::TradeBarDecoder,
 };
 use sbe_types::{MessageType, SbeDecodeError};
 

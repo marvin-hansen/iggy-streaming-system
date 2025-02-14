@@ -43,7 +43,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
                         "Failed to check if client with id {} is logged in due to error: { }",
                         client_id, err
                     )),
-                ))
+                ));
             }
         };
 
@@ -74,7 +74,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             "Create a new message producer for client with id {}",
             client_id
         ));
-
 
         // Re-write
         //

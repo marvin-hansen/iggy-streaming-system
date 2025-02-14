@@ -1,6 +1,6 @@
 use common_exchange::ExchangeID;
 use config_manager::{ConfigManager, ConfigManagerTrait};
-use iggy_test_utils::{iggy_start_config_builder, IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64};
+use iggy_test_utils::{IGGY_DARWIN_AARCH64, IGGY_LINUX_X86_64, iggy_start_config_builder};
 use service_utils::{ServiceStartConfig, ServiceUtil, WaitStrategy};
 
 const ROOT_PATH: &str = "queng_system_ims_data/binance_tests/binance_spot_testnet_tests/tests";

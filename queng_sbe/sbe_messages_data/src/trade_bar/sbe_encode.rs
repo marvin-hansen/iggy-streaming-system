@@ -2,8 +2,8 @@ use common_data_bar::TradeBar;
 use rust_decimal::prelude::ToPrimitive;
 
 use sbe_bindings::{
-    message_type::MessageType as SbeMessageType, trade_bar_codec::TradeBarEncoder, Encoder,
-    WriteBuf,
+    Encoder, WriteBuf, message_type::MessageType as SbeMessageType,
+    trade_bar_codec::TradeBarEncoder,
 };
 
 use sbe_bindings::message_header_codec::ENCODED_LENGTH;

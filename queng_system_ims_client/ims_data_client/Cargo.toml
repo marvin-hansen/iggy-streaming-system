@@ -28,7 +28,7 @@ async-trait = { workspace = true }
 bytes = { workspace = true }
 enum_dispatch = { workspace = true }
 iggy = { workspace = true }
-sdk = { workspace = true }
+
 tokio = { workspace = true }
 tokio-util = { workspace = true }
 

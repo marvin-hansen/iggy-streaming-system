@@ -1,7 +1,7 @@
 use common_sbe_errors::DataError;
 use sbe_bindings::data_error_codec::SBE_TEMPLATE_ID;
 use sbe_bindings::{
-    data_error_codec::DataErrorDecoder, message_header_codec::MessageHeaderDecoder, ReadBuf,
+    ReadBuf, data_error_codec::DataErrorDecoder, message_header_codec::MessageHeaderDecoder,
 };
 use sbe_types::{MessageType, SbeDecodeError};
 

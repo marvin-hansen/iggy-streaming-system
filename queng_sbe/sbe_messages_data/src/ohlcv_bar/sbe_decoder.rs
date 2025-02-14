@@ -3,7 +3,7 @@ use common_data_bar::OHLCVBar;
 use rust_decimal::Decimal;
 use sbe_bindings::data_bar_codec::SBE_TEMPLATE_ID;
 use sbe_bindings::{
-    data_bar_codec::DataBarDecoder, message_header_codec::MessageHeaderDecoder, ReadBuf,
+    ReadBuf, data_bar_codec::DataBarDecoder, message_header_codec::MessageHeaderDecoder,
 };
 use sbe_types::{MessageType, SbeDecodeError};
 

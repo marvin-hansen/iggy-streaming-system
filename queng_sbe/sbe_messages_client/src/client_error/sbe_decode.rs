@@ -1,7 +1,7 @@
 use common_sbe_errors::ClientError;
 use sbe_bindings::client_error_codec::SBE_TEMPLATE_ID;
 use sbe_bindings::{
-    client_error_codec::ClientErrorDecoder, message_header_codec::MessageHeaderDecoder, ReadBuf,
+    ReadBuf, client_error_codec::ClientErrorDecoder, message_header_codec::MessageHeaderDecoder,
 };
 use sbe_types::{MessageType, SbeDecodeError};
 

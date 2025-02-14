@@ -47,7 +47,6 @@ impl ConfigManager {
     }
 }
 
-
 impl ConfigManager {
     pub(crate) fn dbg_print(&self, msg: &str) {
         if self.dbg {

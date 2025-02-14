@@ -2,8 +2,8 @@ use crate::StartDataMessage;
 use common_data_bar::TimeResolution;
 use common_exchange::ExchangeID;
 use sbe_bindings::{
-    message_header_codec::MessageHeaderDecoder, start_data_msg_codec::StartDataMsgDecoder, ReadBuf,
-    SbeResult,
+    ReadBuf, SbeResult, message_header_codec::MessageHeaderDecoder,
+    start_data_msg_codec::StartDataMsgDecoder,
 };
 
 use sbe_bindings::start_data_msg_codec::SBE_TEMPLATE_ID;

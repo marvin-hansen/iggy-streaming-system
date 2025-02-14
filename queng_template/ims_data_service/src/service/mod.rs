@@ -60,7 +60,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             integration_config,
             iggy_config,
         )
-            .await
+        .await
     }
 }
 
@@ -104,8 +104,8 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             stream_id.clone(),
             topic_id.clone(),
         )
-            .await
-            .expect("[Service]: Failed to create consumer");
+        .await
+        .expect("[Service]: Failed to create consumer");
         let consumer = std::sync::Arc::new(tokio::sync::RwLock::new(consumer));
         dbg_print("MessageConsumer crated");
 

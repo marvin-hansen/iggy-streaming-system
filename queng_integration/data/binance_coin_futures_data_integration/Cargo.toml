@@ -20,7 +20,7 @@ binance_core_data_integration = {workspace = true}
 trait_data_integration = {workspace = true}
 # External crates
 rustls = {workspace = true}
-sdk = { workspace = true }
+
 tokio = {workspace = true}
 
 

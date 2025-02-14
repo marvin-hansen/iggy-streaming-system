@@ -9,4 +9,3 @@ pub fn ims_data_integration_config(exchange_id: ExchangeID) -> IntegrationConfig
         IntegrationMessageConfig::new(1, 1, exchange_id),
     )
 }
-

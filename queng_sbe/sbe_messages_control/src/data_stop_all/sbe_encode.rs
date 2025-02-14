@@ -1,7 +1,7 @@
 use crate::StopAllDataMessage;
 use sbe_bindings::message_type::MessageType as SbeMessageType;
 use sbe_bindings::{
-    message_header_codec, stop_all_data_msg_codec::StopAllDataMsgEncoder, Encoder, WriteBuf,
+    Encoder, WriteBuf, message_header_codec, stop_all_data_msg_codec::StopAllDataMsgEncoder,
 };
 use sbe_types::SbeEncodeError;
 

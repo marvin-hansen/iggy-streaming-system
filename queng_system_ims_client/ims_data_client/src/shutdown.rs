@@ -1,5 +1,5 @@
-use crate::error::ImsClientError;
 use crate::ImsDataClient;
+use crate::error::ImsClientError;
 use iggy::client::Client;
 use iggy::locking::IggySharedMutFn;
 

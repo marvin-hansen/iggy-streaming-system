@@ -12,7 +12,7 @@ pub async fn signal_handler(svc: &str) {
 /// * SIGHUP
 #[cfg(unix)]
 async fn wait_for_signal_impl(svc: &str) {
-    use tokio::signal::unix::{signal, SignalKind};
+    use tokio::signal::unix::{SignalKind, signal};
 
     // Docs: https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html
     let mut signal_terminate = signal(SignalKind::terminate()).unwrap();

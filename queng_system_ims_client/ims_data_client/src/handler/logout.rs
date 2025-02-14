@@ -20,18 +20,20 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToEncodeControlMessage(format!(
                     "[ImsDataClient/logout]: Failed to encode logout_message message: {err}"
-                )))
+                )));
             }
         };
 
         self.dbg_print("Send logout message");
         match self.send_control_message(message.as_slice()).await {
             Ok(_) => {}
-            Err(err) => return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
-                format!(
-                    "[ImsDataClient/logout]: Failed to send logout message to control channel: {err}"
-                ),
-            )),
+            Err(err) => {
+                return Err(ImsClientError::FailedToSendControlMessageToIggyServer(
+                    format!(
+                        "[ImsDataClient/logout]: Failed to send logout message to control channel: {err}"
+                    ),
+                ));
+            }
         };
         Ok(())
     }

@@ -3,7 +3,6 @@ use common_env::EnvironmentType;
 use common_exchange::ExchangeID;
 use common_platform::PlatformType;
 
-
 pub trait ConfigManagerTrait {
     /// Return the environment type
     ///
@@ -36,10 +35,7 @@ pub trait ConfigManagerTrait {
     /// # Returns
     ///
     /// A string containing the Data Service socket health URI.
-    fn data_svc_socket_health_uri(
-        &self,
-        exchange_id: ExchangeID,
-    ) -> Result<String, ConfigError>;
+    fn data_svc_socket_health_uri(&self, exchange_id: ExchangeID) -> Result<String, ConfigError>;
 
     /// Return the Data Service port
     ///

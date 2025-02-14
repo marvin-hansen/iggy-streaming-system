@@ -14,7 +14,7 @@ impl ImsDataClient {
             Err(err) => {
                 return Err(ImsClientError::FailedToEncodeControlMessage(format!(
                     "[ImsDataClient/stop_all]: Failed to encode stop_all_data message: {err}"
-                )))
+                )));
             }
         };
 
@@ -26,7 +26,7 @@ impl ImsDataClient {
                     format!(
                         "[ImsDataClient/stop_all]: Failed to send stop_all_data message: {err}"
                     ),
-                ))
+                ));
             }
         };
 

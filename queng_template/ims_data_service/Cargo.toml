@@ -32,7 +32,6 @@ trait_data_integration = { workspace = true }
 # External crates
 bytes = { workspace = true }
 iggy = { workspace = true }
-sdk = { workspace = true }
 tokio = { workspace = true }
 futures-util = { workspace = true }
 warp = { workspace = true }

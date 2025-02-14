@@ -103,9 +103,18 @@ impl SvcEnvConfig {
 
 impl Display for SvcEnvConfig {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f,
-               "SvcEnvConfig {{ service_id: {:?}, cluster_host: {:?}, ci_host: {:?}, local_host: {:?}, docker_host: {:?}, service_port: {:?}, metrics_host: {:?}, metrics_uri: {:?}, metrics_port: {:?} }}",
-               self.service_id, self.cluster_host, self.ci_host, self.local_host, self.docker_host, self.service_port, self.metrics_host, self.metrics_uri, self.metrics_port
+        write!(
+            f,
+            "SvcEnvConfig {{ service_id: {:?}, cluster_host: {:?}, ci_host: {:?}, local_host: {:?}, docker_host: {:?}, service_port: {:?}, metrics_host: {:?}, metrics_uri: {:?}, metrics_port: {:?} }}",
+            self.service_id,
+            self.cluster_host,
+            self.ci_host,
+            self.local_host,
+            self.docker_host,
+            self.service_port,
+            self.metrics_host,
+            self.metrics_uri,
+            self.metrics_port
         )
     }
 }
