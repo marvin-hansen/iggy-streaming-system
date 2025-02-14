@@ -1,5 +1,5 @@
 {
-  "lockFileVersion": 16,
+  "lockFileVersion": 18,
   "registryFileHashes": {
     "https://bcr.bazel.build/bazel_registry.json": "8a28e4aff06ee60aed2a8c281907fb8bcbf3b753c91fb5a5c57da3215d5b3497",
     "https://bcr.bazel.build/modules/abseil-cpp/20210324.2/MODULE.bazel": "7cd0312e064fde87c8d1cd79ba06c876bd23630c83466e9500321be55c96ace2",
@@ -139,8 +139,8 @@
     "https://bcr.bazel.build/modules/rules_multirun/0.10.0/MODULE.bazel": "84499e8cf17ecf490465aacf719976b7f69686d6cc2f679894eebe3b847e70be",
     "https://bcr.bazel.build/modules/rules_multirun/0.10.0/source.json": "0dcd2da6a631ea3e047a349da8a66836dd188dec54ce067a64c9585a41387055",
     "https://bcr.bazel.build/modules/rules_nodejs/5.8.2/MODULE.bazel": "6bc03c8f37f69401b888023bf511cb6ee4781433b0cb56236b2e55a21e3a026a",
-    "https://bcr.bazel.build/modules/rules_oci/2.2.1/MODULE.bazel": "c32d3c775739ead29f7167fb2665711774a965fefb7fbdc775decc8e4c980ab9",
-    "https://bcr.bazel.build/modules/rules_oci/2.2.1/source.json": "a39ec7986d3be90410986b4e0b213fcc4dc53ffe88fcb9812333bae2a302f48a",
+    "https://bcr.bazel.build/modules/rules_oci/2.2.2/MODULE.bazel": "f2afa49fbed0edb709b79d21d55db562f70450ca1a8527ff7b56fdf792bf26f7",
+    "https://bcr.bazel.build/modules/rules_oci/2.2.2/source.json": "91e19c82d3311d7531b143e24fbaa72d8942f5f4e23c640eb834b0a1322ff136",
     "https://bcr.bazel.build/modules/rules_pkg/0.7.0/MODULE.bazel": "df99f03fc7934a4737122518bb87e667e62d780b610910f0447665a7e2be62dc",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/MODULE.bazel": "5b1df97dbc29623bccdf2b0dcd0f5cb08e2f2c9050aab1092fd39a41e82686ff",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/source.json": "bd82e5d7b9ce2d31e380dd9f50c111d678c3bdaca190cb76b0e1c71b05e1ba8a",
@@ -843,7 +843,7 @@
     "@@rules_oci+//oci:extensions.bzl%oci": {
       "general": {
         "bzlTransitiveDigest": "qNlcd8WTd4UyzUfM/zpvBIVgvreRoBqBDGhBZr2NxbY=",
-        "usagesDigest": "wLKjcZIqr3lLK0BH3BQRXXhfCPGPLW0Exvt6mDHNSFE=",
+        "usagesDigest": "S364Cvde2STOhOqtDDT8zutZoYLttadGj6gFD1eFmFQ=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

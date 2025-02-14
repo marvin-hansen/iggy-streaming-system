@@ -35,8 +35,10 @@ pub struct ImsDataClient {
     dbg: bool,
     client_id: u16,
     exchange_id: ExchangeID,
+
     iggy_client_control: IggyClient,
     iggy_client_data: IggyClient,
+
     control_producer: IggyProducer,
     data_producer: IggyProducer,
     tx_control_consumer: tokio::sync::RwLock<Option<oneshot::Sender<()>>>,
