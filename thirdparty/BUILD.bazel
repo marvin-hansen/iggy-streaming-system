@@ -5,14 +5,6 @@ crates_vendor(
     annotations = {},
     mode = "local",
     packages = {
-        # Dependencies that are work in progress
-        # and not yet published
-        "sdk": crate.spec(
-            rev = "8e0ad282f1ae853301f356b2132431456ed00914",
-            # https://bazelbuild.github.io/rules_rust/crate_universe_bzlmod.html#from_specs
-            git = "https://github.com/marvin-hansen/iggy_builder.git",
-            package = "sdk",
-        ),
         #
         # Dependencies for integration tests
         "docker_utils": crate.spec(
@@ -87,9 +79,11 @@ crates_vendor(
             package = "futures-util",
             version = "0.3",
         ),
+        # Work in progress and not yet published
         "iggy": crate.spec(
+            branch = "Epilogue-Part-2",
+            git = "https://github.com/iggy-rs/iggy.git",
             package = "iggy",
-            version = "0.6",
         ),
         "mimalloc": crate.spec(
             package = "mimalloc",

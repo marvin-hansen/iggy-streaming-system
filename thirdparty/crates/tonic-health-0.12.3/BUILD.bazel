@@ -85,7 +85,7 @@ rust_library(
     version = "0.12.3",
     deps = [
         "//thirdparty/crates/async-stream-0.3.6:async_stream",
-        "//thirdparty/crates/prost-0.13.4:prost",
+        "//thirdparty/crates/prost-0.13.5:prost",
         "//thirdparty/crates/tokio-1.43.0:tokio",
         "//thirdparty/crates/tokio-stream-0.1.17:tokio_stream",
         "//thirdparty/crates/tonic-0.12.3:tonic",

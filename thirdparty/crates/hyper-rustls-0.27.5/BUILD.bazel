@@ -95,7 +95,7 @@ rust_library(
         "//thirdparty/crates/http-1.2.0:http",
         "//thirdparty/crates/hyper-1.6.0:hyper",
         "//thirdparty/crates/hyper-util-0.1.10:hyper_util",
-        "//thirdparty/crates/rustls-0.23.22:rustls",
+        "//thirdparty/crates/rustls-0.23.23:rustls",
         "//thirdparty/crates/rustls-pki-types-1.11.0:rustls_pki_types",
         "//thirdparty/crates/tokio-1.43.0:tokio",
         "//thirdparty/crates/tokio-rustls-0.26.1:tokio_rustls",

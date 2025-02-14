@@ -151,14 +151,14 @@ alias(
 )
 
 alias(
-    name = "iggy-0.6.102",
-    actual = "//thirdparty/crates/iggy-0.6.102:iggy",
+    name = "iggy-0.6.110",
+    actual = "//thirdparty/crates/iggy-0.6.110:iggy",
     tags = ["manual"],
 )
 
 alias(
     name = "iggy",
-    actual = "//thirdparty/crates/iggy-0.6.102:iggy",
+    actual = "//thirdparty/crates/iggy-0.6.110:iggy",
     tags = ["manual"],
 )
 
@@ -223,26 +223,14 @@ alias(
 )
 
 alias(
-    name = "rustls-0.23.22",
-    actual = "//thirdparty/crates/rustls-0.23.22:rustls",
+    name = "rustls-0.23.23",
+    actual = "//thirdparty/crates/rustls-0.23.23:rustls",
     tags = ["manual"],
 )
 
 alias(
     name = "rustls",
-    actual = "//thirdparty/crates/rustls-0.23.22:rustls",
-    tags = ["manual"],
-)
-
-alias(
-    name = "sdk-0.6.93",
-    actual = "//thirdparty/crates/sdk-0.6.93:sdk",
-    tags = ["manual"],
-)
-
-alias(
-    name = "sdk",
-    actual = "//thirdparty/crates/sdk-0.6.93:sdk",
+    actual = "//thirdparty/crates/rustls-0.23.23:rustls",
     tags = ["manual"],
 )
 

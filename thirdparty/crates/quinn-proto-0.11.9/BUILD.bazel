@@ -89,9 +89,9 @@ rust_library(
     deps = [
         "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/rand-0.8.5:rand",
-        "//thirdparty/crates/ring-0.17.8:ring",
+        "//thirdparty/crates/ring-0.17.9:ring",
         "//thirdparty/crates/rustc-hash-2.1.1:rustc_hash",
-        "//thirdparty/crates/rustls-0.23.22:rustls",
+        "//thirdparty/crates/rustls-0.23.23:rustls",
         "//thirdparty/crates/rustls-platform-verifier-0.4.0:rustls_platform_verifier",
         "//thirdparty/crates/slab-0.4.9:slab",
         "//thirdparty/crates/thiserror-2.0.11:thiserror",

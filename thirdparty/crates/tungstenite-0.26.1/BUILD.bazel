@@ -98,7 +98,7 @@ rust_library(
         "//thirdparty/crates/httparse-1.10.0:httparse",
         "//thirdparty/crates/log-0.4.25:log",
         "//thirdparty/crates/rand-0.8.5:rand",
-        "//thirdparty/crates/rustls-0.23.22:rustls",
+        "//thirdparty/crates/rustls-0.23.23:rustls",
         "//thirdparty/crates/rustls-pki-types-1.11.0:rustls_pki_types",
         "//thirdparty/crates/sha1-0.10.6:sha1",
         "//thirdparty/crates/thiserror-2.0.11:thiserror",

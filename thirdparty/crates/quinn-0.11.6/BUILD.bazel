@@ -98,7 +98,7 @@ rust_library(
         "//thirdparty/crates/quinn-proto-0.11.9:quinn_proto",
         "//thirdparty/crates/quinn-udp-0.5.9:quinn_udp",
         "//thirdparty/crates/rustc-hash-2.1.1:rustc_hash",
-        "//thirdparty/crates/rustls-0.23.22:rustls",
+        "//thirdparty/crates/rustls-0.23.23:rustls",
         "//thirdparty/crates/socket2-0.5.8:socket2",
         "//thirdparty/crates/thiserror-2.0.11:thiserror",
         "//thirdparty/crates/tokio-1.43.0:tokio",
