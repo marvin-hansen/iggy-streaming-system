@@ -1,15 +1,6 @@
 # Iggy Streaming System
 
-A sample streaming project written in Rust that showcases end to end streaming with
-the [Iggy.rs messaging system](https://iggy.rs/) that is capable of processing millions of messages per second on a
-single machine.
-
-This project integrates all three Binance services: spot, coin future and usd future and relays market data SBE encoded
-via iggy.
-
-## Current status
-
-Active and early development so things may break or change any given day.
+Active and early development so things break or change any given day and may remain unfixed for a few days.
 
 ## This project features:
 
