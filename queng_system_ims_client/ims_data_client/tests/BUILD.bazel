@@ -22,7 +22,6 @@ rust_test_suite(
         "//alias:common_exchange",
         "//alias:common_ims",
         # External dependencies
-        "//thirdparty/crates:sdk",
         "//thirdparty/crates:tokio",
     ],
 )

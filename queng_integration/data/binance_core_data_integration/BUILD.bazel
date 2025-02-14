@@ -22,7 +22,6 @@ rust_library(
         "//thirdparty/crates:futures-util",
         "//thirdparty/crates:reqwest",
         "//thirdparty/crates:rust_decimal",
-        "//thirdparty/crates:sdk",
         "//thirdparty/crates:serde",
         "//thirdparty/crates:serde_json",
         "//thirdparty/crates:tokio",

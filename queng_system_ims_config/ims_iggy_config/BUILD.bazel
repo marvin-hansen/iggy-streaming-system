@@ -17,7 +17,6 @@ rust_library(
         "//alias:common_ims",
         # External crates
         "//thirdparty/crates:iggy",
-        "//thirdparty/crates:sdk",
     ],
 )
 

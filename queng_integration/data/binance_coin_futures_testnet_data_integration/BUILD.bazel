@@ -24,7 +24,6 @@ rust_library(
         "//alias:sbe_types",
         # External crates
         "//thirdparty/crates:rustls",
-        "//thirdparty/crates:sdk",
         "//thirdparty/crates:tokio",
     ],
 )
