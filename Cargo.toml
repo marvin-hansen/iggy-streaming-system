@@ -120,11 +120,11 @@ futures = { version = "0.3" }
 futures-util = { version = "0.3" }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "blocking", "gzip"] }
 # Work in progress & not yet published
-iggy = { git = "https://github.com/iggy-rs/iggy.git", branch = "Epilogue-Part-2" }
+iggy = { git = "https://github.com/iggy-rs/iggy.git", rev = "4d8083a3ab87576d69960c312ee89bb791d85925" }
 mimalloc = { version = "0.1" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }
-rustls = { version = "0.23", features = ["ring"] }
+rustls = { version = "0.23.23", features = ["ring"] }
 tokio = { version = "1.43", default-features = false, features = ["macros", "net", "rt-multi-thread", "signal", "time"] }
 tokio-util = { version = "0.7", default-features = false }
 tokio-tungstenite = { version = "0.26", features = ["rustls-tls-webpki-roots"] }

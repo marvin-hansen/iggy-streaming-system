@@ -1,5 +1,5 @@
 use common_ims::ExchangeID;
-use iggy::stream_config::IggyStreamConfig;
+use iggy::stream_builder::IggyStreamConfig;
 use iggy::utils::duration::IggyDuration;
 use std::str::FromStr;
 
