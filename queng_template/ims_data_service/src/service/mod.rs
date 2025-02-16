@@ -12,21 +12,18 @@ use std::error::Error;
 use std::sync::Arc;
 use trait_data_integration::ImsDataIntegration;
 
-type Guarded<T> = std::sync::Arc<tokio::sync::RwLock<T>>;
+type Guarded<T> = Arc<tokio::sync::RwLock<T>>;
 
 /// A server that handles IMS (Integration Management Service) data processing.
 ///
 /// The server manages message consumption and production for both control and data channels,
 /// maintaining thread-safe access to shared resources using Tokio's async-aware locks.
-#[allow(dead_code)] // Supress dead code warning until its clear which fields to remove.
 pub struct Service<Integration: ImsDataIntegration> {
     dbg: bool,
     exchange_id: ExchangeID,
     consumer: Guarded<IggyConsumer>,
     producer: Guarded<IggyProducer>,
-    iggy_config: IggyStreamConfig,
     ims_integration: Guarded<Integration>,
-    integration_config: IntegrationConfig,
     client_configs: Guarded<HashMap<u16, IggyStreamConfig>>,
     client_producers: Guarded<HashMap<u16, Arc<IggyProducer>>>,
 }
@@ -65,28 +62,20 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         };
 
         let exchange_id = integration_config.exchange_id();
-
-        dbg_print("Create Identifiers for control stream and topic");
-        let stream_id = integration_config.control_channel();
-        let topic_id = integration_config.control_channel();
-
-        dbg_print(&format!("stream_id: {stream_id}"));
-        dbg_print(&format!("topic_id: {topic_id}"));
-
         dbg_print("Create MessageProducer");
         let (producer, consumer) = IggyStream::build(iggy_client, iggy_config)
             .await
             .expect("Failed to create producer");
 
-        let consumer = std::sync::Arc::new(tokio::sync::RwLock::new(consumer));
-        let producer = std::sync::Arc::new(tokio::sync::RwLock::new(producer));
+        let consumer = Arc::new(tokio::sync::RwLock::new(consumer));
+        let producer = Arc::new(tokio::sync::RwLock::new(producer));
         dbg_print("producer and consumer created");
 
         // Create a new HashMap to store data producers for each client
         dbg_print("Create HashMaps");
-        let client_configs = std::sync::Arc::new(tokio::sync::RwLock::new(HashMap::new()));
-        let client_producers = std::sync::Arc::new(tokio::sync::RwLock::new(HashMap::new()));
-        let ims_integration = std::sync::Arc::new(tokio::sync::RwLock::new(ims_integration));
+        let client_configs = Arc::new(tokio::sync::RwLock::new(HashMap::new()));
+        let client_producers = Arc::new(tokio::sync::RwLock::new(HashMap::new()));
+        let ims_integration = Arc::new(tokio::sync::RwLock::new(ims_integration));
 
         dbg_print("Create Service");
         Ok(Self {
@@ -94,9 +83,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             exchange_id,
             consumer,
             producer,
-            iggy_config: iggy_config.clone(),
             ims_integration,
-            integration_config: integration_config.clone(),
             client_configs,
             client_producers,
         })
