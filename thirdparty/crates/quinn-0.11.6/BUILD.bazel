@@ -18,7 +18,7 @@ rust_library(
     ),
     aliases = {
         "//thirdparty/crates/quinn-proto-0.11.9:quinn_proto": "proto",
-        "//thirdparty/crates/quinn-udp-0.5.9:quinn_udp": "udp",
+        "//thirdparty/crates/quinn-udp-0.5.10:quinn_udp": "udp",
     },
     compile_data = glob(
         include = ["**"],
@@ -96,7 +96,7 @@ rust_library(
         "//thirdparty/crates/bytes-1.10.0:bytes",
         "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
         "//thirdparty/crates/quinn-proto-0.11.9:quinn_proto",
-        "//thirdparty/crates/quinn-udp-0.5.9:quinn_udp",
+        "//thirdparty/crates/quinn-udp-0.5.10:quinn_udp",
         "//thirdparty/crates/rustc-hash-2.1.1:rustc_hash",
         "//thirdparty/crates/rustls-0.23.23:rustls",
         "//thirdparty/crates/socket2-0.5.8:socket2",

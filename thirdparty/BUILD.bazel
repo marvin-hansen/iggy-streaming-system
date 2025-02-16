@@ -81,7 +81,7 @@ crates_vendor(
         ),
         # Work in progress and not yet published
         "iggy": crate.spec(
-            branch = "Epilogue-Part-2",
+            rev = "4d8083a3ab87576d69960c312ee89bb791d85925",
             git = "https://github.com/iggy-rs/iggy.git",
             package = "iggy",
         ),

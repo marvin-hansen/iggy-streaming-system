@@ -85,7 +85,7 @@ rust_library(
     }),
     version = "2.7.1",
     deps = [
-        "//thirdparty/crates/equivalent-1.0.1:equivalent",
+        "//thirdparty/crates/equivalent-1.0.2:equivalent",
         "//thirdparty/crates/hashbrown-0.15.2:hashbrown",
     ],
 )

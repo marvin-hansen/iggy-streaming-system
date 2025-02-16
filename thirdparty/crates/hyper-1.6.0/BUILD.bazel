@@ -98,7 +98,7 @@ rust_library(
         "//thirdparty/crates/httpdate-1.0.3:httpdate",
         "//thirdparty/crates/itoa-1.0.14:itoa",
         "//thirdparty/crates/pin-project-lite-0.2.16:pin_project_lite",
-        "//thirdparty/crates/smallvec-1.13.2:smallvec",
+        "//thirdparty/crates/smallvec-1.14.0:smallvec",
         "//thirdparty/crates/tokio-1.43.0:tokio",
         "//thirdparty/crates/want-0.3.1:want",
     ],

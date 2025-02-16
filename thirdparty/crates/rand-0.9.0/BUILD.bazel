@@ -92,6 +92,6 @@ rust_library(
     deps = [
         "//thirdparty/crates/rand_chacha-0.9.0:rand_chacha",
         "//thirdparty/crates/rand_core-0.9.0:rand_core",
-        "//thirdparty/crates/zerocopy-0.8.17:zerocopy",
+        "//thirdparty/crates/zerocopy-0.8.18:zerocopy",
     ],
 )
