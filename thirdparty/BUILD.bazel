@@ -81,9 +81,9 @@ crates_vendor(
         ),
         # Work in progress and not yet published
         "iggy": crate.spec(
-            rev = "4d8083a3ab87576d69960c312ee89bb791d85925",
             git = "https://github.com/iggy-rs/iggy.git",
             package = "iggy",
+            rev = "4d8083a3ab87576d69960c312ee89bb791d85925",
         ),
         "mimalloc": crate.spec(
             package = "mimalloc",

@@ -32,33 +32,16 @@ pub struct Service<Integration: ImsDataIntegration> {
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
-    /// Creates a new instance of the service.
-    ///
-    /// # Arguments
-    ///
-    /// * `dbg` - A boolean flag to enable debug printing.
-    /// * `consumer_client` - The `IggyClient` instance used for consuming messages.
-    /// * `producer_client` - The `IggyClient` instance used for producing messages.
-    /// * `ims_integration` - The integration instance to use for IMS data processing.
-    /// * `integration_config` - The configuration for the integration.
-    /// * `iggy_config` - The configuration for the Iggy client.
-    ///
-    /// # Returns
-    ///
-    /// A `Result` wrapping the `Service` instance or an `Error`.
-    ///
     pub async fn build_service(
         dbg: bool,
-        consumer_client: &IggyClient,
-        producer_client: &IggyClient,
+        iggy_client: &IggyClient,
         ims_integration: Integration,
         integration_config: &IntegrationConfig,
         iggy_config: &IggyStreamConfig,
     ) -> Result<Self, Box<dyn Error>> {
         Self::build(
             dbg,
-            consumer_client,
-            producer_client,
+            iggy_client,
             ims_integration,
             integration_config,
             iggy_config,
@@ -70,8 +53,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 impl<Integration: ImsDataIntegration> Service<Integration> {
     async fn build(
         dbg: bool,
-        _consumer_client: &IggyClient,
-        producer_client: &IggyClient,
+        iggy_client: &IggyClient,
         ims_integration: Integration,
         integration_config: &IntegrationConfig,
         iggy_config: &IggyStreamConfig,
@@ -92,7 +74,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         dbg_print(&format!("topic_id: {topic_id}"));
 
         dbg_print("Create MessageProducer");
-        let (producer, consumer) = IggyStream::build(producer_client, iggy_config)
+        let (producer, consumer) = IggyStream::build(iggy_client, iggy_config)
             .await
             .expect("Failed to create producer");
 

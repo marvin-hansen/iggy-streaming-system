@@ -31,7 +31,6 @@ sbe_types = { workspace = true }
 trait_data_integration = { workspace = true }
 
 # External crates
-bytes = { workspace = true }
 iggy = { workspace = true }
 tokio = { workspace = true }
 futures-util = { workspace = true }

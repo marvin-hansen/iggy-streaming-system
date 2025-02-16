@@ -14,11 +14,12 @@ pub(crate) async fn shutdown_iggy(
     dbg_print: &dyn Fn(&str),
     control_stream_id: &Identifier,
     control_topic_id: &Identifier,
-    producer_client: &IggyClient,
-    consumer_client: &IggyClient,
+    iggy_client: &IggyClient,
 ) {
+    dbg_print("Shutting down messaging service");
+
     dbg_print("Delete control topic");
-    consumer_client
+    iggy_client
         .client()
         .read()
         .await
@@ -27,7 +28,7 @@ pub(crate) async fn shutdown_iggy(
         .expect("Failed to delete control topic");
 
     dbg_print("Delete control stream");
-    consumer_client
+    iggy_client
         .client()
         .read()
         .await
@@ -35,14 +36,8 @@ pub(crate) async fn shutdown_iggy(
         .await
         .expect("Failed to control data topic");
 
-    dbg_print("Shutting down iggy producer client");
-    producer_client
-        .shutdown()
-        .await
-        .expect("Failed to shutdown iggy producer client");
-
     dbg_print("Shutting down iggy consumer client");
-    consumer_client
+    iggy_client
         .shutdown()
         .await
         .expect("Failed to shutdown iggy consumer client");

@@ -26,7 +26,6 @@ rust_library(
         "//alias:sbe_types",
         "//alias:trait_data_integration",
         # External crates
-        "//thirdparty/crates:bytes",
         "//thirdparty/crates:iggy",
         "//thirdparty/crates:futures-util",
         "//thirdparty/crates:tokio",
