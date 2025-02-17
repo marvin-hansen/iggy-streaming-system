@@ -83,7 +83,7 @@ crates_vendor(
         "iggy": crate.spec(
             git = "https://github.com/iggy-rs/iggy.git",
             package = "iggy",
-            rev = "4d8083a3ab87576d69960c312ee89bb791d85925",
+            rev = "589c07a6d590c7b1fb5ab4619e3b266bc8ac9449",
         ),
         "mimalloc": crate.spec(
             package = "mimalloc",

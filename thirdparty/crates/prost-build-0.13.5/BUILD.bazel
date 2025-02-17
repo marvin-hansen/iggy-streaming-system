@@ -96,6 +96,6 @@ rust_library(
         "//thirdparty/crates/prost-types-0.13.5:prost_types",
         "//thirdparty/crates/regex-1.11.1:regex",
         "//thirdparty/crates/syn-2.0.98:syn",
-        "//thirdparty/crates/tempfile-3.16.0:tempfile",
+        "//thirdparty/crates/tempfile-3.17.0:tempfile",
     ],
 )

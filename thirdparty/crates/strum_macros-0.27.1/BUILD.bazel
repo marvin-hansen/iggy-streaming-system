@@ -6,12 +6,12 @@
 #     bazel run @@//thirdparty:crates_vendor
 ###############################################################################
 
-load("@rules_rust//rust:defs.bzl", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_proc_macro")
 
 package(default_visibility = ["//visibility:public"])
 
-rust_library(
-    name = "rand",
+rust_proc_macro(
+    name = "strum_macros",
     srcs = glob(
         include = ["**/*.rs"],
         allow_empty = False,
@@ -28,23 +28,17 @@ rust_library(
             "WORKSPACE.bazel",
         ],
     ),
-    crate_features = [
-        "alloc",
-        "default",
-        "os_rng",
-        "small_rng",
-        "std",
-        "std_rng",
-        "thread_rng",
-    ],
     crate_root = "src/lib.rs",
     edition = "2021",
+    proc_macro_deps = [
+        "//thirdparty/crates/rustversion-1.0.19:rustversion",
+    ],
     rustc_flags = [
         "--cap-lints=allow",
     ],
     tags = [
         "cargo-bazel",
-        "crate-name=rand",
+        "crate-name=strum_macros",
         "manual",
         "noclippy",
         "norustfmt",
@@ -88,10 +82,11 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-uefi": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    version = "0.9.0",
+    version = "0.27.1",
     deps = [
-        "//thirdparty/crates/rand_chacha-0.9.0:rand_chacha",
-        "//thirdparty/crates/rand_core-0.9.1:rand_core",
-        "//thirdparty/crates/zerocopy-0.8.18:zerocopy",
+        "//thirdparty/crates/heck-0.5.0:heck",
+        "//thirdparty/crates/proc-macro2-1.0.93:proc_macro2",
+        "//thirdparty/crates/quote-1.0.38:quote",
+        "//thirdparty/crates/syn-2.0.98:syn",
     ],
 )
