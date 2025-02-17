@@ -11,4 +11,5 @@ pub fn ims_data_iggy_config(client_id: u16, exchange_id: ExchangeID) -> IggyStre
         IggyDuration::from_str("1ms").unwrap(),
         IggyDuration::from_str("1ms").unwrap(),
     )
+    .expect("Failed to create iggy config")
 }

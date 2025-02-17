@@ -75,9 +75,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             client_id
         ));
 
-        // Re-write
-        //
-        // // RW lock the client_data_producers hashmap
+        // RW lock the client_data_producers hashmap
         // let mut client_data_producers = self.client_producers().write().await;
         //
         // self.dbg_print(&format!("Login in client with id {}", client_id));

@@ -120,7 +120,7 @@ futures = { version = "0.3" }
 futures-util = { version = "0.3" }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "blocking", "gzip"] }
 # Work in progress & not yet published
-iggy = { git = "https://github.com/iggy-rs/iggy.git", rev = "4d8083a3ab87576d69960c312ee89bb791d85925" }
+iggy = { git = "https://github.com/iggy-rs/iggy.git", rev = "589c07a6d590c7b1fb5ab4619e3b266bc8ac9449" }
 mimalloc = { version = "0.1" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }

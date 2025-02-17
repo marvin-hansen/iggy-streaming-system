@@ -11,4 +11,5 @@ pub fn ims_control_iggy_config(exchange_id: ExchangeID) -> IggyStreamConfig {
         IggyDuration::from_str("1ms").unwrap(),
         IggyDuration::from_str("1ms").unwrap(),
     )
+    .expect("Failed to create iggy config")
 }
