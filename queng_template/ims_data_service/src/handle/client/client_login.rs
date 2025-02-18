@@ -1,5 +1,6 @@
 use crate::service::Service;
 use common_errors::MessageProcessingError;
+use ims_iggy_config;
 use sbe_types::ClientErrorType;
 use trait_data_integration::ImsDataIntegration;
 
@@ -33,6 +34,14 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         //
         self.dbg_print(&format!("Validate login for client id {}", client_id));
         self.validate_client_login_request(client_id).await?;
+
+        self.dbg_print(&format!(
+            "Create a new client stream config for client with id {}",
+            client_id
+        ));
+        let exchange_id = self.exchange_id();
+        let _client_data_stream_config =
+            ims_iggy_config::ims_data_iggy_config(client_id, exchange_id);
 
         self.dbg_print(&format!(
             "Create a new message producer for client with id {}",

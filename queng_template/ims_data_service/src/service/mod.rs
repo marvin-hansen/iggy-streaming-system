@@ -6,7 +6,7 @@ use common_ims::IntegrationConfig;
 use iggy::clients::client::IggyClient;
 use iggy::clients::consumer::IggyConsumer;
 use iggy::clients::producer::IggyProducer;
-use iggy::stream_builder::{IggyStream, IggyStreamConfig};
+use iggy::stream_builder::{IggyProducerConfig, IggyStream, IggyStreamConfig};
 use std::collections::HashMap;
 use std::error::Error;
 use std::sync::Arc;
@@ -24,14 +24,15 @@ pub struct Service<Integration: ImsDataIntegration> {
     consumer: Guarded<IggyConsumer>,
     producer: Guarded<IggyProducer>,
     ims_integration: Guarded<Integration>,
-    client_configs: Guarded<HashMap<u16, IggyStreamConfig>>,
+    iggy_client: Guarded<IggyClient>,
+    client_configs: Guarded<HashMap<u16, IggyProducerConfig>>,
     client_producers: Guarded<HashMap<u16, Arc<IggyProducer>>>,
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
     pub async fn build_service(
         dbg: bool,
-        iggy_client: &IggyClient,
+        iggy_client: Guarded<IggyClient>,
         ims_integration: Integration,
         integration_config: &IntegrationConfig,
         iggy_config: &IggyStreamConfig,
@@ -50,10 +51,10 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 impl<Integration: ImsDataIntegration> Service<Integration> {
     async fn build(
         dbg: bool,
-        iggy_client: &IggyClient,
+        iggy_client: Guarded<IggyClient>,
         ims_integration: Integration,
         integration_config: &IntegrationConfig,
-        iggy_config: &IggyStreamConfig,
+        iggy_stream_config: &IggyStreamConfig,
     ) -> Result<Self, Box<dyn Error>> {
         let dbg_print = |msg: &str| {
             if dbg {
@@ -63,15 +64,16 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
 
         let exchange_id = integration_config.exchange_id();
         dbg_print("Create MessageProducer");
-        let (producer, consumer) = IggyStream::build(iggy_client, iggy_config)
+        let client_guard = iggy_client.write().await;
+        let (producer, consumer) = IggyStream::build(&client_guard, iggy_stream_config)
             .await
             .expect("Failed to create producer");
+        drop(client_guard);
 
         let consumer = Arc::new(tokio::sync::RwLock::new(consumer));
         let producer = Arc::new(tokio::sync::RwLock::new(producer));
         dbg_print("producer and consumer created");
 
-        // Create a new HashMap to store data producers for each client
         dbg_print("Create HashMaps");
         let client_configs = Arc::new(tokio::sync::RwLock::new(HashMap::new()));
         let client_producers = Arc::new(tokio::sync::RwLock::new(HashMap::new()));
@@ -84,6 +86,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             consumer,
             producer,
             ims_integration,
+            iggy_client,
             client_configs,
             client_producers,
         })

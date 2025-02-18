@@ -3,6 +3,7 @@ use common_config::ServiceID;
 use common_exchange::ExchangeID;
 use common_service::{print_utils, shutdown_utils};
 use ims_iggy_config;
+use std::sync::Arc;
 use tokio::time::Instant;
 use trait_data_integration::ImsDataIntegration;
 use warp::Filter;
@@ -47,7 +48,8 @@ where
 
     dbg_print("Construct iggy client");
     let iggy_config = &ims_iggy_config::ims_control_iggy_config(exchange_id);
-    let iggy_client = utils::build_iggy_client(integration_config.iggy_url()).await?;
+    let client = utils::build_iggy_client(integration_config.iggy_url()).await?;
+    let iggy_client = Arc::new(tokio::sync::RwLock::new(client));
 
     dbg_print("Configure health check route");
     // curl http://localhost:PORT/health
@@ -70,7 +72,7 @@ where
     dbg_print("Construct server");
     let server = Service::build_service(
         dbg,
-        &iggy_client,
+        iggy_client.clone(),
         ims_integration,
         integration_config,
         iggy_config,
@@ -92,13 +94,15 @@ where
         }
     }
 
+    let client_guard = iggy_client.write().await;
     stop::shutdown_iggy(
         &dbg_print,
         &iggy_config.stream_id(),
         &iggy_config.topic_id(),
-        &iggy_client,
+        &client_guard,
     )
     .await;
+    drop(client_guard);
 
     print_utils::print_stop_header(&ServiceID::Default);
 

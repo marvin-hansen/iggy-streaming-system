@@ -81,7 +81,7 @@ crates_vendor(
         ),
         "iggy": crate.spec(
             package = "iggy",
-             version = "0.6.201",
+            version = "0.6.201",
         ),
         "mimalloc": crate.spec(
             package = "mimalloc",
