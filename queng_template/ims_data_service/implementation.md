@@ -41,7 +41,42 @@ input and then processes it according to the custom implementation.
 
 ### Client handling:
 
+Client handling in the template services follows a fairly simple protocol:
+
+* Data streams are separated by client so that no client can see any other client's data stream
+* A client must be authorized to stream data
+* A client must be logged in with its client id, which is then used to derive a client specific data stream
+* A client id can be logged in only once
+* A client id can be logged out only when it is logged in
+
+All client related event handling code is located in the following folder:
+
+* [queng_template/ims_data_service/src/handle/client](/queng_template/ims_data_service/src/handle/client)
+
 **ClientLogin**
+
+The client login implements the following process:
+
+1) Check if the client ID is valid (>100)
+
+The first 100 client IDs are reserved for internal use
+therefore only client IDs > 100 are allowed to login.
+
+2) Check if the client ID is already logged in
+
+By definition, a client ID can be logged in only once.
+Of the client is already logged in, the request is rejected
+and returns an login error.
+
+3) Check if the client is authorized to stream data
+
+Currently, this is not implemented b/c no proper authorization system
+is in place. Therefore the default implementation always returns true.
+
+Implementation:
+
+* [queng_template/ims_data_service/src/handle/client/client_login_validate.rs](/queng_template/ims_data_service/src/handle/client/client_login_validate.rs)
+* [queng_template/ims_data_service/src/handle/client/client_login.rs](/queng_template/ims_data_service/src/handle/client/client_login.rs)
 
 **ClientLogout**
 

@@ -25,12 +25,11 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         client_id: u16,
     ) -> Result<(), MessageProcessingError> {
         self.dbg_print("handle_client_login");
-        //let client_id = client_login_msg.client_id();
 
         match self.client_login(client_id).await {
             Ok(_) => {}
             Err((client_error_type, err)) => {
-                println!(
+                eprintln!(
                     "[handle_client_login] ClientLogInError: {:?}",
                     err.to_string()
                 );
@@ -38,7 +37,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
                 match self.send_client_error(client_id, client_error_type).await {
                     Ok(_) => {}
                     Err(err) => {
-                        println!(
+                        eprintln!(
                             "[handle_client_login] ClientLogInError: {:?}",
                             err.to_string()
                         );

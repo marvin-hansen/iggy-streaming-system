@@ -25,8 +25,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         match self.client_logout(client_id).await {
             Ok(_) => {}
             Err((client_error_type, err)) => {
-                // Print error
-                println!(
+                eprintln!(
                     "[handle_client_logout]: ClientLogOutError: {:?}",
                     err.to_string()
                 );
@@ -34,7 +33,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
                 match self.send_client_error(client_id, client_error_type).await {
                     Ok(_) => {}
                     Err(err) => {
-                        println!(
+                        eprintln!(
                             "[handle_client_logout]: ClientLogOutError: {:?}",
                             err.to_string()
                         );

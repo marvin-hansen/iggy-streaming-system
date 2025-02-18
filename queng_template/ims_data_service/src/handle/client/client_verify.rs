@@ -33,7 +33,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         Ok(client_db.contains_key(&client_id))
     }
 
-    /// Checks if a client is allowed to log in.
+    /// Checks if a client has a valid client id that is allowed to log in.
     ///
     /// This function should be overriden by the implementation of the service.
     /// The default implementation allows clients with an ID > 99.
@@ -45,7 +45,12 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
     /// # Returns
     ///
     /// `true` if the client is allowed, `false` otherwise
-    pub(crate) fn check_client_allowed(&self, client_id: u16) -> bool {
+    pub(crate) fn check_valid_client_id(&self, client_id: u16) -> bool {
         client_id >= 100
+    }
+
+    /// Checks if a client with the specified ID is allowed to stream data
+    pub(crate) fn check_if_client_id_authorized(&self, _client_id: u16) -> bool {
+        true
     }
 }

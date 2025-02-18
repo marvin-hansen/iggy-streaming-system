@@ -30,45 +30,9 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         &self,
         client_id: u16,
     ) -> Result<(), (ClientErrorType, MessageProcessingError)> {
-        self.dbg_print(&format!(
-            "Checking if client with id {} is logged in",
-            client_id
-        ));
-        let exists = match self.check_client_login(client_id).await {
-            Ok(exists) => exists,
-            Err(err) => {
-                return Err((
-                    ClientErrorType::ClientLogInError,
-                    MessageProcessingError(format!(
-                        "Failed to check if client with id {} is logged in due to error: { }",
-                        client_id, err
-                    )),
-                ));
-            }
-        };
-
-        if exists {
-            self.dbg_print(&format!("Client with id {} already logged in", client_id));
-            return Err((
-                ClientErrorType::ClientAlreadyLoggedIn,
-                MessageProcessingError(format!("Client with id {} already logged in", client_id)),
-            ));
-        }
-
-        self.dbg_print(&format!(
-            "Checking if client with id {} is allowed to log in",
-            client_id
-        ));
-
-        if !self.check_client_allowed(client_id) {
-            return Err((
-                ClientErrorType::ClientNotAuthorized,
-                MessageProcessingError(format!(
-                    "Client with id {} not allowed to log in",
-                    client_id
-                )),
-            ));
-        }
+        //
+        self.dbg_print(&format!("Validate login for client id {}", client_id));
+        self.validate_client_login_request(client_id).await?;
 
         self.dbg_print(&format!(
             "Create a new message producer for client with id {}",
