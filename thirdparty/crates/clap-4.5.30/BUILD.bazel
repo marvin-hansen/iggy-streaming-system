@@ -11,7 +11,7 @@ load("@rules_rust//rust:defs.bzl", "rust_library")
 package(default_visibility = ["//visibility:public"])
 
 rust_library(
-    name = "prost_build",
+    name = "clap",
     srcs = glob(
         include = ["**/*.rs"],
         allow_empty = False,
@@ -29,17 +29,26 @@ rust_library(
         ],
     ),
     crate_features = [
+        "color",
         "default",
-        "format",
+        "derive",
+        "error-context",
+        "help",
+        "std",
+        "suggestions",
+        "usage",
     ],
     crate_root = "src/lib.rs",
     edition = "2021",
+    proc_macro_deps = [
+        "//thirdparty/crates/clap_derive-4.5.28:clap_derive",
+    ],
     rustc_flags = [
         "--cap-lints=allow",
     ],
     tags = [
         "cargo-bazel",
-        "crate-name=prost-build",
+        "crate-name=clap",
         "manual",
         "noclippy",
         "norustfmt",
@@ -83,19 +92,8 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-uefi": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    version = "0.13.5",
+    version = "4.5.30",
     deps = [
-        "//thirdparty/crates/heck-0.5.0:heck",
-        "//thirdparty/crates/itertools-0.14.0:itertools",
-        "//thirdparty/crates/log-0.4.25:log",
-        "//thirdparty/crates/multimap-0.10.0:multimap",
-        "//thirdparty/crates/once_cell-1.20.3:once_cell",
-        "//thirdparty/crates/petgraph-0.7.1:petgraph",
-        "//thirdparty/crates/prettyplease-0.2.29:prettyplease",
-        "//thirdparty/crates/prost-0.13.5:prost",
-        "//thirdparty/crates/prost-types-0.13.5:prost_types",
-        "//thirdparty/crates/regex-1.11.1:regex",
-        "//thirdparty/crates/syn-2.0.98:syn",
-        "//thirdparty/crates/tempfile-3.17.1:tempfile",
+        "//thirdparty/crates/clap_builder-4.5.30:clap_builder",
     ],
 )

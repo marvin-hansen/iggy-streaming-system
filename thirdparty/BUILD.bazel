@@ -79,11 +79,9 @@ crates_vendor(
             package = "futures-util",
             version = "0.3",
         ),
-        # Work in progress and not yet published
         "iggy": crate.spec(
-            git = "https://github.com/iggy-rs/iggy.git",
             package = "iggy",
-            rev = "589c07a6d590c7b1fb5ab4619e3b266bc8ac9449",
+             version = "0.6.201",
         ),
         "mimalloc": crate.spec(
             package = "mimalloc",
