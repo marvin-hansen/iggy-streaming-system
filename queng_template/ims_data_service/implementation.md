@@ -75,7 +75,7 @@ is in place. Therefore the default implementation always returns true.
 
 Implementation:
 
-* [queng_template/ims_data_service/src/handle/client/client_login_validate.rs](/queng_template/ims_data_service/src/handle/client/client_login_validate.rs)
+* [queng_template/ims_data_service/src/handle/client/client_login_validate.rs](/queng_template/ims_data_service/src/handle/client/client_login_validation.rs)
 * [queng_template/ims_data_service/src/handle/client/client_login.rs](/queng_template/ims_data_service/src/handle/client/client_login.rs)
 
 **ClientLogout**
