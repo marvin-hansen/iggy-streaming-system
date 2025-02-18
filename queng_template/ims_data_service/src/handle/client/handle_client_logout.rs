@@ -1,6 +1,5 @@
 use crate::service::Service;
 use common_errors::MessageProcessingError;
-use sbe_messages_client::ClientLogoutMessage;
 use trait_data_integration::ImsDataIntegration;
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
@@ -19,10 +18,9 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
     ///
     pub(crate) async fn handle_client_logout(
         &self,
-        client_logout_msg: &ClientLogoutMessage,
+        client_id: u16,
     ) -> Result<(), MessageProcessingError> {
         self.dbg_print("handle_client_logout");
-        let client_id = client_logout_msg.client_id();
 
         match self.client_logout(client_id).await {
             Ok(_) => {}

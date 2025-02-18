@@ -2,7 +2,7 @@
 
 ## Overview
 
-This template is used to run all data integrations as a standalone IMS microservice.
+This service template is used to run all data integrations as a standalone IMS microservice.
 
 ## Concept
 
@@ -23,8 +23,7 @@ to then start the microservice.
 
 Lastly, the  `ImsDataClient` then connects to the microservice to start data streams and to process recieved data
 by using an an implementation of the `MessageConsumer` trait that takes a `ReceivedMessage` from the data stream as
-input
-and then processes it according to the custom implementation.
+input and then processes it according to the custom implementation.
 
 ## Context
 
@@ -38,16 +37,26 @@ and then processes it according to the custom implementation.
 
 (1) Note, the `MessageConsumer` trait resides in the external iggy crate in absence of an internal trait alias.
 
-## Requirements
+## Functional Requirements
 
-### Functional Requirements
+### Client handling:
 
-### Non-Functional Requirements
+**ClientLogin**
 
-**Performance**
+**ClientLogout**
 
-**Reliability**
+### Data stream handling:
 
-**Reliability**
+**StartData**
 
-### Tasks
+**StopData**
+
+**StopAllData**
+
+## Non-Functional Requirements
+
+### Performance
+
+### Reliability
+
+### Reliability
