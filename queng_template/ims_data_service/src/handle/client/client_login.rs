@@ -25,10 +25,11 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
     /// or a `(ClientErrorType, MessageProcessingError)` if an error occurred.
     ///
     /// # Errors
-    ///
-    /// - `ClientAlreadyLoggedIn` if the client is already logged in
     /// - `ClientNotAuthorized` if the client is not allowed to log in
+    /// - `ClientAlreadyLoggedIn` if the client is already logged in
+    /// - `ClientNotAuthorized` if the client is not allowed to stream data
     /// - `ClientLogInError` if there was an issue creating the message stream or logging in the client
+    ///
     pub(crate) async fn client_login(
         &self,
         client_id: u16,
@@ -43,18 +44,17 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         ));
         let exchange_id = self.exchange_id();
         let client_data_stream_config =
-            ims_iggy_config::ims_data_iggy_config(client_id, exchange_id);
+            ims_iggy_config::ims_data_iggy_config(client_id, exchange_id)
+                .producer_config()
+                .to_owned();
 
         self.dbg_print(&format!(
             "Create a new message producer for client with id {}",
             client_id
         ));
         let client_guard = self.iggy_client().write().await;
-        let producer = match IggyStreamProducer::build(
-            &client_guard,
-            &client_data_stream_config.producer_config(),
-        )
-        .await
+        let producer = match IggyStreamProducer::build(&client_guard, &client_data_stream_config)
+            .await
         {
             // The producer creates stream and topic if it doesn't exist
             Ok(producer) => producer,
@@ -71,22 +71,31 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         };
         drop(client_guard);
 
-        // RW lock the client_data_producers hashmap
-        let mut client_data_producers = self.client_producers().write().await;
-
         self.dbg_print(&format!("Login in client with id {}", client_id));
-        if client_data_producers
-            .insert(client_id, Arc::new(producer))
-            .is_none()
-        {
+        // RW lock the client_data_producers hashmap
+        let mut client_producers_guard = self.client_producers().write().await;
+        let res = client_producers_guard.insert(client_id, Arc::new(producer));
+        drop(client_producers_guard); // Unlock the client_data_producers hashmap
+        if res.is_none() {
             return Err((
                 ClientErrorType::ClientLogInError,
                 MessageProcessingError(format!("Failed to login client with id {}", client_id,)),
             ));
         };
 
-        // Unlock the client_data_producers hashmap
-        drop(client_data_producers);
+        // RW lock the client_configs hashmap
+        let mut client_configs_guard = self.client_configs().write().await;
+        let res = client_configs_guard.insert(client_id, client_data_stream_config);
+        drop(client_configs_guard); // Unlock the client_configs hashmap
+        if res.is_none() {
+            return Err((
+                ClientErrorType::ClientLogInError,
+                MessageProcessingError(format!(
+                    "Failed to store config for client with id {}",
+                    client_id
+                )),
+            ));
+        };
 
         self.dbg_print(&format!(
             "Client login successful for client with id {}",
