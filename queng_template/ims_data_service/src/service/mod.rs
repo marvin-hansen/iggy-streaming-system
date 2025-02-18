@@ -113,6 +113,14 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
     pub fn producer(&self) -> &Guarded<IggyProducer> {
         &self.producer
     }
+
+    pub fn iggy_client(&self) -> &Guarded<IggyClient> {
+        &self.iggy_client
+    }
+
+    pub fn client_configs(&self) -> &Guarded<HashMap<u16, IggyProducerConfig>> {
+        &self.client_configs
+    }
 }
 
 impl<Integration: ImsDataIntegration> Service<Integration> {
