@@ -52,10 +52,11 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
             "Create a new message producer for client with id {}",
             client_id
         ));
+        // RW lock the iggy client
         let client_guard = self.iggy_client().write().await;
-        let producer = match IggyStreamProducer::build(&client_guard, &client_data_stream_config)
-            .await
-        {
+        let res = IggyStreamProducer::build(&client_guard, &client_data_stream_config).await;
+        drop(client_guard); // Unlock the iggy client
+        let producer = match res {
             // The producer creates stream and topic if it doesn't exist
             Ok(producer) => producer,
             Err(err) => {
@@ -69,7 +70,6 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
                 ));
             }
         };
-        drop(client_guard);
 
         self.dbg_print(&format!("Login in client with id {}", client_id));
         // RW lock the client_data_producers hashmap
