@@ -57,7 +57,7 @@ impl<Integration: ImsDataIntegration> Service<Integration> {
         let res = IggyStreamProducer::build(&client_guard, &client_data_stream_config).await;
         drop(client_guard); // Unlock the iggy client
         let producer = match res {
-            // The producer creates stream and topic if it doesn't exist
+            // The producer creates stream and topic if it they don't exist
             Ok(producer) => producer,
             Err(err) => {
                 return Err((
